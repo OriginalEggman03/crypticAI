@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #f4efe6;
+  --ink: #1a1510;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+@layer utilities {
+  .crossword-cell {
+    @apply relative flex items-center justify-center border border-ink/25 bg-white font-display text-lg font-semibold uppercase tracking-wide;
+    aspect-ratio: 1;
+    min-width: 2rem;
+    min-height: 2rem;
+  }
+
+  .crossword-cell.block {
+    @apply border-ink bg-ink;
+  }
+
+  .crossword-cell.active {
+    background-color: #f3ede3;
+  }
+
+  .crossword-cell.focused {
+    @apply ring-2 ring-ink/30 ring-inset;
+    background-color: #ebe4d6;
+  }
+
+  .crossword-cell.active.focused {
+    background-color: #ebe4d6;
+  }
+
+  .answer-checker-cell {
+    @apply h-10 w-10 rounded-md border border-ink/20 bg-white text-center font-display text-lg font-semibold uppercase text-ink shadow-sm outline-none transition;
+  }
+
+  .answer-checker-cell:focus {
+    @apply border-accent ring-2 ring-accent/25;
+  }
+
+  .answer-checker-cell-locked {
+    @apply border-green-600/40 bg-green-50 text-green-900;
+  }
+}
