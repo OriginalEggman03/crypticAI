@@ -12,7 +12,9 @@
     "lint": "next lint",
     "compare:anagrams": "tsx scripts/compare-anagram-libs.ts",
     "test:phrase": "tsx scripts/test-phrase-anagram.ts",
-    "setup:stripe": "tsx scripts/setup-stripe.ts"
+    "setup:stripe": "tsx scripts/setup-stripe.ts",
+    "setup:stripe:webhook": "tsx scripts/setup-stripe-webhook.ts",
+    "railway:env": "tsx scripts/railway-set-env.ts"
   },
   "dependencies": {
     "@cdot/dictionary": "^1.0.3",

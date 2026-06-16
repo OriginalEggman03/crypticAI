@@ -78,6 +78,8 @@ Optional model overrides (defaults to Opus 4.8):
 
 ## 7. Deploy and verify
 
+**Live app:** https://crypticai-production.up.railway.app
+
 After the first deploy:
 
 1. Open `https://your-domain.com/api/health` → `{ "ok": true }`
@@ -113,6 +115,17 @@ Set Anthropic billing alerts before opening to many users.
 | Credits not added after payment | Webhook URL/secret wrong, or not live mode |
 | Data lost after deploy | No volume or wrong `DATABASE_PATH` |
 | Generate times out | Client/proxy timeout; Railway allows long requests — check browser/network |
+
+## CLI helpers (optional)
+
+After `railway login` and `railway link`:
+
+```bash
+npm run railway:env
+railway up --detach
+npm run setup:stripe:webhook -- https://your-app.up.railway.app/api/webhooks/stripe
+railway domain
+```
 
 ## Local production smoke test
 
