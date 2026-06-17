@@ -35,11 +35,14 @@ In Railway → **Variables** (production service):
 | `ANTHROPIC_API_KEY` | Yes | [Anthropic console](https://console.anthropic.com/) — set a spend limit |
 | `SESSION_SECRET` | Yes | Long random string, e.g. `openssl rand -base64 32` |
 | `DATABASE_PATH` | Yes | `/data/clues.db` (with volume mounted at `/data`) |
+| `APP_URL` | Recommended | `https://www.crypticai.uk` — used in verification email links |
+| `RESEND_API_KEY` | Yes (signup) | [Resend](https://resend.com/) — sends verification emails |
+| `EMAIL_FROM` | Recommended | e.g. `CrypticAI <onboarding@crypticai.uk>` (domain verified in Resend) |
 | `STRIPE_SECRET_KEY` | For payments | Use `sk_live_…` when going live |
 | `STRIPE_WEBHOOK_SECRET` | Recommended | From Stripe webhook (step 6) |
-| `STRIPE_PRICE_ID` | Optional | Run `npm run setup:stripe` locally with live keys |
-| `STRIPE_CURRENCY` | Optional | Default `gbp` |
-| `STRIPE_CREDIT_PACK_CENTS` | Optional | Default `500` (= £5.00) |
+| `STRIPE_PRICE_ID_6` | Optional | Run `npm run setup:stripe` — $3 for 6 credits |
+| `STRIPE_PRICE_ID_12` | Optional | Run `npm run setup:stripe` — $5 for 12 credits |
+| `STRIPE_CURRENCY` | Optional | Default `usd` |
 
 Do **not** commit `.env.local`. Set secrets only in Railway.
 

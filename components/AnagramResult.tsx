@@ -3,7 +3,10 @@
 import { useEffect, useState } from "react";
 import { ArchiveCluePanel } from "@/components/ArchiveCluePanel";
 import { AnswerChecker } from "@/components/AnswerChecker";
+import { BuyCreditsButtons } from "@/components/BuyCreditsButtons";
 import { DifficultyToggle } from "@/components/DifficultyToggle";
+import { ShareClueMenu } from "@/components/ShareClueMenu";
+import type { CreditPackId } from "@/lib/credit-packs";
 import type { AnagramClueResult, AnagramDifficulty } from "@/lib/types";
 
 interface AnagramResultProps {
@@ -16,7 +19,8 @@ interface AnagramResultProps {
   onRetry: () => void;
   retryLoading?: boolean;
   canGenerate?: boolean;
-  onBuyCredits?: () => void;
+  onBuyCredits?: (packId: CreditPackId) => void;
+  checkoutPackId?: CreditPackId | null;
 }
 
 function PromptBlock({ title, system, user }: { title: string; system: string; user: string }) {
@@ -48,6 +52,7 @@ export function AnagramResult({
   retryLoading = false,
   canGenerate = true,
   onBuyCredits,
+  checkoutPackId,
 }: AnagramResultProps) {
   const [showPrompts, setShowPrompts] = useState(false);
   const [revealed, setRevealed] = useState(false);
@@ -127,20 +132,20 @@ export function AnagramResult({
       />
 
       {!canGenerate && !error && (
-        <p className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-          No credits left.{" "}
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          <p>No credits left.</p>
           {onBuyCredits ? (
-            <button
-              type="button"
-              onClick={onBuyCredits}
-              className="font-medium text-accent underline-offset-2 hover:underline"
-            >
-              Add credits
-            </button>
+            <div className="mt-3">
+              <BuyCreditsButtons
+                onBuy={onBuyCredits}
+                loadingPackId={checkoutPackId}
+                emphasis="need-credits"
+              />
+            </div>
           ) : (
-            "Add credits to generate another clue."
+            <p className="mt-1">Add credits to generate another clue.</p>
           )}
-        </p>
+        </div>
       )}
 
       {error && (
@@ -153,7 +158,12 @@ export function AnagramResult({
       )}
 
       <div className="rounded-2xl border border-ink/10 bg-cream/50 p-6 shadow-sm">
-        <p className="font-display text-lg leading-relaxed text-ink">{clue.clue}</p>
+        <div className="flex items-start justify-between gap-3">
+          <p className="min-w-0 flex-1 font-display text-lg leading-relaxed text-ink">
+            {clue.clue}
+          </p>
+          <ShareClueMenu clueText={clue.clue} className="shrink-0" />
+        </div>
         <AnswerChecker answer={clue.answer} clue={clue.clue} />
         {revealed && (
           <dl className="mt-4 grid gap-2 text-sm sm:grid-cols-2">

@@ -8,6 +8,7 @@ import { ClueArchiveSearch } from "@/components/ClueArchiveSearch";
 import { CreditsBar } from "@/components/CreditsBar";
 import { HomeTabBar, type HomeTab } from "@/components/HomeTabBar";
 import { toUsedClue } from "@/lib/clue-history";
+import type { CreditPackId } from "@/lib/credit-packs";
 import type {
   AnagramApiResponse,
   AnagramClueResult,
@@ -83,7 +84,7 @@ export default function Home() {
   const [retryError, setRetryError] = useState<string | null>(null);
   const [result, setResult] = useState<AnagramClueResult | null>(null);
   const [usedClues, setUsedClues] = useState<UsedAnagramClue[]>([]);
-  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutPackId, setCheckoutPackId] = useState<CreditPackId | null>(null);
 
   const refreshSession = useCallback(async () => {
     const next = await fetchSession();
@@ -93,6 +94,27 @@ export default function Home() {
 
   useEffect(() => {
     refreshSession().finally(() => setSessionLoading(false));
+  }, [refreshSession]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const verified = params.get("verified");
+    const verify = params.get("verify");
+
+    if (verified === "1" || verify === "invalid") {
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+
+    if (verified === "1") {
+      refreshSession();
+      return;
+    }
+
+    if (verify === "invalid") {
+      setError(
+        "That verification link is invalid or has expired. Sign in and resend a new link."
+      );
+    }
   }, [refreshSession]);
 
   useEffect(() => {
@@ -122,10 +144,14 @@ export default function Home() {
     }
   }, [refreshSession]);
 
-  const buyCredits = useCallback(async () => {
-    setCheckoutLoading(true);
+  const buyCredits = useCallback(async (packId: CreditPackId) => {
+    setCheckoutPackId(packId);
     try {
-      const res = await fetch("/api/credits/checkout", { method: "POST" });
+      const res = await fetch("/api/credits/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ packId }),
+      });
       const data = (await res.json()) as { url?: string; error?: string };
       if (!res.ok) throw new Error(data.error || "Checkout failed");
       if (!data.url) throw new Error("No checkout URL returned");
@@ -134,7 +160,7 @@ export default function Home() {
       setError(
         err instanceof Error ? err.message : "Could not start checkout"
       );
-      setCheckoutLoading(false);
+      setCheckoutPackId(null);
     }
   }, []);
 
@@ -209,6 +235,14 @@ export default function Home() {
 
   const canGenerate = session?.credits?.canGenerate ?? false;
 
+  const handleLogout = useCallback(async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    setSession(null);
+    setResult(null);
+    setError(null);
+    setRetryError(null);
+  }, []);
+
   return (
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:py-14">
       <header className="mb-10 text-center">
@@ -218,20 +252,27 @@ export default function Home() {
         <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
           Anagram clue builder
         </h1>
+        {session && (
+          <p className="mt-3 text-sm text-ink/60">
+            <span>{session.user.email}</span>
+            <span className="mx-2" aria-hidden="true">
+              ·
+            </span>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="font-medium text-accent underline-offset-2 hover:underline"
+            >
+              Sign out
+            </button>
+          </p>
+        )}
       </header>
 
       <HomeTabBar value={tab} onChange={setTab} />
 
       {session && (
-        <CreditsBar
-          session={session}
-          onLogout={() => {
-            setSession(null);
-            setResult(null);
-            setError(null);
-            setRetryError(null);
-          }}
-        />
+        <CreditsBar session={session} onBuyCredits={buyCredits} checkoutPackId={checkoutPackId} />
       )}
 
       {tab === "create" ? (
@@ -256,9 +297,10 @@ export default function Home() {
                   request={request}
                   onChange={setRequest}
                   onSubmit={generate}
-                  loading={loading || checkoutLoading}
+                  loading={loading || checkoutPackId != null}
                   canGenerate={canGenerate}
                   onBuyCredits={buyCredits}
+                  checkoutPackId={checkoutPackId}
                 />
               </div>
 
@@ -293,6 +335,7 @@ export default function Home() {
               retryLoading={retryLoading}
               canGenerate={canGenerate}
               onBuyCredits={buyCredits}
+              checkoutPackId={checkoutPackId}
             />
           )}
         </div>

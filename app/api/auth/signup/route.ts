@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { hashPassword } from "@/lib/auth/password";
-import { createSessionToken, sessionCookieOptions } from "@/lib/auth/session";
-import {
-  createUser,
-  findUserByEmail,
-  getCreditsStatus,
-  toPublicUser,
-} from "@/lib/db/users";
+import { createVerificationToken } from "@/lib/auth/verification-token";
+import { sendVerificationEmail } from "@/lib/auth/verification-email";
+import { createUser, findUserByEmail } from "@/lib/db/users";
 
 export async function POST(request: NextRequest) {
   try {
@@ -39,15 +35,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const user = createUser(email, hashPassword(password));
-    const token = createSessionToken(user.id);
-    const response = NextResponse.json({
-      user: toPublicUser(user),
-      credits: getCreditsStatus(user),
-    });
+    const { token, hash, expiresAt } = createVerificationToken();
+    createUser(email, hashPassword(password), hash, expiresAt);
 
-    response.cookies.set(sessionCookieOptions(token));
-    return response;
+    const origin = request.headers.get("origin") ?? undefined;
+    await sendVerificationEmail(email, token, origin);
+
+    return NextResponse.json({
+      needsEmailVerification: true,
+      email: email.toLowerCase(),
+    });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Sign up failed";
     return NextResponse.json({ error: message }, { status: 500 });

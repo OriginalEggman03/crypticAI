@@ -42,5 +42,5 @@ export function surfaceCraftRules(options: {
 8. Pick the anagram indicator (single-word or multi-word) that makes the full sentence read most naturally — no preference for length; vary your choice and avoid overused words like "scrambled" and "muddled" unless nothing else fits.
 9. Write one crisp grammatical sentence — vivid definition, natural wordplay, no wasted words. Use proper apostrophes in contractions (That'd, Don't, It's — never Thatd, Dont, Its as a contraction).${extraLines}
 ${ruleNum}. Set anagramIndicator in JSON to the exact indicator phrase used (e.g. "in chaos", "out of order").
-${ruleNum + 1}. Capitalise the first word only, plus any names or places; all other words must be lowercase (e.g. "John, agency in chaos — a roster member (6,4)" not "John, Agency In Chaos — A Roster Member").`;
+${ruleNum + 1}. Capitalise the first word of the clue and the first word after any full stop, exclamation mark, or question mark, plus any names or places; all other words must be lowercase (e.g. "John, agency in chaos — a roster member (6,4)" or "Lost at sea? Help me, john! Agency in chaos (6,4)" — not "John, Agency In Chaos").`;
 }

@@ -2,18 +2,42 @@ import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { FREE_SPINS } from "@/lib/auth/constants";
+import { hashVerificationToken } from "@/lib/auth/verification-token";
 import type { CreditsStatus, UserPublic } from "@/lib/types";
 
 export interface UserRecord extends UserPublic {
   passwordHash: string;
   freeSpinsUsed: number;
   credits: number;
+  emailVerifiedAt: string | null;
+  emailVerificationTokenHash: string | null;
+  emailVerificationExpiresAt: string | null;
 }
 
 let db: DatabaseSync | null = null;
 
 function databasePath(): string {
   return process.env.DATABASE_PATH ?? join(process.cwd(), "data", "clues.db");
+}
+
+function migrateUsersTable(database: DatabaseSync): void {
+  const cols = database
+    .prepare("PRAGMA table_info(users)")
+    .all() as { name: string }[];
+  const names = new Set(cols.map((c) => c.name));
+
+  if (!names.has("email_verified_at")) {
+    database.exec(`ALTER TABLE users ADD COLUMN email_verified_at TEXT`);
+    database.exec(
+      `ALTER TABLE users ADD COLUMN email_verification_token_hash TEXT`
+    );
+    database.exec(
+      `ALTER TABLE users ADD COLUMN email_verification_expires_at TEXT`
+    );
+    database.exec(
+      `UPDATE users SET email_verified_at = datetime('now') WHERE email_verified_at IS NULL`
+    );
+  }
 }
 
 function getDb(): DatabaseSync {
@@ -34,6 +58,7 @@ function getDb(): DatabaseSync {
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
   `);
+  migrateUsersTable(db);
 
   return db;
 }
@@ -45,11 +70,25 @@ function rowToUser(row: Record<string, unknown>): UserRecord {
     passwordHash: row.password_hash as string,
     freeSpinsUsed: Number(row.free_spins_used),
     credits: Number(row.credits),
+    emailVerified: row.email_verified_at != null,
+    emailVerifiedAt: (row.email_verified_at as string | null) ?? null,
+    emailVerificationTokenHash:
+      (row.email_verification_token_hash as string | null) ?? null,
+    emailVerificationExpiresAt:
+      (row.email_verification_expires_at as string | null) ?? null,
   };
 }
 
+export function isEmailVerified(user: UserRecord): boolean {
+  return user.emailVerifiedAt != null;
+}
+
 export function toPublicUser(user: UserRecord): UserPublic {
-  return { id: user.id, email: user.email };
+  return {
+    id: user.id,
+    email: user.email,
+    emailVerified: isEmailVerified(user),
+  };
 }
 
 export function getCreditsStatus(user: UserRecord): CreditsStatus {
@@ -76,16 +115,79 @@ export function findUserById(id: number): UserRecord | null {
   return row ? rowToUser(row) : null;
 }
 
-export function createUser(email: string, passwordHash: string): UserRecord {
+export function createUser(
+  email: string,
+  passwordHash: string,
+  verificationTokenHash: string,
+  verificationExpiresAt: string
+): UserRecord {
   const normalized = email.trim().toLowerCase();
   const database = getDb();
   const info = database
-    .prepare(`INSERT INTO users (email, password_hash) VALUES (?, ?)`)
-    .run(normalized, passwordHash);
+    .prepare(
+      `INSERT INTO users (
+        email,
+        password_hash,
+        email_verification_token_hash,
+        email_verification_expires_at
+      ) VALUES (?, ?, ?, ?)`
+    )
+    .run(
+      normalized,
+      passwordHash,
+      verificationTokenHash,
+      verificationExpiresAt
+    );
 
   const created = findUserById(Number(info.lastInsertRowid));
   if (!created) throw new Error("Failed to create user");
   return created;
+}
+
+export function setEmailVerificationToken(
+  userId: number,
+  tokenHash: string,
+  expiresAt: string
+): void {
+  getDb()
+    .prepare(
+      `UPDATE users
+       SET email_verification_token_hash = ?,
+           email_verification_expires_at = ?
+       WHERE id = ?`
+    )
+    .run(tokenHash, expiresAt, userId);
+}
+
+export function verifyEmailWithToken(token: string): UserRecord | null {
+  const tokenHash = hashVerificationToken(token);
+  const user = getDb()
+    .prepare(`SELECT * FROM users WHERE email_verification_token_hash = ?`)
+    .get(tokenHash) as Record<string, unknown> | undefined;
+
+  if (!user) return null;
+
+  const record = rowToUser(user);
+  if (isEmailVerified(record)) return record;
+
+  if (
+    !record.emailVerificationExpiresAt ||
+    new Date(record.emailVerificationExpiresAt) < new Date()
+  ) {
+    return null;
+  }
+
+  getDb()
+    .prepare(
+      `UPDATE users
+       SET email_verified_at = datetime('now'),
+           email_verification_token_hash = NULL,
+           email_verification_expires_at = NULL
+       WHERE id = ?`
+    )
+    .run(record.id);
+
+  return findUserById(record.id);
 }
 
 /** Consume one free spin or paid credit after a verified clue with successful Claude usage. */

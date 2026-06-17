@@ -4,6 +4,7 @@ import { createSessionToken, sessionCookieOptions } from "@/lib/auth/session";
 import {
   findUserByEmail,
   getCreditsStatus,
+  isEmailVerified,
   toPublicUser,
 } from "@/lib/db/users";
 
@@ -29,6 +30,18 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: "Invalid email or password." },
         { status: 401 }
+      );
+    }
+
+    if (!isEmailVerified(user)) {
+      return NextResponse.json(
+        {
+          error:
+            "Verify your email before signing in. Check your inbox or resend the link.",
+          code: "EMAIL_NOT_VERIFIED",
+          email: user.email,
+        },
+        { status: 403 }
       );
     }
 

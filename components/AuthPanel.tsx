@@ -1,10 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import type { AuthMeResponse } from "@/lib/types";
+import type { AuthMeResponse, SignupResponse } from "@/lib/types";
 
 interface AuthPanelProps {
   onSuccess: (session: AuthMeResponse) => void;
+}
+
+async function resendVerification(email: string): Promise<string | null> {
+  const res = await fetch("/api/auth/verify-email", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+  const data = (await res.json()) as { error?: string };
+  if (!res.ok) return data.error || "Could not resend verification email";
+  return null;
 }
 
 export function AuthPanel({ onSuccess }: AuthPanelProps) {
@@ -13,11 +24,33 @@ export function AuthPanel({ onSuccess }: AuthPanelProps) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [pendingVerificationEmail, setPendingVerificationEmail] = useState<
+    string | null
+  >(null);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendMessage, setResendMessage] = useState<string | null>(null);
+  const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
+
+  async function handleResend(targetEmail: string) {
+    setResendLoading(true);
+    setResendMessage(null);
+    setError(null);
+
+    const resendError = await resendVerification(targetEmail);
+    setResendLoading(false);
+    if (resendError) {
+      setResendMessage(resendError);
+    } else {
+      setResendMessage("Verification email sent — check your inbox.");
+    }
+  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setResendMessage(null);
+    setUnverifiedEmail(null);
 
     try {
       const res = await fetch(`/api/auth/${mode}`, {
@@ -26,9 +59,20 @@ export function AuthPanel({ onSuccess }: AuthPanelProps) {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = (await res.json()) as AuthMeResponse & { error?: string };
+      const data = (await res.json()) as AuthMeResponse &
+        SignupResponse & { error?: string; code?: string };
+
       if (!res.ok) {
+        if (data.code === "EMAIL_NOT_VERIFIED" && data.email) {
+          setUnverifiedEmail(data.email);
+        }
         throw new Error(data.error || "Authentication failed");
+      }
+
+      if (data.needsEmailVerification) {
+        setPendingVerificationEmail(data.email);
+        setPassword("");
+        return;
       }
 
       onSuccess(data);
@@ -39,13 +83,68 @@ export function AuthPanel({ onSuccess }: AuthPanelProps) {
     }
   }
 
+  if (pendingVerificationEmail) {
+    return (
+      <div className="rounded-2xl border border-ink/10 bg-cream/50 p-6 shadow-sm sm:p-8">
+        <h2 className="font-display text-xl font-semibold text-ink">
+          Check your email
+        </h2>
+        <p className="mt-2 text-sm text-ink/70">
+          We sent a verification link to{" "}
+          <span className="font-medium text-ink">{pendingVerificationEmail}</span>.
+          Click the link to activate your account, then sign in.
+        </p>
+        <p className="mt-1 text-sm text-ink/60">
+          You get 5 free spins once your email is verified.
+        </p>
+
+        {resendMessage && (
+          <p
+            role="status"
+            className={`mt-4 text-sm ${
+              resendMessage.includes("sent")
+                ? "text-green-800"
+                : "text-red-700"
+            }`}
+          >
+            {resendMessage}
+          </p>
+        )}
+
+        <div className="mt-6 flex flex-wrap gap-3">
+          <button
+            type="button"
+            disabled={resendLoading}
+            onClick={() => handleResend(pendingVerificationEmail)}
+            className="rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-paper transition hover:bg-accent/90 disabled:opacity-60"
+          >
+            {resendLoading ? "Sending…" : "Resend email"}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setPendingVerificationEmail(null);
+              setMode("login");
+              setResendMessage(null);
+            }}
+            className="rounded-lg border border-ink/15 px-4 py-2.5 text-sm font-medium text-ink/70 transition hover:bg-cream/80"
+          >
+            Back to sign in
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-2xl border border-ink/10 bg-cream/50 p-6 shadow-sm sm:p-8">
       <h2 className="font-display text-xl font-semibold text-ink">
         {mode === "login" ? "Sign in" : "Create account"}
       </h2>
       <p className="mt-1 text-sm text-ink/60">
-        Sign in to generate clues.
+        {mode === "login"
+          ? "Sign in to generate clues."
+          : "Create an account — we will email you a verification link."}
       </p>
 
       <form className="mt-6 space-y-4" onSubmit={submit}>
@@ -84,6 +183,23 @@ export function AuthPanel({ onSuccess }: AuthPanelProps) {
           </p>
         )}
 
+        {unverifiedEmail && (
+          <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5 text-sm text-amber-900">
+            <p>Did not get the email?</p>
+            {resendMessage && (
+              <p className="mt-1 text-xs">{resendMessage}</p>
+            )}
+            <button
+              type="button"
+              disabled={resendLoading}
+              onClick={() => handleResend(unverifiedEmail)}
+              className="mt-2 font-medium text-accent underline-offset-2 hover:underline disabled:opacity-60"
+            >
+              {resendLoading ? "Sending…" : "Resend verification email"}
+            </button>
+          </div>
+        )}
+
         <button
           type="submit"
           disabled={loading}
@@ -106,6 +222,8 @@ export function AuthPanel({ onSuccess }: AuthPanelProps) {
           onClick={() => {
             setMode(mode === "login" ? "signup" : "login");
             setError(null);
+            setUnverifiedEmail(null);
+            setResendMessage(null);
           }}
           className="font-medium text-accent underline-offset-2 hover:underline"
         >

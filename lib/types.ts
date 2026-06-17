@@ -10,6 +10,7 @@ export type AnagramDifficulty = "easy" | "hard";
 export interface UserPublic {
   id: number;
   email: string;
+  emailVerified: boolean;
 }
 
 export interface CreditsStatus {
@@ -21,6 +22,11 @@ export interface CreditsStatus {
 export interface AuthMeResponse {
   user: UserPublic;
   credits: CreditsStatus;
+}
+
+export interface SignupResponse {
+  needsEmailVerification: true;
+  email: string;
 }
 
 export interface ArchivedClue {

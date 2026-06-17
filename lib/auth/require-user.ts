@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { findUserById } from "@/lib/db/users";
+import { findUserById, isEmailVerified } from "@/lib/db/users";
 import { getSessionUserId } from "./session";
 import type { UserRecord } from "@/lib/db/users";
 
@@ -27,4 +27,25 @@ export async function requireUser(): Promise<
   }
 
   return { user };
+}
+
+export async function requireVerifiedUser(): Promise<
+  { user: UserRecord } | { response: NextResponse }
+> {
+  const auth = await requireUser();
+  if ("response" in auth) return auth;
+
+  if (!isEmailVerified(auth.user)) {
+    return {
+      response: NextResponse.json(
+        {
+          error: "Verify your email before generating clues.",
+          code: "EMAIL_NOT_VERIFIED",
+        },
+        { status: 403 }
+      ),
+    };
+  }
+
+  return auth;
 }

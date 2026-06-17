@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { StarDisplay } from "@/components/StarRating";
+import { ShareClueMenu } from "@/components/ShareClueMenu";
 import { difficultyLabel } from "@/lib/anagram-difficulty";
 import type { AnagramDifficulty, ArchivedClue } from "@/lib/types";
 
@@ -222,18 +223,21 @@ export function ClueArchiveSearch() {
 
                 {expanded && (
                   <div className="border-t border-ink/10 bg-white/50 px-4 py-4">
-                    <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink/55">
-                      <span className="font-medium text-ink/75">
-                        {item.inspiration}
-                      </span>
-                      <span>{difficultyLabel(item.difficulty)}</span>
-                      <StarDisplay rating={item.rating} />
-                      <time dateTime={item.createdAt}>
-                        {new Date(item.createdAt + "Z").toLocaleDateString(
-                          undefined,
-                          { dateStyle: "medium" }
-                        )}
-                      </time>
+                    <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink/55">
+                        <span className="font-medium text-ink/75">
+                          {item.inspiration}
+                        </span>
+                        <span>{difficultyLabel(item.difficulty)}</span>
+                        <StarDisplay rating={item.rating} />
+                        <time dateTime={item.createdAt}>
+                          {new Date(item.createdAt + "Z").toLocaleDateString(
+                            undefined,
+                            { dateStyle: "medium" }
+                          )}
+                        </time>
+                      </div>
+                      <ShareClueMenu clueText={item.clue} />
                     </div>
 
                     <dl className="grid gap-2 text-sm sm:grid-cols-2">

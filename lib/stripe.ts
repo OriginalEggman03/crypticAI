@@ -1,8 +1,12 @@
 import Stripe from "stripe";
-import { CREDITS_PER_PURCHASE } from "@/lib/auth/constants";
+import {
+  CREDIT_PACKS,
+  type CreditPack,
+  type CreditPackId,
+  getCreditPack,
+} from "@/lib/credit-packs";
 
-const DEFAULT_PACK_CENTS = 500;
-const DEFAULT_CURRENCY = "gbp";
+const DEFAULT_CURRENCY = "usd";
 
 export function isStripeConfigured(): boolean {
   return Boolean(process.env.STRIPE_SECRET_KEY?.trim());
@@ -14,19 +18,24 @@ export function getStripe(): Stripe {
   return new Stripe(key);
 }
 
-function creditPackCents(): number {
-  const raw = process.env.STRIPE_CREDIT_PACK_CENTS;
-  if (!raw) return DEFAULT_PACK_CENTS;
-  const n = parseInt(raw, 10);
-  return Number.isFinite(n) && n > 0 ? n : DEFAULT_PACK_CENTS;
-}
-
 function creditPackCurrency(): string {
   return (process.env.STRIPE_CURRENCY ?? DEFAULT_CURRENCY).trim().toLowerCase();
 }
 
-function checkoutLineItem(): Stripe.Checkout.SessionCreateParams.LineItem {
-  const priceId = process.env.STRIPE_PRICE_ID?.trim();
+function stripePriceIdForPack(pack: CreditPack): string | undefined {
+  if (pack.id === "pack_6") {
+    return process.env.STRIPE_PRICE_ID_6?.trim();
+  }
+  return (
+    process.env.STRIPE_PRICE_ID_12?.trim() ||
+    process.env.STRIPE_PRICE_ID?.trim()
+  );
+}
+
+function checkoutLineItem(
+  pack: CreditPack
+): Stripe.Checkout.SessionCreateParams.LineItem {
+  const priceId = stripePriceIdForPack(pack);
   if (priceId) {
     return { price: priceId, quantity: 1 };
   }
@@ -35,10 +44,10 @@ function checkoutLineItem(): Stripe.Checkout.SessionCreateParams.LineItem {
     quantity: 1,
     price_data: {
       currency: creditPackCurrency(),
-      unit_amount: creditPackCents(),
+      unit_amount: pack.cents,
       product_data: {
-        name: `CrypticAI — ${CREDITS_PER_PURCHASE} clue credits`,
-        description: `${CREDITS_PER_PURCHASE} anagram clue generations`,
+        name: `CrypticAI — ${pack.credits} clue credits`,
+        description: `${pack.credits} anagram clue generations`,
       },
     },
   };
@@ -47,19 +56,24 @@ function checkoutLineItem(): Stripe.Checkout.SessionCreateParams.LineItem {
 export async function createCreditsCheckoutSession(
   userId: number,
   email: string,
-  origin: string
+  origin: string,
+  packId: CreditPackId
 ): Promise<string> {
+  const pack = getCreditPack(packId);
+  if (!pack) throw new Error("Invalid credit pack");
+
   const stripe = getStripe();
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     customer_email: email,
-    line_items: [checkoutLineItem()],
+    line_items: [checkoutLineItem(pack)],
     success_url: `${origin}/?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/?checkout=cancelled`,
     metadata: {
       userId: String(userId),
-      credits: String(CREDITS_PER_PURCHASE),
+      credits: String(pack.credits),
+      packId: pack.id,
     },
   });
 
@@ -67,22 +81,30 @@ export async function createCreditsCheckoutSession(
   return session.url;
 }
 
-/** Create a reusable Price in Stripe (run once via scripts/setup-stripe.ts). */
-export async function createCreditPackPrice(): Promise<{
-  productId: string;
-  priceId: string;
-}> {
+/** Create reusable Prices in Stripe (run once via scripts/setup-stripe.ts). */
+export async function createCreditPackPrices(): Promise<
+  Record<CreditPackId, { productId: string; priceId: string }>
+> {
   const stripe = getStripe();
-  const product = await stripe.products.create({
-    name: `CrypticAI — ${CREDITS_PER_PURCHASE} clue credits`,
-    description: `${CREDITS_PER_PURCHASE} anagram clue generations`,
-  });
+  const results = {} as Record<
+    CreditPackId,
+    { productId: string; priceId: string }
+  >;
 
-  const price = await stripe.prices.create({
-    product: product.id,
-    unit_amount: creditPackCents(),
-    currency: creditPackCurrency(),
-  });
+  for (const pack of Object.values(CREDIT_PACKS)) {
+    const product = await stripe.products.create({
+      name: `CrypticAI — ${pack.credits} clue credits`,
+      description: `${pack.credits} anagram clue generations`,
+    });
 
-  return { productId: product.id, priceId: price.id };
+    const price = await stripe.prices.create({
+      product: product.id,
+      unit_amount: pack.cents,
+      currency: creditPackCurrency(),
+    });
+
+    results[pack.id] = { productId: product.id, priceId: price.id };
+  }
+
+  return results;
 }

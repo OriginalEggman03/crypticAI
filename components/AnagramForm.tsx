@@ -1,6 +1,8 @@
 "use client";
 
 import { DifficultyToggle } from "@/components/DifficultyToggle";
+import { BuyCreditsButtons } from "@/components/BuyCreditsButtons";
+import type { CreditPackId } from "@/lib/credit-packs";
 import type { AnagramRequest } from "@/lib/types";
 
 interface AnagramFormProps {
@@ -9,7 +11,8 @@ interface AnagramFormProps {
   onSubmit: () => void;
   loading: boolean;
   canGenerate?: boolean;
-  onBuyCredits?: () => void;
+  onBuyCredits?: (packId: CreditPackId) => void;
+  checkoutPackId?: CreditPackId | null;
 }
 
 export function AnagramForm({
@@ -19,6 +22,7 @@ export function AnagramForm({
   loading,
   canGenerate = true,
   onBuyCredits,
+  checkoutPackId,
 }: AnagramFormProps) {
   const difficulty = request.difficulty ?? "easy";
 
@@ -56,20 +60,20 @@ export function AnagramForm({
       </label>
 
       {!canGenerate && (
-        <p className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-          No credits left.{" "}
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          <p>No credits left.</p>
           {onBuyCredits ? (
-            <button
-              type="button"
-              onClick={onBuyCredits}
-              className="font-medium text-accent underline-offset-2 hover:underline"
-            >
-              Add credits
-            </button>
+            <div className="mt-3">
+              <BuyCreditsButtons
+                onBuy={onBuyCredits}
+                loadingPackId={checkoutPackId}
+                emphasis="need-credits"
+              />
+            </div>
           ) : (
-            "Add credits to generate more clues."
+            <p className="mt-1">Add credits to generate more clues.</p>
           )}
-        </p>
+        </div>
       )}
 
       <button

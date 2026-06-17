@@ -40,7 +40,28 @@ assert.equal(
 
 assert.equal(
   normalizeClueCapitalization(
-    "John, Agency In Chaos — A Roster Member (6,4)"
+    "Lost at sea? help me, john! agency in chaos (6,4)"
+  ),
+  "Lost at sea? Help me, John! Agency in chaos (6,4)"
+);
+
+assert.equal(
+  verifyClueCapitalizationRules(
+    "Lost at sea? Help me, John! Agency in chaos (6,4)"
+  ),
+  null
+);
+
+assert.match(
+  verifyClueCapitalizationRules(
+    "Lost at sea? help me, john! agency in chaos (6,4)"
+  ) ?? "",
+  /help.*Help/
+);
+
+assert.equal(
+  normalizeClueCapitalization(
+    "John, agency in chaos — a roster member (6,4)"
   ),
   "John, agency in chaos — a roster member (6,4)"
 );

@@ -177,7 +177,7 @@ export function verifyAnagramClue(
       "capitalisation",
       !capErr,
       capErr ??
-        "First word and names/places capitalised; all other words lowercase"
+        "Sentence starts and names/places capitalised; all other words lowercase"
     );
 
     const superfluousErr = verifyNoSuperfluousWords(

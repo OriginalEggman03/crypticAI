@@ -1,5 +1,5 @@
 /**
- * Create a Stripe product + price and print env lines for .env.local
+ * Create Stripe products + prices and print env lines for .env.local
  *
  * Usage:
  *   1. Add STRIPE_SECRET_KEY=sk_test_... to .env.local (Stripe Dashboard → Developers → API keys)
@@ -8,7 +8,7 @@
 import { writeFileSync, existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { loadEnvLocal } from "../lib/load-env-local";
-import { createCreditPackPrice } from "../lib/stripe";
+import { createCreditPackPrices } from "../lib/stripe";
 
 function upsertEnvLocal(key: string, value: string) {
   const path = join(process.cwd(), ".env.local");
@@ -42,17 +42,23 @@ Missing STRIPE_SECRET_KEY.
     process.exit(1);
   }
 
-  const { productId, priceId } = await createCreditPackPrice();
+  const prices = await createCreditPackPrices();
 
-  upsertEnvLocal("STRIPE_PRICE_ID", priceId);
+  upsertEnvLocal("STRIPE_PRICE_ID_6", prices.pack_6.priceId);
+  upsertEnvLocal("STRIPE_PRICE_ID_12", prices.pack_12.priceId);
 
   console.log(`
-Stripe credit pack created.
+Stripe credit packs created.
 
-Product:  ${productId}
-Price:    ${priceId}
+6 credits ($3):
+  Product:  ${prices.pack_6.productId}
+  Price:    ${prices.pack_6.priceId}
 
-Wrote STRIPE_PRICE_ID to .env.local.
+12 credits ($5):
+  Product:  ${prices.pack_12.productId}
+  Price:    ${prices.pack_12.priceId}
+
+Wrote STRIPE_PRICE_ID_6 and STRIPE_PRICE_ID_12 to .env.local.
 
 Restart npm run dev, then test checkout with card 4242 4242 4242 4242.
 

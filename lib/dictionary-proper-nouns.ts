@@ -119,6 +119,46 @@ function stripEnumeration(clue: string): string {
   return clue.replace(/\(\d+(?:,\s*\d+)*\)\s*$/, "").trim();
 }
 
+function splitClueBodyAndSuffix(clue: string): { body: string; suffix: string } {
+  const suffixMatch = clue.match(/\(\d+(?:,\s*\d+)*\)\s*$/);
+  const suffix = suffixMatch?.[0] ?? "";
+  return { body: clue.slice(0, clue.length - suffix.length), suffix };
+}
+
+/** True when a word opens the clue or follows . ! ? (ignoring whitespace). */
+export function followsSentenceEndPunctuation(
+  body: string,
+  wordStartIndex: number
+): boolean {
+  if (wordStartIndex === 0) return true;
+
+  let i = wordStartIndex - 1;
+  while (i >= 0 && /\s/.test(body[i])) i--;
+  if (i < 0) return false;
+
+  const ch = body[i];
+  return ch === "." || ch === "!" || ch === "?";
+}
+
+function expectedWordCapitalization(
+  word: string,
+  atSentenceStart: boolean
+): string {
+  const lower = word.toLowerCase();
+
+  if (requiresCapitalizationInClue(lower)) {
+    return canonicalCapitalForm(lower);
+  }
+
+  if (lower === "i") return "I";
+
+  if (atSentenceStart) {
+    return lower.charAt(0).toUpperCase() + lower.slice(1);
+  }
+
+  return lower;
+}
+
 function escapeRegExp(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -146,63 +186,50 @@ export function verifyProperCapitalizationInClue(clue: string): string | null {
   return null;
 }
 
-/** Lowercase all words except the first and required proper nouns. */
+/** Lowercase all words except sentence starts and required proper nouns. */
 export function normalizeClueCapitalization(clue: string): string {
   const suffixMatch = clue.match(/\(\d+(?:,\s*\d+)*\)\s*$/);
   const suffix = suffixMatch?.[0] ?? "";
   const body = clue.slice(0, clue.length - suffix.length);
 
-  let firstWord = true;
-  const normalized = body.replace(/\b[a-zA-Z]+\b/g, (word) => {
-    const lower = word.toLowerCase();
-    if (firstWord) {
-      firstWord = false;
-      return lower.charAt(0).toUpperCase() + lower.slice(1);
-    }
-    if (lower === "i") return "I";
-    if (requiresCapitalizationInClue(lower)) {
-      return canonicalCapitalForm(lower);
-    }
-    return lower;
-  });
+  let result = "";
+  let lastIndex = 0;
+  const wordRegex = /\b[a-zA-Z]+\b/g;
+  let match: RegExpExecArray | null;
 
-  return normalized + suffix;
+  while ((match = wordRegex.exec(body)) !== null) {
+    result += body.slice(lastIndex, match.index);
+    const word = match[0];
+    const atSentenceStart = followsSentenceEndPunctuation(body, match.index);
+    result += expectedWordCapitalization(word, atSentenceStart);
+    lastIndex = match.index + word.length;
+  }
+
+  result += body.slice(lastIndex);
+  return result + suffix;
 }
 
-/** First word capped; names/places capped; all other words lowercase. */
+/** Sentence starts and names/places capped; all other words lowercase. */
 export function verifyClueCapitalizationRules(clue: string): string | null {
-  const suffixMatch = clue.match(/\(\d+(?:,\s*\d+)*\)\s*$/);
-  const body = clue.slice(0, clue.length - (suffixMatch?.[0].length ?? 0));
-  const tokens = body.match(/\b[a-zA-Z]+\b/g) ?? [];
+  const { body } = splitClueBodyAndSuffix(clue);
 
-  for (let i = 0; i < tokens.length; i++) {
-    const token = tokens[i];
+  for (const match of body.matchAll(/\b[a-zA-Z]+\b/g)) {
+    const token = match[0];
     const lower = token.toLowerCase();
+    const atSentenceStart = followsSentenceEndPunctuation(body, match.index!);
+    const expected = expectedWordCapitalization(token, atSentenceStart);
 
-    if (i === 0) {
-      if (!/^[A-Z]/.test(token)) {
-        return "Clue must start with a capital letter";
-      }
-      continue;
-    }
-
-    if (lower === "i") {
-      if (token !== "I") {
-        return 'Standalone "I" must be capitalised';
-      }
-      continue;
-    }
-
-    if (requiresCapitalizationInClue(lower)) {
-      const expected = canonicalCapitalForm(lower);
-      if (token !== expected) {
+    if (token !== expected) {
+      if (requiresCapitalizationInClue(lower)) {
         return `"${token}" should be "${expected}" — names and places must be capitalised`;
       }
-      continue;
-    }
-
-    if (token !== lower) {
-      return `"${token}" should be "${lower}" — only the first word and names/places are capitalised`;
+      if (lower === "i") {
+        return 'Standalone "I" must be capitalised';
+      }
+      if (atSentenceStart) {
+        return `"${token}" should be "${expected}" — capitalise the first word after . ! or ?`;
+      }
+      return `"${token}" should be "${lower}" — only sentence starts and names/places are capitalised`;
     }
   }
 

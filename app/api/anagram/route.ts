@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { resolveInspiration } from "@/lib/auto-inspiration";
 import { generateVerifiedAnagramClue } from "@/lib/anagram-pipeline";
-import { requireUser } from "@/lib/auth/require-user";
+import { requireVerifiedUser } from "@/lib/auth/require-user";
 import {
   consumeGenerationCredit,
   getCreditsStatus,
@@ -12,7 +12,7 @@ export const maxDuration = 180;
 
 export async function POST(request: NextRequest) {
   try {
-    const auth = await requireUser();
+    const auth = await requireVerifiedUser();
     if ("response" in auth) return auth.response;
 
     const creditsBefore = getCreditsStatus(auth.user);
