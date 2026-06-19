@@ -262,7 +262,7 @@ export default function Home() {
               onClick={() => setTab("archive")}
               className="rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm font-medium text-ink shadow-sm transition hover:bg-cream/80"
             >
-              Archive
+              Archives
             </button>
           </div>
         ) : (
@@ -273,7 +273,7 @@ export default function Home() {
               onClick={() => setTab("create")}
               className="rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm font-medium text-ink shadow-sm transition hover:bg-cream/80"
             >
-              Generate
+              Generator
             </button>
           </div>
         )}
