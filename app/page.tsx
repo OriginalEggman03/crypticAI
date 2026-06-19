@@ -268,10 +268,7 @@ export default function Home() {
           <div className="absolute left-0 top-0 z-10">
             <button
               type="button"
-              onClick={() => {
-                setTab("create");
-                reset();
-              }}
+              onClick={() => setTab("create")}
               className="text-sm font-medium text-ink/55 underline-offset-2 hover:text-ink hover:underline"
             >
               Generate
@@ -297,79 +294,79 @@ export default function Home() {
         </h1>
       </header>
 
-      {tab === "create" ? (
-        <div
-          role="tabpanel"
-          id="panel-create"
-          aria-labelledby="tab-create"
-        >
-          {sessionLoading ? (
-            <p className="text-center text-sm text-ink/60">Loading…</p>
-          ) : !session ? (
-            <AuthPanel
-              onSuccess={(next) => {
-                setSession(next);
-                setError(null);
-              }}
-            />
-          ) : !result ? (
-            <div>
-              <div className="rounded-2xl border border-ink/10 bg-cream/50 p-6 shadow-sm sm:p-8">
-                <AnagramForm
-                  request={request}
-                  onChange={setRequest}
-                  onSubmit={generate}
-                  loading={loading || checkoutPackId != null}
-                  canGenerate={canGenerate}
-                  onBuyCredits={buyCredits}
-                  checkoutPackId={checkoutPackId}
-                />
-              </div>
-
-              {error && (
-                <p
-                  role="alert"
-                  className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
-                >
-                  {error}
-                </p>
-              )}
-
-              {loading && (
-                <p className="mt-6 text-center text-sm text-ink/60">
-                  {!request.inspiration.trim()
-                    ? "Picking a theme and generating…"
-                    : "Generating…"}
-                </p>
-              )}
+      <div
+        role="tabpanel"
+        id="panel-create"
+        aria-labelledby="tab-create"
+        hidden={tab !== "create"}
+      >
+        {sessionLoading ? (
+          <p className="text-center text-sm text-ink/60">Loading…</p>
+        ) : !session ? (
+          <AuthPanel
+            onSuccess={(next) => {
+              setSession(next);
+              setError(null);
+            }}
+          />
+        ) : !result ? (
+          <div>
+            <div className="rounded-2xl border border-ink/10 bg-cream/50 p-6 shadow-sm sm:p-8">
+              <AnagramForm
+                request={request}
+                onChange={setRequest}
+                onSubmit={generate}
+                loading={loading || checkoutPackId != null}
+                canGenerate={canGenerate}
+                onBuyCredits={buyCredits}
+                checkoutPackId={checkoutPackId}
+              />
             </div>
-          ) : (
-            <AnagramResult
-              result={result}
-              inspiration={result.inspiration}
-              difficulty={request.difficulty ?? "easy"}
-              onDifficultyChange={(difficulty) =>
-                setRequest((prev) => ({ ...prev, difficulty }))
-              }
-              error={retryError}
-              onNew={reset}
-              onRetry={retry}
-              retryLoading={retryLoading}
-              canGenerate={canGenerate}
-              onBuyCredits={buyCredits}
-              checkoutPackId={checkoutPackId}
-            />
-          )}
-        </div>
-      ) : (
-        <div
-          role="tabpanel"
-          id="panel-archive"
-          aria-labelledby="tab-archive"
-        >
-          <ClueArchiveSearch />
-        </div>
-      )}
+
+            {error && (
+              <p
+                role="alert"
+                className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
+              >
+                {error}
+              </p>
+            )}
+
+            {loading && (
+              <p className="mt-6 text-center text-sm text-ink/60">
+                {!request.inspiration.trim()
+                  ? "Picking a theme and generating…"
+                  : "Generating…"}
+              </p>
+            )}
+          </div>
+        ) : (
+          <AnagramResult
+            result={result}
+            inspiration={result.inspiration}
+            difficulty={request.difficulty ?? "easy"}
+            onDifficultyChange={(difficulty) =>
+              setRequest((prev) => ({ ...prev, difficulty }))
+            }
+            error={retryError}
+            onNew={reset}
+            onRetry={retry}
+            retryLoading={retryLoading}
+            canGenerate={canGenerate}
+            onBuyCredits={buyCredits}
+            checkoutPackId={checkoutPackId}
+          />
+        )}
+      </div>
+
+      <div
+        role="tabpanel"
+        id="panel-archive"
+        aria-labelledby="tab-archive"
+        hidden={tab !== "archive"}
+      >
+        <ClueArchiveSearch />
+      </div>
     </main>
   );
 }

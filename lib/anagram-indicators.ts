@@ -155,15 +155,21 @@ const SINGLE_WORD_ANAGRAM_RE = new RegExp(
 );
 
 /** Fair indicators for setter/repair examples — no single- vs multi-word bias. */
-export function anagramIndicatorExamplesForPrompt(): string {
-  const sample = indicatorOptionsForPrompt(new Set(), 36);
-  return sample;
+export function anagramIndicatorExamplesForPrompt(
+  avoid: string[] = [],
+  archiveCounts: Map<string, number> = new Map(),
+  seed = "indicator-examples"
+): string {
+  const avoidSet = new Set(avoid.map(normalizeIndicatorKey));
+  return indicatorOptionsForPrompt(avoidSet, 36, archiveCounts, seed);
 }
 
 /** Shuffled fair indicators for polish/refine prompts (excludes avoided and overused). */
 export function indicatorOptionsForPrompt(
   avoid: Set<string>,
-  maxItems = 48
+  maxItems = 48,
+  archiveCounts: Map<string, number> = new Map(),
+  seed = "ind-prompt"
 ): string {
   const pool = [
     ...MULTI_WORD_ANAGRAM_INDICATORS,
@@ -174,26 +180,68 @@ export function indicatorOptionsForPrompt(
       !OVERUSED_ANAGRAM_INDICATORS.has(normalizeIndicatorKey(p))
   );
 
-  return shuffleWithSeed(pool, `ind-prompt-${[...avoid].sort().join("|")}`)
+  const ranked = pool
+    .map((phrase) => ({
+      phrase,
+      uses: archiveCounts.get(normalizeIndicatorKey(phrase)) ?? 0,
+    }))
+    .sort((a, b) => a.uses - b.uses || a.phrase.localeCompare(b.phrase));
+
+  return shuffleWithSeed(
+    ranked.map((item) => item.phrase),
+    `${seed}-${[...avoid].sort().join("|")}`
+  )
     .slice(0, maxItems)
     .join("; ");
 }
 
-export function indicatorChoiceGuidance(avoidIndicators: string[] = []): string {
+export interface IndicatorChoiceGuidanceOptions {
+  prefer?: string[];
+  hot?: string[];
+  themeAvoid?: string[];
+  archiveCounts?: Map<string, number>;
+  seed?: string;
+}
+
+export function indicatorChoiceGuidance(
+  avoidIndicators: string[] = [],
+  options: IndicatorChoiceGuidanceOptions = {}
+): string {
   const avoid = new Set(avoidIndicators.map(normalizeIndicatorKey));
+  const archiveCounts = options.archiveCounts ?? new Map();
   const overused = [...OVERUSED_ANAGRAM_INDICATORS].join(", ");
-  const options = indicatorOptionsForPrompt(avoid);
+  const fairOptions = indicatorOptionsForPrompt(
+    avoid,
+    48,
+    archiveCounts,
+    options.seed ?? "indicator-guidance"
+  );
 
   const lines = [
     "Choose ONE fair anagram indicator that makes the whole sentence read most naturally.",
     "Single-word and multi-word indicators are equally valid — judge by grammar and flow, not by length.",
     "Vary your choice; do not default to the same indicator every time.",
-    `Fair options include: ${options}`,
-    `Avoid unless nothing else fits: ${overused}`,
   ];
 
-  if (avoidIndicators.length > 0) {
-    lines.push(`Also avoid indicators already used for this theme: ${avoidIndicators.join(", ")}`);
+  if (options.prefer?.length) {
+    lines.push(
+      `PREFER (rare in our archive — use one if it fits grammatically): ${options.prefer.join("; ")}`
+    );
+  }
+
+  lines.push(`Fair options include: ${fairOptions}`);
+  lines.push(`Avoid unless nothing else fits: ${overused}`);
+
+  if (options.hot?.length) {
+    lines.push(
+      `AVOID (overused in our archive): ${options.hot.join(", ")}`
+    );
+  }
+
+  if (options.themeAvoid?.length) {
+    lines.push(
+      `Also avoid indicators already used for this theme: ${options.themeAvoid.join(", ")}`
+    );
   }
 
   return lines.join("\n");
@@ -256,6 +304,7 @@ export function pickIndicatorPhrases(options: {
   seed: string;
   avoid?: string[];
   count?: number;
+  archiveCounts?: Map<string, number>;
 }): IndicatorPhrase[] {
   const avoid = new Set((options.avoid ?? []).map(normalizeIndicatorKey));
   const count = options.count ?? 14;
@@ -304,6 +353,15 @@ export function pickIndicatorPhrases(options: {
     }
   }
 
+  const archiveCounts = options.archiveCounts;
+  if (archiveCounts && archiveCounts.size > 0) {
+    out.sort((a, b) => {
+      const ca = archiveCounts.get(normalizeIndicatorKey(a)) ?? 0;
+      const cb = archiveCounts.get(normalizeIndicatorKey(b)) ?? 0;
+      return ca - cb;
+    });
+  }
+
   return out.slice(0, count);
 }
 
@@ -339,13 +397,18 @@ export function isOverusedIndicator(phrase: string): boolean {
 
 export function indicatorSurfaceScore(
   phrase: string,
-  avoidIndicators: string[] = []
+  avoidIndicators: string[] = [],
+  archiveCounts: Map<string, number> = new Map()
 ): number {
   let score = 10;
   const key = normalizeIndicatorKey(phrase);
 
   if (OVERUSED_ANAGRAM_INDICATORS.has(key)) score -= 35;
   if (avoidIndicators.map(normalizeIndicatorKey).includes(key)) score -= 45;
+
+  const uses = archiveCounts.get(key) ?? 0;
+  score -= uses * 8;
+  if (uses === 0) score += 12;
 
   return score;
 }

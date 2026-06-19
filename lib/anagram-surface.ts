@@ -18,6 +18,7 @@ import type { AnagramClueDraft } from "./types";
 export interface SurfaceBuildOptions {
   avoidIndicators?: string[];
   suggestedAnswers?: string[];
+  archiveCounts?: Map<string, number>;
 }
 
 type SurfacePattern = (
@@ -119,10 +120,11 @@ function scoreSurface(
   clue: string,
   fodder: string,
   indicator: string,
-  avoidIndicators: string[]
+  avoidIndicators: string[],
+  archiveCounts: Map<string, number>
 ): number {
   let score = linkingWordScore(clue, fodder);
-  score += indicatorSurfaceScore(indicator, avoidIndicators);
+  score += indicatorSurfaceScore(indicator, avoidIndicators, archiveCounts);
   if (/^Item\b|^Thing\b|^Offering\b|^Subject\b/.test(clue)) score -= 20;
   if (clue.length >= 25 && clue.length <= 75) score += 6;
   return score;
@@ -137,6 +139,7 @@ export function buildProgrammaticClue(
   const avoidIndicators = (options.avoidIndicators ?? []).map((w) =>
     w.toLowerCase()
   );
+  const archiveCounts = options.archiveCounts ?? new Map();
   const seed = `${pair.answer}|${pair.fodder}|${inspiration}`;
 
   const definitions = shuffleWithSeed(
@@ -147,10 +150,11 @@ export function buildProgrammaticClue(
     0,
     8
   );
-  const indicators = pickIndicatorPhrases({ seed, avoid: avoidIndicators }).slice(
-    0,
-    14
-  );
+  const indicators = pickIndicatorPhrases({
+    seed,
+    avoid: avoidIndicators,
+    archiveCounts,
+  }).slice(0, 14);
 
   let best: { draft: AnagramClueDraft; score: number } | null = null;
 
@@ -181,7 +185,8 @@ export function buildProgrammaticClue(
             verification.prepared.clue,
             pair.fodder,
             indicator,
-            avoidIndicators
+            avoidIndicators,
+            archiveCounts
           );
           if (!best || surfaceScore > best.score) {
             best = { draft: verification.prepared, score: surfaceScore };
@@ -204,6 +209,7 @@ function buildFallbackClue(
   const indicators = pickIndicatorPhrases({
     seed: `${pair.answer}|${pair.fodder}|fallback`,
     avoid: (options.avoidIndicators ?? []).map((w) => w.toLowerCase()),
+    archiveCounts: options.archiveCounts,
   });
   const indicator =
     indicators.find((p) => !isOverusedIndicator(p)) ?? indicators[0] ?? "in chaos";

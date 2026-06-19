@@ -4,13 +4,18 @@ import { prepareAnagramClue, verifyAnagramClue } from "./anagram-engine";
 import { applyExplanationCapitalizationToClue } from "./clue-capitalization-align";
 import { listCandidatePairs, defaultMaxAnswersToProcess, type AnagramPair, type PairSearchOptions } from "./anagram-dictionary";
 import { buildProgrammaticClue } from "./anagram-fallback-clue";
-import { usedIndicatorsFromClues } from "./anagram-indicators";
+import { extractIndicatorFromClue, usedIndicatorsFromClues } from "./anagram-indicators";
 import {
   buildGenerationExcludeList,
   filterExcludedPairs,
   isAnswerExcluded,
   usedAnswersFromClues,
 } from "./generation-exclude";
+import {
+  buildIndicatorGuidance,
+  isHotArchiveIndicator,
+  type IndicatorGuidance,
+} from "./indicator-archive-weights";
 import {
   ANAGRAM_ANSWER_LIST_SYSTEM,
   ANAGRAM_PAIR_SELECT_SYSTEM,
@@ -21,7 +26,9 @@ import {
   buildTemplatePolishRepairPrompt,
   buildIndicatorRefinePrompt,
   buildIndicatorRefineRepairPrompt,
+  buildHotIndicatorSwapPrompt,
   ANAGRAM_INDICATOR_REFINE_SYSTEM,
+  ANAGRAM_HOT_INDICATOR_SWAP_SYSTEM,
   ANAGRAM_SETTER_SYSTEM,
   buildAnagramSetterPrompt,
 } from "./anagram-prompts";
@@ -58,6 +65,7 @@ interface PipelineContext {
   bounds: ReturnType<typeof answerLengthBounds>;
   exclude: UsedAnagramClue[];
   avoidIndicators: string[];
+  indicatorGuidance: IndicatorGuidance;
   setterPrompt: string;
   repairPrompts: PromptTurn[];
   surfacePrompts: PromptTurn[];
@@ -65,6 +73,7 @@ interface PipelineContext {
   pairSelectPrompts: PromptTurn[];
   templatePolishPrompts: PromptTurn[];
   indicatorRefinePrompts: PromptTurn[];
+  hotIndicatorSwapPrompts: PromptTurn[];
   llmCalls: number;
   deadlineAt: number;
   usedClaudeRanking: boolean;
@@ -198,7 +207,7 @@ async function polishTemplate(
         pair.answer,
         pair.fodder,
         templateClue,
-        ctx.avoidIndicators
+        ctx.indicatorGuidance
       );
       ctx.templatePolishPrompts.push({
         system: ANAGRAM_TEMPLATE_POLISH_SYSTEM,
@@ -219,7 +228,7 @@ async function polishTemplate(
         pair.answer,
         pair.fodder,
         templateClue,
-        ctx.avoidIndicators
+        ctx.indicatorGuidance
       );
       ctx.templatePolishPrompts.push({
         system: ANAGRAM_TEMPLATE_POLISH_SYSTEM,
@@ -266,7 +275,7 @@ async function refineIndicatorSurface(
         pair.answer,
         base.anagramFodder,
         base.clue,
-        ctx.avoidIndicators
+        ctx.indicatorGuidance
       );
       ctx.indicatorRefinePrompts.push({
         system: ANAGRAM_INDICATOR_REFINE_SYSTEM,
@@ -287,7 +296,7 @@ async function refineIndicatorSurface(
         pair.answer,
         pair.fodder,
         base.clue,
-        ctx.avoidIndicators
+        ctx.indicatorGuidance
       );
       ctx.indicatorRefinePrompts.push({
         system: ANAGRAM_INDICATOR_REFINE_SYSTEM,
@@ -317,6 +326,64 @@ async function refineIndicatorSurface(
   }
 
   return null;
+}
+
+async function swapHotIndicator(
+  ctx: PipelineContext,
+  pair: AnagramPair,
+  base: AnagramClueDraft,
+  hotIndicator: string
+): Promise<AnagramClueResult | null> {
+  if (!hasPipelineTime(ctx)) return null;
+
+  const user = buildHotIndicatorSwapPrompt(
+    ctx.inspiration,
+    pair.answer,
+    base.anagramFodder,
+    base.clue,
+    hotIndicator,
+    ctx.indicatorGuidance
+  );
+  ctx.hotIndicatorSwapPrompts.push({
+    system: ANAGRAM_HOT_INDICATOR_SWAP_SYSTEM,
+    user,
+  });
+
+  const content = await callClaude(
+    ctx,
+    ANAGRAM_HOT_INDICATOR_SWAP_SYSTEM,
+    user
+  );
+  if (!content) return null;
+
+  const draft = lockPairDraft(parseModelJson<AnagramClueDraft>(content), pair);
+  const verification = verifyAnagramClue(draft, verifyOptions(ctx));
+  if (!verification.ok) return null;
+
+  return successResult(ctx, verification.prepared, "indicator-refine", 1);
+}
+
+async function ensureFreshIndicator(
+  ctx: PipelineContext,
+  pair: AnagramPair,
+  result: AnagramClueResult
+): Promise<AnagramClueResult> {
+  const refined = await maybeRefineIndicator(ctx, pair, result);
+
+  const indicator =
+    refined.clue.anagramIndicator?.trim() ||
+    extractIndicatorFromClue(refined.clue.clue);
+
+  if (
+    !indicator ||
+    !isHotArchiveIndicator(indicator, ctx.indicatorGuidance.archiveCounts) ||
+    !hasPipelineTime(ctx)
+  ) {
+    return refined;
+  }
+
+  const swapped = await swapHotIndicator(ctx, pair, refined.clue, indicator);
+  return swapped ?? refined;
 }
 
 async function maybeRefineIndicator(
@@ -358,6 +425,7 @@ async function generateFromPairs(
     const template = buildProgrammaticClue(pair, ctx.inspiration, {
       avoidIndicators: ctx.avoidIndicators,
       suggestedAnswers: ctx.suggestedAnswers,
+      archiveCounts: ctx.indicatorGuidance.archiveCounts,
     });
     if (!template) continue;
 
@@ -372,13 +440,13 @@ async function generateFromPairs(
     if (hasPipelineTime(ctx)) {
       const polished = await polishTemplate(ctx, pair, template.clue);
       if (polished && !isAnswerExcluded(polished.clue.answer, exclude)) {
-        const refined = await maybeRefineIndicator(ctx, pair, polished);
+        const refined = await ensureFreshIndicator(ctx, pair, polished);
         if (!isAnswerExcluded(refined.clue.answer, exclude)) {
           return refined;
         }
       }
 
-      const refinedPlain = await maybeRefineIndicator(ctx, pair, plain);
+      const refinedPlain = await ensureFreshIndicator(ctx, pair, plain);
       if (!isAnswerExcluded(refinedPlain.clue.answer, exclude)) {
         return refinedPlain;
       }
@@ -526,6 +594,11 @@ export async function generateVerifiedAnagramClue(
   const inspiration = req.inspiration.trim();
   const autoThemed = options.autoThemed === true;
   const exclude = buildGenerationExcludeList(inspiration, req.exclude ?? []);
+  const themeAvoid = usedIndicatorsFromClues(exclude);
+  const indicatorGuidance = buildIndicatorGuidance({
+    themeAvoid,
+    seed: inspiration,
+  });
 
   const ctx: PipelineContext = {
     apiKey,
@@ -535,14 +608,16 @@ export async function generateVerifiedAnagramClue(
     difficulty,
     bounds,
     exclude,
-    avoidIndicators: usedIndicatorsFromClues(exclude),
-    setterPrompt: buildAnagramSetterPrompt(inspiration),
+    avoidIndicators: indicatorGuidance.avoid,
+    indicatorGuidance,
+    setterPrompt: buildAnagramSetterPrompt(inspiration, indicatorGuidance),
     repairPrompts: [],
     surfacePrompts: [],
     answerPrompts: [],
     pairSelectPrompts: [],
     templatePolishPrompts: [],
     indicatorRefinePrompts: [],
+    hotIndicatorSwapPrompts: [],
     llmCalls: 0,
     deadlineAt: Date.now() + PIPELINE_BUDGET_MS,
     usedClaudeRanking: false,

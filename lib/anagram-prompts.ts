@@ -5,6 +5,7 @@ import {
   indicatorChoiceGuidance,
   OVERUSED_ANAGRAM_INDICATORS,
 } from "./anagram-indicators";
+import type { IndicatorGuidance } from "./indicator-archive-weights";
 import { MAX_LINKING_WORDS } from "./clue-surface-link";
 import { surfaceCraftRules, FODDER_PUNCTUATION_RULE, SURFACE_MISDIRECTION_RULE } from "./clue-surface-rules";
 import { inspirationHiddenWords } from "./inspiration-parse";
@@ -37,17 +38,37 @@ const ANAGRAM_JSON_SCHEMA = `{
   "anagramIndicator": "which word(s) signal the anagram"
 }`;
 
-const ANAGRAM_INDICATOR_EXAMPLES = anagramIndicatorExamplesForPrompt();
+function indicatorExamples(guidance?: IndicatorGuidance): string {
+  return anagramIndicatorExamplesForPrompt(
+    guidance?.avoid ?? [],
+    guidance?.archiveCounts ?? new Map(),
+    guidance ? `${guidance.themeAvoid.join("|")}-examples` : "indicator-examples"
+  );
+}
+
+function guidanceChoiceOptions(guidance?: IndicatorGuidance) {
+  return {
+    prefer: guidance?.prefer,
+    hot: guidance?.hot,
+    themeAvoid: guidance?.themeAvoid,
+    archiveCounts: guidance?.archiveCounts,
+    seed: guidance?.themeAvoid.join("|") || "indicator-guidance",
+  };
+}
 
 /** User message for the initial anagram clue request. */
-export function buildAnagramSetterPrompt(inspiration: string): string {
+export function buildAnagramSetterPrompt(
+  inspiration: string,
+  guidance?: IndicatorGuidance
+): string {
+  const examples = indicatorExamples(guidance);
   return `Write exactly ONE British cryptic crossword clue. It must be an anagram clue.
 
 THEME / INSPIRATION
 ${inspiration.trim() || "(none given)"}
 
 CLUE TYPE (mandatory)
-Anagram only: a definition of the answer plus wordplay where consecutive words in the clue (the fodder) rearrange to form the answer, with a fair anagram indicator (e.g. ${ANAGRAM_INDICATOR_EXAMPLES}).
+Anagram only: a definition of the answer plus wordplay where consecutive words in the clue (the fodder) rearrange to form the answer, with a fair anagram indicator (e.g. ${examples}).
 
 MECHANICAL RULES (verified in code before the clue is accepted)
 1. Answer: UPPERCASE, clearly linked to the inspiration — one word (SCORPION) or a multi-word name with spaces (JOHNNY CAGE, LIU KANG).
@@ -69,9 +90,11 @@ ${ANAGRAM_JSON_SCHEMA}`;
 export function buildAnagramRepairPrompt(
   inspiration: string,
   draft: AnagramClueDraft,
-  errors: string[]
+  errors: string[],
+  guidance?: IndicatorGuidance
 ): string {
   const errorList = errors.map((e) => `- ${e}`).join("\n");
+  const examples = indicatorExamples(guidance);
 
   return `This anagram clue FAILED automated verification. Rewrite it so every check passes.
 
@@ -88,7 +111,7 @@ FIX INSTRUCTIONS
 - Keep anagram clue type only.
 - anagramFodder must be exact consecutive words from your new clue.
 - Fodder and answer must have identical letter counts (same length, each letter once).
-- Include an anagram indicator (e.g. ${ANAGRAM_INDICATOR_EXAMPLES}) and correct enumeration (N) at the end.
+- Include an anagram indicator (e.g. ${examples}) and correct enumeration (N) at the end.
 - You may change the answer to a different on-theme word if needed.
 
 Return ONLY valid JSON:
@@ -160,9 +183,11 @@ ${ANSWER_JSON_SCHEMA}`;
 export function buildAnagramSurfacePrompt(
   inspiration: string,
   answer: string,
-  anagramFodder: string
+  anagramFodder: string,
+  guidance?: IndicatorGuidance
 ): string {
   const len = answer.replace(/[^A-Z]/g, "").length;
+  const examples = indicatorExamples(guidance);
 
   return `Write exactly ONE British cryptic anagram clue surface.
 
@@ -178,7 +203,7 @@ YOUR TASK
 Write a natural cryptic clue that:
 1. Uses every word from "${anagramFodder}" in the clue (exact spelling; any order; ${FODDER_PUNCTUATION_RULE})
 2. Places the definition at the start OR the end — whichever is more interesting.
-3. Includes a fair anagram indicator (e.g. ${ANAGRAM_INDICATOR_EXAMPLES}).
+3. Includes a fair anagram indicator (e.g. ${examples}).
 4. Uses at most ${MAX_LINKING_WORDS} linking words between definition and wordplay — nothing superfluous.
 5. Ends with (${len}).
 6. Does NOT contain ${answer} as a standalone word.
@@ -193,9 +218,11 @@ export function buildAnagramSurfaceRepairPrompt(
   draft: AnagramClueDraft,
   errors: string[],
   lockedAnswer: string,
-  lockedFodder: string
+  lockedFodder: string,
+  guidance?: IndicatorGuidance
 ): string {
   const errorList = errors.map((e) => `- ${e}`).join("\n");
+  const examples = indicatorExamples(guidance);
 
   return `This anagram clue surface FAILED automated verification. Rewrite the clue text only.
 
@@ -215,7 +242,7 @@ ${errorList}
 FIX INSTRUCTIONS
 - Keep answer "${lockedAnswer}" and anagramFodder "${lockedFodder}" exactly.
 - Every fodder word must appear in the new clue (any order; ${FODDER_PUNCTUATION_RULE})
-- Include an anagram indicator (e.g. ${ANAGRAM_INDICATOR_EXAMPLES}) and correct enumeration (${lockedAnswer.length}).
+- Include an anagram indicator (e.g. ${examples}) and correct enumeration (${lockedAnswer.length}).
 - Do not write ${lockedAnswer} as a standalone word in the clue.
 
 Return ONLY valid JSON:
@@ -272,9 +299,10 @@ function surfacePolishRules(
   anagramFodder: string,
   enumeration: string,
   inspiration: string,
-  avoidIndicators: string[] = []
+  guidance?: IndicatorGuidance
 ): string {
   const overused = [...OVERUSED_ANAGRAM_INDICATORS].join(", ");
+  const avoidIndicators = guidance?.avoid ?? [];
 
   const hiddenWords = [...inspirationHiddenWords(inspiration)].sort();
   const extraRules: string[] = [
@@ -282,16 +310,11 @@ function surfacePolishRules(
     `Write a grammatical English sentence — the fodder cluster must read naturally (good: "That'd army, in chaos"; bad: "Thatd, Mary"). Use apostrophes in contractions.`,
     SURFACE_MISDIRECTION_RULE,
     `Do NOT use these overused indicators unless unavoidable: ${overused}.`,
-    indicatorChoiceGuidance(avoidIndicators),
+    indicatorChoiceGuidance(avoidIndicators, guidanceChoiceOptions(guidance)),
   ];
   if (hiddenWords.length > 0) {
     extraRules.push(
       `Do NOT use any word from the inspiration in the clue surface: ${hiddenWords.join(", ")}. The solver knows the theme — imply it without naming it.`
-    );
-  }
-  if (avoidIndicators.length > 0) {
-    extraRules.push(
-      `Do NOT reuse these indicators already seen for this theme: ${avoidIndicators.join(", ")}.`
     );
   }
 
@@ -308,7 +331,7 @@ export function buildTemplatePolishPrompt(
   answer: string,
   anagramFodder: string,
   templateClue: string,
-  avoidIndicators: string[] = []
+  guidance?: IndicatorGuidance
 ): string {
   const enumeration = answerEnumeration(answer);
 
@@ -324,7 +347,7 @@ LOCKED (do not change)
 TEMPLATE (letter-math is correct — improve the prose and misdirection)
 ${templateClue}
 
-${surfacePolishRules(answer, anagramFodder, enumeration, inspiration, avoidIndicators)}
+${surfacePolishRules(answer, anagramFodder, enumeration, inspiration, guidance)}
 
 Return ONLY valid JSON:
 ${ANAGRAM_JSON_SCHEMA}`;
@@ -337,7 +360,7 @@ export function buildTemplatePolishRepairPrompt(
   lockedAnswer: string,
   lockedFodder: string,
   templateClue: string,
-  avoidIndicators: string[] = []
+  guidance?: IndicatorGuidance
 ): string {
   const errorList = errors.map((e) => `- ${e}`).join("\n");
   const enumeration = answerEnumeration(lockedAnswer);
@@ -354,7 +377,7 @@ ${JSON.stringify(draft, null, 2)}
 ERRORS
 ${errorList}
 
-${surfacePolishRules(lockedAnswer, lockedFodder, enumeration, inspiration, avoidIndicators)}
+${surfacePolishRules(lockedAnswer, lockedFodder, enumeration, inspiration, guidance)}
 
 Return ONLY valid JSON:
 ${ANAGRAM_JSON_SCHEMA}`;
@@ -369,9 +392,10 @@ function indicatorRefineRules(
   anagramFodder: string,
   enumeration: string,
   currentClue: string,
-  avoidIndicators: string[] = []
+  guidance?: IndicatorGuidance
 ): string {
   const overused = [...OVERUSED_ANAGRAM_INDICATORS].join(", ");
+  const avoidIndicators = guidance?.avoid ?? [];
 
   return `TASK
 Rewrite this clue for a sharper surface. Change wording for difficulty and flow — not the answer, fodder word set, or enumeration.
@@ -384,7 +408,7 @@ LOCKED
 - anagramFodder: ${anagramFodder} (every word in the clue; any order; ${FODDER_PUNCTUATION_RULE})
 - enumeration: ${enumeration}
 
-${indicatorChoiceGuidance(avoidIndicators)}
+${indicatorChoiceGuidance(avoidIndicators, guidanceChoiceOptions(guidance))}
 
 RULES
 1. Definition may be at the start or the end — pick whichever reads better.
@@ -408,7 +432,7 @@ export function buildIndicatorRefinePrompt(
   answer: string,
   anagramFodder: string,
   currentClue: string,
-  avoidIndicators: string[] = []
+  guidance?: IndicatorGuidance
 ): string {
   const enumeration = answerEnumeration(answer);
 
@@ -417,7 +441,7 @@ export function buildIndicatorRefinePrompt(
 THEME / INSPIRATION
 ${inspiration.trim()}
 
-${indicatorRefineRules(answer, anagramFodder, enumeration, currentClue, avoidIndicators)}
+${indicatorRefineRules(answer, anagramFodder, enumeration, currentClue, guidance)}
 
 Return ONLY valid JSON:
 ${ANAGRAM_JSON_SCHEMA}`;
@@ -430,7 +454,7 @@ export function buildIndicatorRefineRepairPrompt(
   lockedAnswer: string,
   lockedFodder: string,
   currentClue: string,
-  avoidIndicators: string[] = []
+  guidance?: IndicatorGuidance
 ): string {
   const errorList = errors.map((e) => `- ${e}`).join("\n");
   const enumeration = answerEnumeration(lockedAnswer);
@@ -445,7 +469,53 @@ ${JSON.stringify(draft, null, 2)}
 ERRORS
 ${errorList}
 
-${indicatorRefineRules(lockedAnswer, lockedFodder, enumeration, currentClue, avoidIndicators)}
+${indicatorRefineRules(lockedAnswer, lockedFodder, enumeration, currentClue, guidance)}
+
+Return ONLY valid JSON:
+${ANAGRAM_JSON_SCHEMA}`;
+}
+
+/** Replace an archive-hot indicator with a fresher alternative. */
+export const ANAGRAM_HOT_INDICATOR_SWAP_SYSTEM =
+  "You are an expert British cryptic crossword setter. You replace overused anagram indicators with fresher fair alternatives. The answer and fodder are fixed. Reply with JSON only.";
+
+export function buildHotIndicatorSwapPrompt(
+  inspiration: string,
+  answer: string,
+  anagramFodder: string,
+  currentClue: string,
+  hotIndicator: string,
+  guidance: IndicatorGuidance
+): string {
+  const enumeration = answerEnumeration(answer);
+  const swapGuidance: IndicatorGuidance = {
+    ...guidance,
+    avoid: [...new Set([...guidance.avoid, hotIndicator.toLowerCase().trim()])],
+  };
+
+  return `Replace the overused anagram indicator in this clue.
+
+THEME / INSPIRATION
+${inspiration.trim()}
+
+CURRENT CLUE
+${currentClue}
+
+PROBLEM
+The indicator "${hotIndicator}" appears too often in our clue archive. You MUST replace it with a different fair indicator that reads naturally in context.
+
+LOCKED
+- answer: ${answer}
+- anagramFodder: ${anagramFodder} (every word in the clue; any order; ${FODDER_PUNCTUATION_RULE})
+- enumeration: ${enumeration}
+
+${indicatorChoiceGuidance(swapGuidance.avoid, guidanceChoiceOptions(swapGuidance))}
+
+RULES
+1. Change the indicator phrase only — keep definition placement, fodder words, and enumeration.
+2. Do NOT reuse "${hotIndicator}" or any indicator listed in AVOID above.
+3. Prefer an indicator from the PREFER list when it fits grammatically.
+4. Set anagramIndicator to the exact replacement phrase used.
 
 Return ONLY valid JSON:
 ${ANAGRAM_JSON_SCHEMA}`;

@@ -4,6 +4,7 @@ import {
   searchArchivedClues,
   validateRating,
 } from "@/lib/db/clue-archive";
+import { invalidateIndicatorUsageCache } from "@/lib/indicator-archive-weights";
 import type { AnagramDifficulty } from "@/lib/types";
 
 function parseDifficulty(value: string | null): AnagramDifficulty | undefined {
@@ -74,6 +75,8 @@ export async function POST(request: NextRequest) {
       anagramIndicator: body.anagramIndicator,
       rating: body.rating,
     });
+
+    invalidateIndicatorUsageCache();
 
     return NextResponse.json({ archived });
   } catch (err) {
