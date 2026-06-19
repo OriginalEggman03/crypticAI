@@ -256,3 +256,8 @@ export function addCredits(userId: number, amount: number): CreditsStatus {
   if (!user) throw new Error("User not found");
   return getCreditsStatus(user);
 }
+
+export function deleteUserById(userId: number): boolean {
+  const info = getDb().prepare(`DELETE FROM users WHERE id = ?`).run(userId);
+  return info.changes > 0;
+}

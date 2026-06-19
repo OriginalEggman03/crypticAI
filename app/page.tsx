@@ -1,11 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { AccountMenu } from "@/components/AccountMenu";
 import { AnagramForm } from "@/components/AnagramForm";
 import { AnagramResult } from "@/components/AnagramResult";
 import { AuthPanel } from "@/components/AuthPanel";
 import { ClueArchiveSearch } from "@/components/ClueArchiveSearch";
-import { CreditsBar } from "@/components/CreditsBar";
 import { HomeTabBar, type HomeTab } from "@/components/HomeTabBar";
 import { toUsedClue } from "@/lib/clue-history";
 import type { CreditPackId } from "@/lib/credit-packs";
@@ -243,37 +243,36 @@ export default function Home() {
     setRetryError(null);
   }, []);
 
+  const handleAccountDeleted = useCallback(() => {
+    setSession(null);
+    setResult(null);
+    setError(null);
+    setRetryError(null);
+  }, []);
+
   return (
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:py-14">
-      <header className="mb-10 text-center">
+      <header className="relative mb-10 text-center">
+        {session && (
+          <div className="absolute right-0 top-0 z-10">
+            <AccountMenu
+              session={session}
+              onLogout={handleLogout}
+              onAccountDeleted={handleAccountDeleted}
+              onBuyCredits={buyCredits}
+              checkoutPackId={checkoutPackId}
+            />
+          </div>
+        )}
         <p className="mb-2 font-display text-sm uppercase tracking-[0.2em] text-accent">
           CrypticAI
         </p>
         <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
           Anagram clue builder
         </h1>
-        {session && (
-          <p className="mt-3 text-sm text-ink/60">
-            <span>{session.user.email}</span>
-            <span className="mx-2" aria-hidden="true">
-              ·
-            </span>
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="font-medium text-accent underline-offset-2 hover:underline"
-            >
-              Sign out
-            </button>
-          </p>
-        )}
       </header>
 
       <HomeTabBar value={tab} onChange={setTab} />
-
-      {session && (
-        <CreditsBar session={session} onBuyCredits={buyCredits} checkoutPackId={checkoutPackId} />
-      )}
 
       {tab === "create" ? (
         <div
