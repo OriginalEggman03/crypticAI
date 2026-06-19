@@ -109,6 +109,20 @@ Options:
 
 Set Anthropic billing alerts before opening to many users.
 
+## 10. Google Search (SEO)
+
+The app ships with `sitemap.xml`, `robots.txt`, meta tags, and JSON-LD structured data targeting **“Cryptic AI”**.
+
+After deploy:
+
+1. Open [Google Search Console](https://search.google.com/search-console) and add property `https://www.crypticai.uk`.
+2. Verify ownership (DNS TXT record is most reliable). Optionally set `GOOGLE_SITE_VERIFICATION` on Railway for HTML-tag verification.
+3. Submit sitemap: `https://www.crypticai.uk/sitemap.xml`
+4. Use **URL Inspection** on the homepage → **Request indexing**.
+5. Confirm `https://www.crypticai.uk/robots.txt` allows `/` and points to the sitemap.
+
+Ranking for “cryptic ai” also depends on time, backlinks, and content updates — technical setup alone does not guarantee page-one placement.
+
 ## Troubleshooting
 
 | Symptom | Likely cause |
