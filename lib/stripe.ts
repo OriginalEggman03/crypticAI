@@ -12,6 +12,16 @@ export function isStripeConfigured(): boolean {
   return Boolean(process.env.STRIPE_SECRET_KEY?.trim());
 }
 
+export function isStripeLiveKey(key?: string): boolean {
+  const k = (key ?? process.env.STRIPE_SECRET_KEY ?? "").trim();
+  return k.startsWith("sk_live_") || k.startsWith("rk_live_");
+}
+
+export function isStripeTestKey(key?: string): boolean {
+  const k = (key ?? process.env.STRIPE_SECRET_KEY ?? "").trim();
+  return k.startsWith("sk_test_") || k.startsWith("rk_test_");
+}
+
 export function getStripe(): Stripe {
   const key = process.env.STRIPE_SECRET_KEY?.trim();
   if (!key) throw new Error("STRIPE_SECRET_KEY is not configured");

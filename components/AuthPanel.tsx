@@ -95,7 +95,7 @@ export function AuthPanel({ onSuccess }: AuthPanelProps) {
           Click the link to activate your account, then sign in.
         </p>
         <p className="mt-1 text-sm text-ink/60">
-          You get 5 free spins once your email is verified.
+          You get 6 free spins once your email is verified.
         </p>
 
         {resendMessage && (
