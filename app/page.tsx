@@ -7,11 +7,6 @@ import { AnagramResult } from "@/components/AnagramResult";
 import { AuthPanel } from "@/components/AuthPanel";
 import { ClueArchiveSearch } from "@/components/ClueArchiveSearch";
 import { toUsedClue } from "@/lib/clue-history";
-import {
-  SITE_DESCRIPTION,
-  SITE_NAME,
-  SITE_TAGLINE,
-} from "@/lib/site-config";
 import type { CreditPackId } from "@/lib/credit-packs";
 import type {
   AnagramApiResponse,
@@ -297,11 +292,8 @@ export default function Home() {
           Cryptic AI
         </p>
         <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-          {SITE_NAME} — {SITE_TAGLINE}
+          Anagram clue builder
         </h1>
-        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-ink/60">
-          {SITE_DESCRIPTION}
-        </p>
       </header>
 
       <div
