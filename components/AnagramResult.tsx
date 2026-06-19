@@ -91,7 +91,7 @@ export function AnagramResult({
                 onClick={() => setInspirationRevealed(false)}
                 className="mt-2 text-sm font-medium text-ink/55 underline-offset-2 hover:text-ink hover:underline"
               >
-                Hide inspiration
+                Hide Inspiration
               </button>
             </>
           ) : (
@@ -99,9 +99,9 @@ export function AnagramResult({
               type="button"
               onClick={() => setInspirationRevealed(true)}
               aria-expanded={false}
-              className="rounded-lg border border-ink/15 bg-white px-3 py-2 text-sm font-medium text-ink hover:bg-cream/80"
+              className="text-sm font-medium text-ink/55 underline-offset-2 hover:text-ink hover:underline"
             >
-              Inspiration
+              Show Inspiration
             </button>
           )}
         </div>

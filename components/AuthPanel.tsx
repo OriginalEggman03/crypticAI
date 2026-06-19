@@ -141,11 +141,11 @@ export function AuthPanel({ onSuccess }: AuthPanelProps) {
       <h2 className="font-display text-xl font-semibold text-ink">
         {mode === "login" ? "Sign in" : "Create account"}
       </h2>
-      <p className="mt-1 text-sm text-ink/60">
-        {mode === "login"
-          ? "Sign in to generate clues."
-          : "Create an account — we will email you a verification link."}
-      </p>
+      {mode === "signup" && (
+        <p className="mt-1 text-sm text-ink/60">
+          Create an account — we will email you a verification link.
+        </p>
+      )}
 
       <form className="mt-6 space-y-4" onSubmit={submit}>
         <label className="block">
