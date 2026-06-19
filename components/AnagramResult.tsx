@@ -81,11 +81,6 @@ export function AnagramResult({
               <h2 className="font-display text-2xl font-bold text-ink">
                 {inspiration.trim()}
               </h2>
-              {result.autoThemed && (
-                <p className="mt-1 text-sm text-ink/55">
-                  Theme chosen for you.
-                </p>
-              )}
               <button
                 type="button"
                 onClick={() => setInspirationRevealed(false)}
