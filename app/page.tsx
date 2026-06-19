@@ -258,8 +258,9 @@ export default function Home() {
           <div className="absolute left-0 top-0 z-10">
             <button
               type="button"
+              id="tab-archive"
               onClick={() => setTab("archive")}
-              className="text-sm font-medium text-ink/55 underline-offset-2 hover:text-ink hover:underline"
+              className="rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm font-medium text-ink shadow-sm transition hover:bg-cream/80"
             >
               Archive
             </button>
@@ -268,8 +269,9 @@ export default function Home() {
           <div className="absolute left-0 top-0 z-10">
             <button
               type="button"
+              id="tab-create"
               onClick={() => setTab("create")}
-              className="text-sm font-medium text-ink/55 underline-offset-2 hover:text-ink hover:underline"
+              className="rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm font-medium text-ink shadow-sm transition hover:bg-cream/80"
             >
               Generate
             </button>
