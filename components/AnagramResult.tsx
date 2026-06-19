@@ -112,7 +112,7 @@ export function AnagramResult({
             disabled={retryLoading || !canGenerate}
             className="rounded-lg border border-ink/15 bg-white px-3 py-2 text-sm font-medium text-ink hover:bg-cream/80 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {retryLoading ? "Generating…" : "New Clue"}
+            {retryLoading ? "Generating…" : "Generate"}
           </button>
           <button
             type="button"

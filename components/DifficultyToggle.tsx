@@ -33,27 +33,27 @@ export function DifficultyToggle({
   return (
     <fieldset className="block" disabled={disabled}>
       <legend className="sr-only">Difficulty</legend>
-      <div className="grid grid-cols-2 gap-2">
-        {difficultyOptions.map((option) => {
-          const selected = value === option.value;
-          return (
-            <button
-              key={option.value}
-              type="button"
-              aria-pressed={selected}
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+        {difficultyOptions.map((option) => (
+          <label
+            key={option.value}
+            className={`inline-flex cursor-pointer items-center gap-1.5 text-sm ${
+              disabled ? "cursor-not-allowed opacity-60" : ""
+            }`}
+          >
+            <input
+              type="radio"
+              name="difficulty"
+              value={option.value}
+              checked={value === option.value}
               disabled={disabled}
-              onClick={() => onChange(option.value)}
-              className={`rounded-lg border px-3 py-2.5 text-left text-sm transition focus:outline-none focus:ring-2 focus:ring-accent/20 disabled:cursor-not-allowed disabled:opacity-60 ${
-                selected
-                  ? "border-accent bg-accent/10 text-ink shadow-sm"
-                  : "border-ink/15 bg-white/80 text-ink/75 hover:border-ink/25"
-              }`}
-            >
-              <span className="block font-semibold">{option.label}</span>
-              <span className="block text-xs text-ink/55">{option.hint}</span>
-            </button>
-          );
-        })}
+              onChange={() => onChange(option.value)}
+              className="h-3.5 w-3.5 border-ink/25 text-accent focus:ring-accent/30"
+            />
+            <span className="text-ink/85">{option.label}</span>
+            <span className="text-xs text-ink/50">({option.hint})</span>
+          </label>
+        ))}
       </div>
     </fieldset>
   );

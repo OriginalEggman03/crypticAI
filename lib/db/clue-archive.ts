@@ -102,6 +102,48 @@ export function listArchivedInspirations(): string[] {
   return rows.map((r) => r.inspiration.trim()).filter(Boolean);
 }
 
+/** Most recently archived distinct inspiration phrases. */
+export function listRecentInspirations(limit = 3): string[] {
+  const capped = Math.min(Math.max(limit, 1), 20);
+  const rows = getDb()
+    .prepare(
+      `SELECT inspiration
+       FROM archived_clues
+       GROUP BY inspiration COLLATE NOCASE
+       ORDER BY MAX(created_at) DESC
+       LIMIT ?`
+    )
+    .all(capped) as { inspiration: string }[];
+
+  return rows.map((r) => r.inspiration.trim()).filter(Boolean);
+}
+
+function escapeLikePattern(value: string): string {
+  return value.replace(/[%_\\]/g, "\\$&");
+}
+
+/** Distinct inspirations whose text starts with prefix (case-insensitive). */
+export function listInspirationPrefixMatches(
+  prefix: string,
+  limit = 10
+): string[] {
+  const trimmed = prefix.trim();
+  if (!trimmed) return [];
+
+  const capped = Math.min(Math.max(limit, 1), 50);
+  const rows = getDb()
+    .prepare(
+      `SELECT DISTINCT inspiration
+       FROM archived_clues
+       WHERE inspiration LIKE ? ESCAPE '\\' COLLATE NOCASE
+       ORDER BY inspiration COLLATE NOCASE
+       LIMIT ?`
+    )
+    .all(`${escapeLikePattern(trimmed)}%`, capped) as { inspiration: string }[];
+
+  return rows.map((r) => r.inspiration.trim()).filter(Boolean);
+}
+
 export function archivedInspirationKeys(): Set<string> {
   return new Set(listArchivedInspirations().map(normalizeInspirationKey));
 }

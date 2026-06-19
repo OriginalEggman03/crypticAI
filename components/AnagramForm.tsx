@@ -34,14 +34,11 @@ export function AnagramForm({
         onSubmit();
       }}
     >
-      <div>
-        <p className="mb-2 text-sm font-medium text-ink/80">Difficulty</p>
-        <DifficultyToggle
-          value={difficulty}
-          onChange={(next) => onChange({ ...request, difficulty: next })}
-          disabled={loading}
-        />
-      </div>
+      <DifficultyToggle
+        value={difficulty}
+        onChange={(next) => onChange({ ...request, difficulty: next })}
+        disabled={loading}
+      />
 
       <label className="block">
         <span className="mb-1.5 block text-sm font-medium text-ink/80">
@@ -54,7 +51,6 @@ export function AnagramForm({
           onChange={(e) =>
             onChange({ ...request, inspiration: e.target.value })
           }
-          placeholder="e.g. jazz, coffee, Marvel"
           className="w-full resize-y rounded-lg border border-ink/15 bg-white/80 px-3 py-2.5 text-sm shadow-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
         />
       </label>

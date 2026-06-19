@@ -6,7 +6,6 @@ import { AnagramForm } from "@/components/AnagramForm";
 import { AnagramResult } from "@/components/AnagramResult";
 import { AuthPanel } from "@/components/AuthPanel";
 import { ClueArchiveSearch } from "@/components/ClueArchiveSearch";
-import { HomeTabBar, type HomeTab } from "@/components/HomeTabBar";
 import { toUsedClue } from "@/lib/clue-history";
 import type { CreditPackId } from "@/lib/credit-packs";
 import type {
@@ -17,6 +16,8 @@ import type {
   CreditsStatus,
   UsedAnagramClue,
 } from "@/lib/types";
+
+type HomeTab = "create" | "archive";
 
 const defaultRequest: AnagramRequest = {
   inspiration: "",
@@ -253,6 +254,30 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:py-14">
       <header className="relative mb-10 text-center">
+        {tab === "create" ? (
+          <div className="absolute left-0 top-0 z-10">
+            <button
+              type="button"
+              onClick={() => setTab("archive")}
+              className="text-sm font-medium text-ink/55 underline-offset-2 hover:text-ink hover:underline"
+            >
+              Archive
+            </button>
+          </div>
+        ) : (
+          <div className="absolute left-0 top-0 z-10">
+            <button
+              type="button"
+              onClick={() => {
+                setTab("create");
+                reset();
+              }}
+              className="text-sm font-medium text-ink/55 underline-offset-2 hover:text-ink hover:underline"
+            >
+              Generate
+            </button>
+          </div>
+        )}
         {session && (
           <div className="absolute right-0 top-0 z-10">
             <AccountMenu
@@ -271,8 +296,6 @@ export default function Home() {
           Anagram clue builder
         </h1>
       </header>
-
-      <HomeTabBar value={tab} onChange={setTab} />
 
       {tab === "create" ? (
         <div
