@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
-    fulfillCheckoutSession(session);
+    await fulfillCheckoutSession(session);
   }
 
   return NextResponse.json({ received: true });

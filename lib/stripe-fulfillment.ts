@@ -2,6 +2,7 @@ import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import type Stripe from "stripe";
+import { sendPurchaseReceiptEmail } from "@/lib/email/purchase-receipt-email";
 import { addCredits, findUserById, getCreditsStatus, type UserRecord } from "@/lib/db/users";
 import type { CreditsStatus } from "@/lib/types";
 import { getStripe } from "@/lib/stripe";
@@ -47,20 +48,60 @@ function markFulfilled(sessionId: string, userId: number, credits: number): void
     .run(sessionId, userId, credits);
 }
 
+function receiptEmailForSession(
+  session: Stripe.Checkout.Session,
+  user: UserRecord
+): string {
+  return (
+    session.customer_details?.email?.trim() ||
+    session.customer_email?.trim() ||
+    user.email
+  );
+}
+
+async function sendReceiptIfPossible(
+  session: Stripe.Checkout.Session,
+  user: UserRecord,
+  creditsGranted: number,
+  credits: CreditsStatus
+): Promise<void> {
+  const to = receiptEmailForSession(session, user);
+  try {
+    await sendPurchaseReceiptEmail({
+      to,
+      session,
+      creditsGranted,
+      creditsStatus: credits,
+    });
+  } catch (err) {
+    console.error(
+      "Purchase receipt email failed:",
+      err instanceof Error ? err.message : err
+    );
+  }
+}
+
+export interface FulfillmentResult {
+  user: UserRecord;
+  credits: CreditsStatus;
+  newlyFulfilled: boolean;
+}
+
 /** Idempotent: grant credits once per Checkout session. */
-export function fulfillCheckoutSession(
+export async function fulfillCheckoutSession(
   session: Stripe.Checkout.Session,
   expectedUserId?: number
-): { credits: CreditsStatus; user: UserRecord } | null {
+): Promise<FulfillmentResult | null> {
   if (session.payment_status !== "paid") return null;
 
   const sessionId = session.id;
-  if (!sessionId || isFulfilled(sessionId)) {
-    if (!sessionId) return null;
+  if (!sessionId) return null;
+
+  if (isFulfilled(sessionId)) {
     const userId = Number(session.metadata?.userId);
     const user = Number.isFinite(userId) ? findUserById(userId) : null;
     if (!user) return null;
-    return { user, credits: getCreditsStatus(user) };
+    return { user, credits: getCreditsStatus(user), newlyFulfilled: false };
   }
 
   const userId = Number(session.metadata?.userId);
@@ -78,13 +119,15 @@ export function fulfillCheckoutSession(
   const updated = findUserById(userId);
   if (!updated) return null;
 
-  return { user: updated, credits: status };
+  await sendReceiptIfPossible(session, updated, credits, status);
+
+  return { user: updated, credits: status, newlyFulfilled: true };
 }
 
 export async function fulfillCheckoutSessionById(
   sessionId: string,
   expectedUserId?: number
-): Promise<{ credits: CreditsStatus; user: UserRecord } | null> {
+): Promise<FulfillmentResult | null> {
   const session = await getStripe().checkout.sessions.retrieve(sessionId);
   return fulfillCheckoutSession(session, expectedUserId);
 }
