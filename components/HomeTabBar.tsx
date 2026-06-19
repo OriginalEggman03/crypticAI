@@ -3,7 +3,7 @@
 export type HomeTab = "create" | "archive";
 
 const tabs: { value: HomeTab; label: string }[] = [
-  { value: "create", label: "Create" },
+  { value: "create", label: "New" },
   { value: "archive", label: "Archive" },
 ];
 

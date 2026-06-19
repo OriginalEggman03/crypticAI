@@ -2,7 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { hashPassword } from "@/lib/auth/password";
 import { createVerificationToken } from "@/lib/auth/verification-token";
 import { sendVerificationEmail } from "@/lib/auth/verification-email";
-import { createUser, findUserByEmail } from "@/lib/db/users";
+import {
+  createUser,
+  findUserByEmail,
+  isEmailVerified,
+  refreshUnverifiedSignup,
+} from "@/lib/db/users";
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,17 +33,42 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (findUserByEmail(email)) {
-      return NextResponse.json(
-        { error: "An account with this email already exists." },
-        { status: 409 }
+    const existing = findUserByEmail(email);
+    const { token, hash, expiresAt } = createVerificationToken();
+    const passwordHash = hashPassword(password);
+    const origin = request.headers.get("origin") ?? undefined;
+
+    if (existing) {
+      if (isEmailVerified(existing)) {
+        return NextResponse.json(
+          { error: "An account with this email already exists." },
+          { status: 409 }
+        );
+      }
+
+      const updated = refreshUnverifiedSignup(
+        existing.id,
+        passwordHash,
+        hash,
+        expiresAt
       );
+      if (!updated) {
+        return NextResponse.json(
+          { error: "An account with this email already exists." },
+          { status: 409 }
+        );
+      }
+
+      await sendVerificationEmail(updated.email, token, origin);
+
+      return NextResponse.json({
+        needsEmailVerification: true,
+        email: updated.email,
+        verificationResent: true,
+      });
     }
 
-    const { token, hash, expiresAt } = createVerificationToken();
-    createUser(email, hashPassword(password), hash, expiresAt);
-
-    const origin = request.headers.get("origin") ?? undefined;
+    createUser(email, passwordHash, hash, expiresAt);
     await sendVerificationEmail(email, token, origin);
 
     return NextResponse.json({

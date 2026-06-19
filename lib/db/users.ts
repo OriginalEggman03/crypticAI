@@ -159,6 +159,32 @@ export function setEmailVerificationToken(
     .run(tokenHash, expiresAt, userId);
 }
 
+/** Replace password and verification token for a signup that was never verified. */
+export function refreshUnverifiedSignup(
+  userId: number,
+  passwordHash: string,
+  verificationTokenHash: string,
+  verificationExpiresAt: string
+): UserRecord | null {
+  const info = getDb()
+    .prepare(
+      `UPDATE users
+       SET password_hash = ?,
+           email_verification_token_hash = ?,
+           email_verification_expires_at = ?
+       WHERE id = ? AND email_verified_at IS NULL`
+    )
+    .run(
+      passwordHash,
+      verificationTokenHash,
+      verificationExpiresAt,
+      userId
+    );
+
+  if (info.changes === 0) return null;
+  return findUserById(userId);
+}
+
 export function verifyEmailWithToken(token: string): UserRecord | null {
   const tokenHash = hashVerificationToken(token);
   const user = getDb()
