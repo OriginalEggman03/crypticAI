@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Crimson_Pro, Source_Sans_3 } from "next/font/google";
 import { SeoJsonLd } from "@/components/SeoJsonLd";
+import { SiteFooter } from "@/components/SiteFooter";
 import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
@@ -76,10 +77,11 @@ export default function RootLayout({
   return (
     <html lang="en-GB">
       <body
-        className={`${display.variable} ${body.variable} font-body min-h-screen antialiased`}
+        className={`${display.variable} ${body.variable} font-body flex min-h-screen flex-col antialiased`}
       >
         <SeoJsonLd />
-        {children}
+        <div className="flex-1">{children}</div>
+        <SiteFooter />
       </body>
     </html>
   );

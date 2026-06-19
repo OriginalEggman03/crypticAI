@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AccountMenu } from "@/components/AccountMenu";
 import { AnagramForm } from "@/components/AnagramForm";
@@ -378,15 +377,6 @@ export default function Home() {
       >
         <ClueArchiveSearch />
       </div>
-
-      <footer className="mt-16 border-t border-ink/10 pt-8 text-center text-sm text-ink/50">
-        <Link
-          href="/about"
-          className="font-medium underline-offset-2 hover:text-ink hover:underline"
-        >
-          About Cryptic AI
-        </Link>
-      </footer>
     </main>
   );
 }
