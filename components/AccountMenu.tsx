@@ -106,10 +106,10 @@ export function AccountMenu({
         aria-expanded={open}
         aria-haspopup="menu"
         aria-controls={menuId}
-        className="inline-flex max-w-[11rem] items-center gap-1.5 rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm font-medium text-ink shadow-sm transition hover:bg-cream/80 sm:max-w-xs"
+        aria-label={`Account menu for ${user.email}`}
+        className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-ink/15 bg-white/80 text-ink shadow-sm transition hover:bg-cream/80"
       >
-        <span className="truncate">{user.email}</span>
-        <ChevronIcon open={open} />
+        <UserIcon />
       </button>
 
       {open && (
@@ -222,18 +222,20 @@ export function AccountMenu({
   );
 }
 
-function ChevronIcon({ open }: { open: boolean }) {
+function UserIcon() {
   return (
     <svg
       aria-hidden="true"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-      className={`h-4 w-4 shrink-0 text-ink/50 transition ${open ? "rotate-180" : ""}`}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      className="h-5 w-5"
     >
       <path
-        fillRule="evenodd"
-        d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
-        clipRule="evenodd"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a8.25 8.25 0 1 1 16.5 0"
       />
     </svg>
   );
