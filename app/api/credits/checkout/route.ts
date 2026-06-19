@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireVerifiedUser } from "@/lib/auth/require-user";
 import { getCreditPack } from "@/lib/credit-packs";
+import { publicOriginFromRequest } from "@/lib/request-origin";
 import { createCreditsCheckoutSession, isStripeConfigured } from "@/lib/stripe";
 
 export async function POST(request: NextRequest) {
@@ -29,7 +30,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const origin = request.nextUrl.origin;
+    const origin = publicOriginFromRequest(request);
     const url = await createCreditsCheckoutSession(
       auth.user.id,
       auth.user.email,
