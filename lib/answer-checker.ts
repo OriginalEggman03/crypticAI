@@ -87,3 +87,49 @@ export function isAnswerComplete(
     (cell, i) => state.locked[i] && cell.toUpperCase() === correct[i]
   );
 }
+
+/** Inclusive cell index range for the word containing `cellIndex`. */
+export function cellWordRange(
+  cellIndex: number,
+  wordLengths: number[]
+): { start: number; end: number } | null {
+  let start = 0;
+  for (const len of wordLengths) {
+    const end = start + len;
+    if (cellIndex >= start && cellIndex < end) {
+      return { start, end };
+    }
+    start = end;
+  }
+  return null;
+}
+
+/** Next editable cell in the same word, skipping locked (green) cells. */
+export function nextEditableCellIndex(
+  fromIndex: number,
+  locked: boolean[],
+  wordLengths: number[]
+): number | null {
+  const range = cellWordRange(fromIndex, wordLengths);
+  if (!range) return null;
+
+  for (let i = fromIndex + 1; i < range.end; i++) {
+    if (!locked[i]) return i;
+  }
+  return null;
+}
+
+/** Previous editable cell in the same word, skipping locked (green) cells. */
+export function prevEditableCellIndex(
+  fromIndex: number,
+  locked: boolean[],
+  wordLengths: number[]
+): number | null {
+  const range = cellWordRange(fromIndex, wordLengths);
+  if (!range) return null;
+
+  for (let i = fromIndex - 1; i >= range.start; i--) {
+    if (!locked[i]) return i;
+  }
+  return null;
+}

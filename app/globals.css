@@ -38,7 +38,7 @@ body {
   }
 
   .answer-checker-cell {
-    @apply h-10 w-10 rounded-md border border-ink/20 bg-white text-center font-display text-lg font-semibold uppercase text-ink shadow-sm outline-none transition;
+    @apply h-9 w-9 rounded-md border border-ink/20 bg-white text-center font-display text-base font-semibold uppercase text-ink shadow-sm outline-none transition sm:h-10 sm:w-10 sm:text-lg;
   }
 
   .answer-checker-cell:focus {

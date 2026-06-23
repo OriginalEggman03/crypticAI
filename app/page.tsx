@@ -253,47 +253,49 @@ export default function Home() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:py-14">
-      <header className="relative mb-10 text-center">
-        {tab === "create" ? (
-          <div className="absolute left-0 top-0 z-10">
-            <button
-              type="button"
-              id="tab-archive"
-              onClick={() => setTab("archive")}
-              className="rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm font-medium text-ink shadow-sm transition hover:bg-cream/80"
-            >
-              Archives
-            </button>
+      <header className="mb-10">
+        <div className="mb-6 flex min-h-10 items-center justify-between gap-2">
+          <div className="shrink-0">
+            {tab === "create" ? (
+              <button
+                type="button"
+                id="tab-archive"
+                onClick={() => setTab("archive")}
+                className="rounded-lg border border-ink/15 bg-white/80 px-2.5 py-1.5 text-xs font-medium text-ink shadow-sm transition hover:bg-cream/80 sm:px-3 sm:py-2 sm:text-sm"
+              >
+                Archives
+              </button>
+            ) : (
+              <button
+                type="button"
+                id="tab-create"
+                onClick={() => setTab("create")}
+                className="rounded-lg border border-ink/15 bg-white/80 px-2.5 py-1.5 text-xs font-medium text-ink shadow-sm transition hover:bg-cream/80 sm:px-3 sm:py-2 sm:text-sm"
+              >
+                Generator
+              </button>
+            )}
           </div>
-        ) : (
-          <div className="absolute left-0 top-0 z-10">
-            <button
-              type="button"
-              id="tab-create"
-              onClick={() => setTab("create")}
-              className="rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm font-medium text-ink shadow-sm transition hover:bg-cream/80"
-            >
-              Generator
-            </button>
-          </div>
-        )}
-        {session && (
-          <div className="absolute right-0 top-0 z-10">
-            <AccountMenu
-              session={session}
-              onLogout={handleLogout}
-              onAccountDeleted={handleAccountDeleted}
-              onBuyCredits={buyCredits}
-              checkoutPackId={checkoutPackId}
-            />
-          </div>
-        )}
-        <p className="mb-2 font-display text-sm uppercase tracking-[0.2em] text-accent">
-          Cryptic AI
-        </p>
-        <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-          Anagram clue builder
-        </h1>
+          {session && (
+            <div className="shrink-0">
+              <AccountMenu
+                session={session}
+                onLogout={handleLogout}
+                onAccountDeleted={handleAccountDeleted}
+                onBuyCredits={buyCredits}
+                checkoutPackId={checkoutPackId}
+              />
+            </div>
+          )}
+        </div>
+        <div className="text-center">
+          <p className="mb-2 font-display text-sm uppercase tracking-[0.2em] text-accent">
+            Cryptic AI
+          </p>
+          <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+            Anagram clue builder
+          </h1>
+        </div>
       </header>
 
       <div

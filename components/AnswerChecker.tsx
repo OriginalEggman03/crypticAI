@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   answerCheckerWordLengths,
   checkAnswerLetters,
   emptyCheckerCells,
   emptyCheckerLocks,
   isAnswerComplete,
+  nextEditableCellIndex,
+  prevEditableCellIndex,
   revealAnswerLetters,
   type AnswerCheckerState,
 } from "@/lib/answer-checker";
@@ -56,8 +58,38 @@ export function AnswerChecker({ answer, clue }: AnswerCheckerProps) {
     });
   };
 
+  const focusNextEditable = useCallback(
+    (fromIndex: number, locked: boolean[]) => {
+      const next = nextEditableCellIndex(fromIndex, locked, wordLengths);
+      if (next !== null) {
+        requestAnimationFrame(() => focusCheckerCell(next));
+      }
+    },
+    [wordLengths]
+  );
+
+  const handleLetterInput = (index: number, raw: string) => {
+    if (state.locked[index]) return;
+
+    const letter = raw.toUpperCase().replace(/[^A-Z]/g, "").slice(-1);
+    if (!letter) {
+      setCell(index, "");
+      return;
+    }
+
+    setCell(index, letter);
+    focusNextEditable(index, state.locked);
+  };
+
   const handleCheck = () => {
-    setState((prev) => checkAnswerLetters(prev, answer));
+    setState((prev) => {
+      const next = checkAnswerLetters(prev, answer);
+      const firstOpen = next.locked.findIndex((locked) => !locked);
+      if (firstOpen >= 0) {
+        requestAnimationFrame(() => focusCheckerCell(firstOpen));
+      }
+      return next;
+    });
   };
 
   const handleReveal = () => {
@@ -74,30 +106,30 @@ export function AnswerChecker({ answer, clue }: AnswerCheckerProps) {
       e.preventDefault();
       if (state.cells[index]) {
         setCell(index, "");
-      } else if (index > 0) {
-        focusCheckerCell(index - 1);
+      } else {
+        const prev = prevEditableCellIndex(index, state.locked, wordLengths);
+        if (prev !== null) focusCheckerCell(prev);
       }
       return;
     }
 
-    if (e.key === "ArrowLeft" && index > 0) {
+    if (e.key === "ArrowLeft") {
       e.preventDefault();
-      focusCheckerCell(index - 1);
+      const prev = prevEditableCellIndex(index, state.locked, wordLengths);
+      if (prev !== null) focusCheckerCell(prev);
       return;
     }
 
-    if (e.key === "ArrowRight" && index < totalCells - 1) {
+    if (e.key === "ArrowRight") {
       e.preventDefault();
-      focusCheckerCell(index + 1);
+      const next = nextEditableCellIndex(index, state.locked, wordLengths);
+      if (next !== null) focusCheckerCell(next);
       return;
     }
 
     if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
       e.preventDefault();
-      setCell(index, e.key);
-      if (index < totalCells - 1) {
-        focusCheckerCell(index + 1);
-      }
+      handleLetterInput(index, e.key);
     }
   };
 
@@ -153,7 +185,7 @@ export function AnswerChecker({ answer, clue }: AnswerCheckerProps) {
                     data-answer-cell={index}
                     aria-label={`Letter ${index + 1} of ${totalCells}`}
                     className={`answer-checker-cell ${locked ? "answer-checker-cell-locked" : ""}`}
-                    onChange={(e) => setCell(index, e.target.value)}
+                    onChange={(e) => handleLetterInput(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     onFocus={(e) => e.target.select()}
                   />

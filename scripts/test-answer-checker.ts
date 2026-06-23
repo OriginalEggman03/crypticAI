@@ -5,6 +5,8 @@ import {
   emptyCheckerCells,
   emptyCheckerLocks,
   isAnswerComplete,
+  nextEditableCellIndex,
+  prevEditableCellIndex,
   revealAnswerLetters,
 } from "../lib/answer-checker";
 
@@ -27,6 +29,14 @@ const partial = {
 const checked = checkAnswerLetters(partial, answer);
 assert.deepEqual(checked.cells, ["J", "O", "H", "", "N", "Y", "", "", "", ""]);
 assert.deepEqual(checked.locked, [true, true, true, false, true, true, false, false, false, false]);
+
+assert.equal(nextEditableCellIndex(2, checked.locked, lengths), 3);
+assert.equal(nextEditableCellIndex(3, checked.locked, lengths), null);
+assert.equal(nextEditableCellIndex(5, checked.locked, lengths), null);
+assert.equal(nextEditableCellIndex(6, checked.locked, lengths), 7);
+assert.equal(nextEditableCellIndex(9, checked.locked, lengths), null);
+assert.equal(prevEditableCellIndex(7, checked.locked, lengths), 6);
+assert.equal(prevEditableCellIndex(3, checked.locked, lengths), null);
 
 const complete = checkAnswerLetters(
   {
