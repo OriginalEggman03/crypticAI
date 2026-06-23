@@ -109,7 +109,7 @@ assert.match(
 
 const verified = verifyAnagramClue({
   answer: "JOHNNY CAGE",
-  clue: "John, agency in chaos — a roster member (6,4)",
+  clue: "John, agency in chaos — an arcade combatant (6,4)",
   anagramFodder: "agency john",
   anagramIndicator: "in chaos",
 });

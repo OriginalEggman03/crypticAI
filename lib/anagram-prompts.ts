@@ -8,6 +8,7 @@ import {
 import type { IndicatorGuidance } from "./indicator-archive-weights";
 import { MAX_LINKING_WORDS } from "./clue-surface-link";
 import { surfaceCraftRules, FODDER_PUNCTUATION_RULE, SURFACE_MISDIRECTION_RULE } from "./clue-surface-rules";
+import { DEFINITION_THEME_CRAFT_RULE } from "./definition-quality";
 import { inspirationHiddenWords } from "./inspiration-parse";
 import type { AnagramClueDraft } from "./types";
 
@@ -77,6 +78,7 @@ MECHANICAL RULES (verified in code before the clue is accepted)
 4. Enumeration: single word → (N); multi-word → comma-separated word lengths, e.g. JOHNNY CAGE → (6,4).
 5. Do not write any answer word as a standalone word in the clue.
 6. Include a clear anagram indicator word or phrase.
+7. ${DEFINITION_THEME_CRAFT_RULE}
 
 SELF-CHECK before responding
 - Strip spaces/punctuation from fodder → count letters → must equal answer length.
@@ -202,11 +204,12 @@ LOCKED WORDPLAY (do not change — verified in code)
 YOUR TASK
 Write a natural cryptic clue that:
 1. Uses every word from "${anagramFodder}" in the clue (exact spelling; any order; ${FODDER_PUNCTUATION_RULE})
-2. Places the definition at the start OR the end — whichever is more interesting.
-3. Includes a fair anagram indicator (e.g. ${examples}).
-4. Uses at most ${MAX_LINKING_WORDS} linking words between definition and wordplay — nothing superfluous.
-5. Ends with (${len}).
-6. Does NOT contain ${answer} as a standalone word.
+2. ${DEFINITION_THEME_CRAFT_RULE}
+3. Places the definition at the start OR the end — whichever is more interesting.
+4. Includes a fair anagram indicator (e.g. ${examples}).
+5. Uses at most ${MAX_LINKING_WORDS} linking words between definition and wordplay — nothing superfluous.
+6. Ends with (${len}).
+7. Does NOT contain ${answer} as a standalone word.
 
 Return ONLY valid JSON:
 ${ANAGRAM_JSON_SCHEMA}`;
@@ -412,13 +415,14 @@ ${indicatorChoiceGuidance(avoidIndicators, guidanceChoiceOptions(guidance))}
 
 RULES
 1. Definition may be at the start or the end — pick whichever reads better.
-2. Pick whichever indicator (single- or multi-word) makes the whole sentence most grammatical — no bias toward length.
-3. Do NOT use unless unavoidable: ${overused}${avoidIndicators.length > 0 ? `; also avoid: ${avoidIndicators.join(", ")}` : ""}.
-4. All fodder words must appear; reorder freely; ${FODDER_PUNCTUATION_RULE}
-5. ${SURFACE_MISDIRECTION_RULE}
-6. At most ${MAX_LINKING_WORDS} linking words between definition and wordplay; nothing superfluous.
-7. Capitalise proper names and places.
-8. Set anagramIndicator to the exact phrase used (e.g. "in chaos" or "broken", whichever you chose).
+2. ${DEFINITION_THEME_CRAFT_RULE}
+3. Pick whichever indicator (single- or multi-word) makes the whole sentence most grammatical — no bias toward length.
+4. Do NOT use unless unavoidable: ${overused}${avoidIndicators.length > 0 ? `; also avoid: ${avoidIndicators.join(", ")}` : ""}.
+5. All fodder words must appear; reorder freely; ${FODDER_PUNCTUATION_RULE}
+6. ${SURFACE_MISDIRECTION_RULE}
+7. At most ${MAX_LINKING_WORDS} linking words between definition and wordplay; nothing superfluous.
+8. Capitalise proper names and places.
+9. Set anagramIndicator to the exact phrase used (e.g. "in chaos" or "broken", whichever you chose).
 
 EXAMPLES (decoration on the whole surface — never bracketing fodder alone)
 - "Could it be a gaming plumber? That'd army, in chaos (5)"

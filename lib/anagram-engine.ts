@@ -28,6 +28,8 @@ import {
   verifyEnumeration,
   verifyInspirationWordsNotInClue,
 } from "./clue-verify";
+import { verifyDefinitionNotVague } from "./definition-quality";
+import { extractDefinitionPhrase } from "./clue-surface-link";
 import type { AnagramClueDraft, AnagramVerification } from "./types";
 
 function normalizeDraft(raw: AnagramClueDraft): AnagramClueDraft {
@@ -178,6 +180,18 @@ export function verifyAnagramClue(
       !capErr,
       capErr ??
         "Sentence starts and names/places capitalised; all other words lowercase"
+    );
+
+    const definitionPhrase = extractDefinitionPhrase(
+      prepared.clue,
+      prepared.anagramFodder,
+      prepared.anagramIndicator
+    );
+    const definitionErr = verifyDefinitionNotVague(definitionPhrase);
+    add(
+      "definition theme",
+      !definitionErr,
+      definitionErr ?? "Definition is specific to the inspiration's domain"
     );
 
     const superfluousErr = verifyNoSuperfluousWords(

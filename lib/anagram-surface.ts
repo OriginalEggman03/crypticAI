@@ -2,6 +2,10 @@ import { answerEnumeration } from "./answer-format";
 import { prepareAnagramClue, verifyAnagramClue } from "./anagram-engine";
 import type { AnagramPair } from "./anagram-dictionary";
 import {
+  definitionThemeScore,
+  themeDefinitionSeeds,
+} from "./definition-quality";
+import {
   indicatorSurfaceScore,
   isOverusedIndicator,
   pickIndicatorPhrases,
@@ -9,10 +13,10 @@ import {
 } from "./anagram-indicators";
 import {
   MAX_LINKING_WORDS,
+  extractDefinitionPhrase,
   linkingWordScore,
 } from "./clue-surface-link";
 import { formatFodderForClue } from "./proper-noun-casing";
-import { phraseUsesHiddenInspirationWord } from "./inspiration-parse";
 import type { AnagramClueDraft } from "./types";
 
 export interface SurfaceBuildOptions {
@@ -68,52 +72,8 @@ function fodderSurfaceVariants(fodder: string): string[] {
   return [...variants];
 }
 
-const GENERIC_DEFINITIONS = [
-  "A familiar name",
-  "A notable figure",
-  "One possibility",
-  "A well-known name",
-  "A pop-culture name",
-];
-
-function categoryDefinitions(inspiration: string): string[] {
-  const lower = inspiration.toLowerCase();
-  const defs: string[] = [];
-
-  if (/\bcharacter|\bhero|\bvillain|\bname/i.test(lower)) {
-    defs.push(
-      "A familiar face",
-      "A named figure",
-      "A roster member",
-      "A fighter perhaps"
-    );
-  }
-  if (/\bgame|\bseries|\bfranchise/i.test(lower)) {
-    defs.push("A digital icon", "A series regular", "One from the roster");
-  }
-  if (/\bfilm|\bmovie|\bbook|\bsong/i.test(lower)) {
-    defs.push("A notable name", "One from the canon");
-  }
-  if (/\bfood|\bdrink|\bcoffee|\bwine/i.test(lower)) {
-    defs.push("Something on the menu", "A tasty option");
-  }
-
-  return defs.filter((d) => !phraseUsesHiddenInspirationWord(d, inspiration));
-}
-
 function definitionPhrases(inspiration: string, answer: string): string[] {
-  const answerLower = answer.toLowerCase().replace(/\s+/g, " ");
-  const phrases = [...categoryDefinitions(inspiration), ...GENERIC_DEFINITIONS];
-  const seen = new Set<string>();
-
-  return phrases.filter((p) => {
-    const key = p.toLowerCase();
-    if (seen.has(key)) return false;
-    if (key.includes(answerLower)) return false;
-    if (phraseUsesHiddenInspirationWord(p, inspiration)) return false;
-    seen.add(key);
-    return true;
-  });
+  return themeDefinitionSeeds(inspiration, answer);
 }
 
 function scoreSurface(
@@ -125,6 +85,9 @@ function scoreSurface(
 ): number {
   let score = linkingWordScore(clue, fodder);
   score += indicatorSurfaceScore(indicator, avoidIndicators, archiveCounts);
+  score += definitionThemeScore(
+    extractDefinitionPhrase(clue, fodder, indicator)
+  );
   if (/^Item\b|^Thing\b|^Offering\b|^Subject\b/.test(clue)) score -= 20;
   if (clue.length >= 25 && clue.length <= 75) score += 6;
   return score;
@@ -213,9 +176,12 @@ function buildFallbackClue(
   });
   const indicator =
     indicators.find((p) => !isOverusedIndicator(p)) ?? indicators[0] ?? "in chaos";
+  const definitions = themeDefinitionSeeds(inspiration, pair.answer);
+  const definition =
+    definitions[0] ?? "A thematic answer";
   const draft = prepareAnagramClue({
     answer: pair.answer,
-    clue: `A familiar name: ${displayFodder} ${indicator} ${enumeration}`,
+    clue: `${definition}: ${displayFodder} ${indicator} ${enumeration}`,
     anagramFodder: displayFodder,
     anagramIndicator: indicator,
   });
