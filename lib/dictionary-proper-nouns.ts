@@ -28,10 +28,12 @@ function loadDictionaryProperNounData(): void {
 
   for (let i = 1; i < lines.length && i <= expected; i++) {
     const line = lines[i]?.trim() ?? "";
-    const match = line.match(/^([^/\s]+)\/[A-Za-z]+$/);
-    if (!match) continue;
+    if (!line) continue;
 
-    const surface = match[1];
+    const slashMatch = line.match(/^([^/\s]+)\/[A-Za-z]+$/);
+    const surface = slashMatch?.[1] ?? (/^[A-Za-z]{3,}$/.test(line) ? line : null);
+    if (!surface) continue;
+
     const letters = surface.replace(/[^a-zA-Z]/g, "");
     if (letters.length < 3) continue;
 

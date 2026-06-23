@@ -6,6 +6,7 @@ import {
   normalizeClueCapitalization,
   possessiveNameStem,
   requiresCapitalizationInClue,
+  resetDictionaryProperNounCache,
   verifyClueCapitalizationRules,
 } from "../lib/dictionary-proper-nouns";
 import { verifyNoSuperfluousWords } from "../lib/clue-surface-tightness";
@@ -13,6 +14,39 @@ import { verifyNoSuperfluousWords } from "../lib/clue-surface-tightness";
 assert.equal(possessiveNameStem("jonahs"), "jonah");
 assert.ok(requiresCapitalizationInClue("jonahs"));
 assert.equal(canonicalCapitalForm("jonahs"), "Jonahs");
+
+resetDictionaryProperNounCache();
+assert.ok(!requiresCapitalizationInClue("rather"));
+assert.equal(
+  normalizeClueCapitalization(
+    "Mug of carob tea, rather odd — a health-food infusion (4,3)"
+  ),
+  "Mug of carob tea, rather odd — a health-food infusion (4,3)"
+);
+assert.match(
+  verifyClueCapitalizationRules(
+    "Mug of carob tea, Rather odd — a health-food infusion (4,3)"
+  ) ?? "",
+  /Rather.*rather/i
+);
+assert.match(
+  prepareAnagramClue({
+    answer: "CAROB TEA",
+    clue: "Mug of carob tea, Rather odd — a health-food infusion (5,3)",
+    anagramFodder: "mug carob tea rather",
+    anagramIndicator: "odd",
+  }).clue,
+  /rather odd/i
+);
+assert.doesNotMatch(
+  prepareAnagramClue({
+    answer: "CAROB TEA",
+    clue: "Mug of carob tea, Rather odd — a health-food infusion (5,3)",
+    anagramFodder: "mug carob tea rather",
+    anagramIndicator: "odd",
+  }).clue,
+  /\bRather\b/
+);
 
 assert.equal(
   prepareAnagramClue({
