@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { BuyCreditsButtons } from "@/components/BuyCreditsButtons";
 import type { CreditPackId } from "@/lib/credit-packs";
-import { formatCreditsSummary } from "@/lib/credits-display";
+import { CreditsSummary } from "@/lib/credits-display";
 import type { AuthMeResponse } from "@/lib/types";
 
 interface AccountMenuProps {
@@ -59,7 +59,6 @@ export function AccountMenu({
   }, [open, close]);
 
   const { user, credits } = session;
-  const creditsSummary = formatCreditsSummary(credits);
   const canGenerate = credits.canGenerate;
 
   async function handleLogout() {
@@ -121,7 +120,7 @@ export function AccountMenu({
         >
           <div className="border-b border-ink/10 px-4 pb-3">
             <p className="truncate text-sm font-medium text-ink">{user.email}</p>
-            <p className="mt-1 text-xs text-ink/55">{creditsSummary}</p>
+            <CreditsSummary credits={credits} />
           </div>
 
           {!confirmDelete ? (
