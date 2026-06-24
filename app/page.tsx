@@ -353,6 +353,7 @@ export default function Home() {
             canGenerate={canGenerate}
             onBuyCredits={buyCredits}
             checkoutPackId={checkoutPackId}
+            showClaudeTrace={Boolean(session?.credits?.adminUnlimited)}
           />
         )}
       </div>

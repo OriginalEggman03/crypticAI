@@ -121,9 +121,10 @@ export interface AnagramClueResult {
   difficulty: AnagramDifficulty;
   /** Successful Anthropic Messages API calls during clue generation. */
   llmCalls: number;
-  /** Every Claude call during generation, in the order it was made. */
+  /** Every Claude call during generation, in the order it was made. Admin only. */
   claudeTrace?: ClaudeCallTrace[];
-  prompts: {
+  /** Exact prompts sent to Claude. Admin only. */
+  prompts?: {
     setter: PromptTurn;
     repairs: PromptTurn[];
     surface: PromptTurn[];

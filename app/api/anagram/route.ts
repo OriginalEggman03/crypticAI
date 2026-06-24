@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { resolveInspiration } from "@/lib/auto-inspiration";
 import { generateVerifiedAnagramClue } from "@/lib/anagram-pipeline";
+import { redactAnagramResultForViewer } from "@/lib/redact-anagram-result";
 import { requireVerifiedUser } from "@/lib/auth/require-user";
 import {
   consumeGenerationCredit,
@@ -72,7 +73,10 @@ export async function POST(request: NextRequest) {
         ? consumeGenerationCredit(auth.user.id)
         : creditsBefore;
 
-    return NextResponse.json({ result: outcome, credits });
+    return NextResponse.json({
+      result: redactAnagramResultForViewer(outcome, auth.user),
+      credits,
+    });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Generation failed";
     return NextResponse.json({ error: message }, { status: 500 });

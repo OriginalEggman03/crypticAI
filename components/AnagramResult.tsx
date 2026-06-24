@@ -21,6 +21,8 @@ interface AnagramResultProps {
   canGenerate?: boolean;
   onBuyCredits?: (packId: CreditPackId) => void;
   checkoutPackId?: CreditPackId | null;
+  /** Admin test account — show Claude call trace in Details. */
+  showClaudeTrace?: boolean;
 }
 
 function PromptBlock({
@@ -71,6 +73,7 @@ export function AnagramResult({
   canGenerate = true,
   onBuyCredits,
   checkoutPackId,
+  showClaudeTrace = false,
 }: AnagramResultProps) {
   const [showPrompts, setShowPrompts] = useState(false);
   const [revealed, setRevealed] = useState(false);
@@ -270,7 +273,7 @@ export function AnagramResult({
         </div>
       )}
 
-      {revealed && (
+      {revealed && showClaudeTrace && (
       <div>
         <button
           type="button"
