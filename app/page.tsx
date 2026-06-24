@@ -335,14 +335,6 @@ export default function Home() {
                 {error}
               </p>
             )}
-
-            {loading && (
-              <p className="mt-6 text-center text-sm text-ink/60">
-                {!request.inspiration.trim()
-                  ? "Picking a theme and generating…"
-                  : "Generating…"}
-              </p>
-            )}
           </div>
         ) : (
           <AnagramResult
