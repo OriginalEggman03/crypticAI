@@ -12,13 +12,13 @@ export const CREDIT_PACKS: Record<CreditPackId, CreditPack> = {
     id: "pack_6",
     credits: 6,
     cents: 300,
-    priceLabel: "$3",
+    priceLabel: "£3",
   },
   pack_12: {
     id: "pack_12",
     credits: 12,
     cents: 500,
-    priceLabel: "$5",
+    priceLabel: "£5",
   },
 };
 

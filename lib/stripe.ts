@@ -6,7 +6,7 @@ import {
   getCreditPack,
 } from "@/lib/credit-packs";
 
-const DEFAULT_CURRENCY = "usd";
+const DEFAULT_CURRENCY = "gbp";
 
 export function isStripeConfigured(): boolean {
   return Boolean(process.env.STRIPE_SECRET_KEY?.trim());

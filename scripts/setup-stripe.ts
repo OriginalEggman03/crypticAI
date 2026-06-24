@@ -50,11 +50,11 @@ Missing STRIPE_SECRET_KEY.
   console.log(`
 Stripe credit packs created.
 
-6 credits ($3):
+6 credits (£3):
   Product:  ${prices.pack_6.productId}
   Price:    ${prices.pack_6.priceId}
 
-12 credits ($5):
+12 credits (£5):
   Product:  ${prices.pack_12.productId}
   Price:    ${prices.pack_12.priceId}
 
