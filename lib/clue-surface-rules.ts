@@ -1,17 +1,17 @@
 import { MAX_LINKING_WORDS } from "./clue-surface-link";
 import { DEFINITION_THEME_CRAFT_RULE } from "./definition-quality";
 
-/** Punctuation allowed between fodder words for smooth grammar (not decoration). */
+/** Punctuation allowed between fodder words — spaces preferred for misdirection. */
 export const FODDER_GAP_CHARACTERS =
-  "spaces, commas, full stops, question marks, exclamation marks, colons, semi-colons, dashes, apostrophes";
-
-/** Shared fodder punctuation guidance for prompts and verification copy. */
-export const FODDER_PUNCTUATION_RULE =
-  `Use ${FODDER_GAP_CHARACTERS} between fodder words when that makes the surface smoother and more grammatical (e.g. That'd army, in chaos or Army? That'd — broken). Only that punctuation may sit between fodder words — never extra linking words. Do NOT wrap individual fodder words in quotation marks, parentheses, or italics — that marks the wordplay for the solver.`;
+  "spaces and apostrophes in contractions";
 
 /** Quotation marks, italics, parentheses on the whole surface for misdirection. */
 export const SURFACE_MISDIRECTION_RULE =
-  "Quotation marks, parentheses, asterisk italics (*like this*), and similar devices may dress the whole clue surface — a reported remark, a bracketed aside around the full sentence, a rhetorical frame — to misdirect the reader, not to highlight fodder. Never bracket or quote only the fodder cluster or individual fodder words; decoration must not outline wordplay. The surface must still read as smooth, grammatical English.";
+  "Quotation marks, parentheses, asterisk italics (*like this*), question marks, and exclamation marks may dress the whole clue surface — a reported remark, a rhetorical question, a bracketed aside — to misdirect the reader. Do NOT use commas, colons, semi-colons, or dashes to mark where the definition ends and wordplay begins; the break must be hidden inside fluent English. Never bracket or quote only the fodder cluster or individual fodder words. The surface must still read as smooth, grammatical English.";
+
+/** Shared fodder punctuation guidance for prompts and verification copy. */
+export const FODDER_PUNCTUATION_RULE =
+  "Fodder words must appear consecutively in the clue (any order) with only spaces between them — do NOT separate fodder words with commas, full stops, colons, dashes, or similar marks; that telegraphs the wordplay. Apostrophes in contractions (That'd, Don't) are fine. Never wrap individual fodder words in quotation marks, parentheses, or italics.";
 
 /** Shared surface-craft rules for Claude polish / refine prompts. */
 export function surfaceCraftRules(options: {
@@ -44,5 +44,5 @@ export function surfaceCraftRules(options: {
 9. Pick the anagram indicator (single-word or multi-word) that makes the full sentence read most naturally — no preference for length; vary your choice and avoid overused words like "scrambled" and "muddled" unless nothing else fits.
 10. Write one crisp grammatical sentence — vivid definition, natural wordplay, no wasted words. Use proper apostrophes in contractions (That'd, Don't, It's — never Thatd, Dont, Its as a contraction).${extraLines}
 ${ruleNum}. Set anagramIndicator in JSON to the exact indicator phrase used (e.g. "in chaos", "out of order").
-${ruleNum + 1}. Capitalise the first word of the clue and the first word after any full stop, exclamation mark, or question mark, plus any names or places; all other words must be lowercase (e.g. "John, agency in chaos — a roster member (6,4)" or "Lost at sea? Help me, john! Agency in chaos (6,4)" — not "John, Agency In Chaos").`;
+${ruleNum + 1}. Capitalise the first word of the clue and the first word after any full stop, exclamation mark, or question mark, plus any names or places; all other words must be lowercase (e.g. "Lost at sea? Help me john agency in chaos for a roster member (6,4)" or "Perhaps a roster member if john agency in chaos (6,4)" — not "John, Agency In Chaos").`;
 }

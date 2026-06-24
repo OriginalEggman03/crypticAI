@@ -5,7 +5,14 @@ import { verifyAnagramClue } from "../lib/anagram-engine";
 
 assert.ok(
   phraseAppearsAsFodderWords(
-    "John, agency — in chaos (6,4)",
+    "John agency in chaos (6,4)",
+    "agency john"
+  )
+);
+
+assert.ok(
+  !phraseAppearsAsFodderWords(
+    "John, agency in chaos (6,4)",
     "agency john"
   )
 );
@@ -18,13 +25,13 @@ assert.ok(
 );
 
 assert.equal(
-  linkingWordCount("A roster member: John, agency in chaos (6,4)", "agency john"),
-  0
+  linkingWordCount("A roster member where John agency in chaos (6,4)", "agency john"),
+  1
 );
 
 const verified = verifyAnagramClue({
   answer: "JOHNNY CAGE",
-  clue: "John, agency in chaos — a roster member (6,4)",
+  clue: "Arcade combatant where John agency in chaos (6,4)",
   anagramFodder: "agency john",
   anagramIndicator: "in chaos",
 });

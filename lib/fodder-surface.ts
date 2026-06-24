@@ -4,8 +4,8 @@ function stripEnumeration(clue: string): string {
   return clue.replace(/\(\d+(?:,\s*\d+)*\)\s*$/, "").trim();
 }
 
-/** Grammatical punctuation only between fodder words — not decorative brackets/quotes on fodder. */
-const FODDER_GAP_PATTERN = /^[\s,.;:—–\-?!'""]*$/;
+/** Only spaces may sit between consecutive fodder words in the clue surface. */
+const FODDER_GAP_PATTERN = /^[\s]*$/;
 
 function escapeRegExp(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

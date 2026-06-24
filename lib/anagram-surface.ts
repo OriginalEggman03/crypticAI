@@ -16,6 +16,7 @@ import {
   extractDefinitionPhrase,
   linkingWordScore,
 } from "./clue-surface-link";
+import { misdirectionSurfaceScore } from "./clue-surface-misdirection";
 import { formatFodderForClue } from "./proper-noun-casing";
 import type { AnagramClueDraft } from "./types";
 
@@ -33,44 +34,30 @@ type SurfacePattern = (
   enumeration: string
 ) => string;
 
-/** Definition first or last; minimal linking. */
+/** Blended surfaces — linking words instead of boundary punctuation. */
 const SURFACE_PATTERNS: SurfacePattern[] = [
-  (d, f, i, e) => `${d}: ${f} ${i} ${e}`,
-  (d, f, i, e) => `${d} — ${f} ${i} ${e}`,
-  (d, f, i, e) => `${d}, ${f} ${i} ${e}`,
-  (d, f, i, e) => `${d}; ${f} ${i} ${e}`,
-  (d, f, i, e) => `${f} ${i} — ${d} ${e}`,
-  (d, f, i, e) => `${f}, ${i}: ${d} ${e}`,
-  (d, f, i, e) => `${f}; ${i} — ${d} ${e}`,
-  (d, f, i, e) => `${f} ${i}, ${d} ${e}`,
+  (d, f, i, e) => `${d} where ${f} ${i} ${e}`,
+  (d, f, i, e) => `${d} as ${f} ${i} ${e}`,
+  (d, f, i, e) => `${d} perhaps when ${f} ${i} ${e}`,
+  (d, f, i, e) => `Perhaps ${d} if ${f} ${i} ${e}`,
+  (d, f, i, e) => `${d} in tale of ${f} ${i} ${e}`,
+  (d, f, i, e) => `${f} ${i} for ${d} ${e}`,
+  (d, f, i, e) => `${f} ${i} may mean ${d} ${e}`,
+  (d, f, i, e) => `${f} ${i} and so ${d} ${e}`,
+  (d, f, i, e) => `${f} ${i} could be ${d} ${e}`,
   (d, f, i, e) => `(Could it be ${d}? ${f} ${i}) ${e}`,
-  (d, f, i, e) => `"${d}," they said — ${f} ${i} ${e}`,
-  (d, f, i, e) => `*Perhaps* ${d}: ${f} ${i} ${e}`,
-  (d, f, i, e) => `(On reflection, ${d} — ${f} ${i}) ${e}`,
+  (d, f, i, e) => `"${d}" though ${f} ${i} ${e}`,
+  (d, f, i, e) => `On hearing "${d}" ${f} ${i} ${e}`,
+  (d, f, i, e) => `*Perhaps* ${d} after ${f} ${i} ${e}`,
+  (d, f, i, e) => `Lost at sea? Help me ${f} ${i} for ${d} ${e}`,
+  (d, f, i, e) => `Is ${d} what ${f} ${i} suggests ${e}`,
 ];
 
 function fodderSurfaceVariants(fodder: string): string[] {
   const words = fodder.split(/\s+/).filter(Boolean);
   if (words.length <= 1) return [fodder];
 
-  const variants = new Set<string>([fodder, [...words].reverse().join(" ")]);
-
-  if (words.length === 2) {
-    const [a, b] = words;
-    variants.add(`${a}, ${b}`);
-    variants.add(`${a}; ${b}`);
-    variants.add(`${a}. ${b}`);
-    variants.add(`${a}? ${b}`);
-    variants.add(`${a}! ${b}`);
-    variants.add(`${a} — ${b}`);
-  } else {
-    variants.add(words.join(", "));
-    variants.add(`${words[0]}; ${words.slice(1).join(", ")}`);
-    variants.add(`${words[0]}. ${words.slice(1).join(" ")}`);
-    variants.add(`${words.slice(0, -1).join(", ")}; ${words[words.length - 1]}`);
-  }
-
-  return [...variants];
+  return [fodder, [...words].reverse().join(" ")];
 }
 
 function definitionPhrases(inspiration: string, answer: string): string[] {
@@ -91,6 +78,7 @@ function scoreSurface(
   );
   if (/^Item\b|^Thing\b|^Offering\b|^Subject\b/.test(clue)) score -= 20;
   if (clue.length >= 25 && clue.length <= 75) score += 6;
+  score += misdirectionSurfaceScore(clue, fodder, indicator);
   return score;
 }
 
@@ -183,7 +171,7 @@ function buildFallbackClue(
     definitions[0] ?? "A thematic answer";
   const draft = prepareAnagramClue({
     answer: pair.answer,
-    clue: `${definition}: ${displayFodder} ${indicator} ${enumeration}`,
+    clue: `${definition} where ${displayFodder} ${indicator} ${enumeration}`,
     anagramFodder: displayFodder,
     anagramIndicator: indicator,
   });

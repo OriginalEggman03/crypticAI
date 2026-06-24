@@ -9,6 +9,7 @@ import {
   resetDictionaryProperNounCache,
   verifyClueCapitalizationRules,
 } from "../lib/dictionary-proper-nouns";
+import { verifyNoTelegraphingPunctuation } from "../lib/clue-surface-misdirection";
 import { verifyNoSuperfluousWords } from "../lib/clue-surface-tightness";
 
 assert.equal(possessiveNameStem("jonahs"), "jonah");
@@ -19,20 +20,20 @@ resetDictionaryProperNounCache();
 assert.ok(!requiresCapitalizationInClue("rather"));
 assert.equal(
   normalizeClueCapitalization(
-    "Mug of carob tea, rather odd — a health-food infusion (4,3)"
+    "Mug of carob tea rather odd for a health-food infusion (4,3)"
   ),
-  "Mug of carob tea, rather odd — a health-food infusion (4,3)"
+  "Mug of carob tea rather odd for a health-food infusion (4,3)"
 );
 assert.match(
   verifyClueCapitalizationRules(
-    "Mug of carob tea, Rather odd — a health-food infusion (4,3)"
+    "Mug of carob tea Rather odd for a health-food infusion (4,3)"
   ) ?? "",
   /Rather.*rather/i
 );
 assert.match(
   prepareAnagramClue({
     answer: "CAROB TEA",
-    clue: "Mug of carob tea, Rather odd — a health-food infusion (5,3)",
+    clue: "Mug of carob tea Rather odd for a health-food infusion (5,3)",
     anagramFodder: "mug carob tea rather",
     anagramIndicator: "odd",
   }).clue,
@@ -41,7 +42,7 @@ assert.match(
 assert.doesNotMatch(
   prepareAnagramClue({
     answer: "CAROB TEA",
-    clue: "Mug of carob tea, Rather odd — a health-food infusion (5,3)",
+    clue: "Mug of carob tea Rather odd for a health-food infusion (5,3)",
     anagramFodder: "mug carob tea rather",
     anagramIndicator: "odd",
   }).clue,
@@ -51,72 +52,60 @@ assert.doesNotMatch(
 assert.equal(
   prepareAnagramClue({
     answer: "TEST",
-    clue: "Prophet's place? jonahs town, oddly (4)",
+    clue: "Prophet's place? jonahs town oddly (4)",
     anagramFodder: "jonahs town",
     anagramIndicator: "oddly",
   }).clue,
-  "Prophet's place? Jonahs town, oddly (4)"
+  "Prophet's place? Jonahs town oddly (4)"
 );
 
 assert.equal(
   applyExplanationCapitalizationToClue(
-    "Prophet's place? jonahs town, oddly (4)",
+    "Prophet's place? jonahs town oddly (4)",
     {
       definition: "Prophet's place?",
-      wordplay: '"Jonahs town, oddly"',
+      wordplay: '"Jonahs town oddly"',
       linkingWords: "none",
       walkthrough:
-        'The definition is "Prophet\'s place?"; "Jonahs town, oddly" is the anagram wordplay.',
+        'The definition is "Prophet\'s place?"; "Jonahs town oddly" is the anagram wordplay.',
     }
   ),
-  "Prophet's place? Jonahs town, oddly (4)"
+  "Prophet's place? Jonahs town oddly (4)"
 );
 
 assert.equal(
   normalizeClueCapitalization(
-    "Lost at sea? help me, john! agency in chaos (6,4)"
+    "Lost at sea? help me john agency in chaos for a roster member (6,4)"
   ),
-  "Lost at sea? Help me, John! Agency in chaos (6,4)"
+  "Lost at sea? Help me John agency in chaos for a roster member (6,4)"
 );
 
 assert.equal(
   verifyClueCapitalizationRules(
-    "Lost at sea? Help me, John! Agency in chaos (6,4)"
+    "Lost at sea? Help me John agency in chaos for a roster member (6,4)"
   ),
   null
 );
 
 assert.match(
   verifyClueCapitalizationRules(
-    "Lost at sea? help me, john! agency in chaos (6,4)"
+    "Lost at sea? help me john agency in chaos for a roster member (6,4)"
   ) ?? "",
   /help.*Help/
 );
 
-assert.equal(
-  normalizeClueCapitalization(
-    "John, agency in chaos — a roster member (6,4)"
-  ),
-  "John, agency in chaos — a roster member (6,4)"
-);
-
-assert.equal(
-  verifyClueCapitalizationRules(
-    "John, agency in chaos — a roster member (6,4)"
-  ),
-  null
-);
-
 assert.match(
-  verifyClueCapitalizationRules(
-    "John, Agency in chaos — a roster member (6,4)"
+  verifyNoTelegraphingPunctuation(
+    "A roster member, John agency in chaos (6,4)",
+    "agency john",
+    "in chaos"
   ) ?? "",
-  /Agency.*agency/
+  /telegraphs/i
 );
 
 assert.match(
   verifyNoSuperfluousWords(
-    "Roster member as gaming icon: John, agency in chaos (6,4)",
+    "Roster member as gaming icon John agency in chaos (6,4)",
     "agency john",
     "in chaos"
   ) ?? "",
@@ -125,7 +114,7 @@ assert.match(
 
 assert.equal(
   verifyNoSuperfluousWords(
-    "John, agency in chaos — roster member (6,4)",
+    "Perhaps John agency in chaos for roster member (6,4)",
     "agency john",
     "in chaos"
   ),
@@ -134,7 +123,7 @@ assert.equal(
 
 assert.match(
   verifyNoSuperfluousWords(
-    "John, agency really in chaos — roster member (6,4)",
+    "John agency really in chaos for roster member (6,4)",
     "agency john",
     "in chaos"
   ) ?? "",
@@ -143,7 +132,7 @@ assert.match(
 
 const verified = verifyAnagramClue({
   answer: "JOHNNY CAGE",
-  clue: "John, agency in chaos — an arcade combatant (6,4)",
+  clue: "Arcade combatant where John agency in chaos (6,4)",
   anagramFodder: "agency john",
   anagramIndicator: "in chaos",
 });

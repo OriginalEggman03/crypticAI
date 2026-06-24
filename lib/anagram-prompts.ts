@@ -310,7 +310,7 @@ function surfacePolishRules(
   const hiddenWords = [...inspirationHiddenWords(inspiration)].sort();
   const extraRules: string[] = [
     `Capitalise proper names, eponyms, and places in the fodder and anywhere else in the clue (e.g. "Oort", "John", "Paris", "Poole"). Do not use obscure personal names (e.g. Agnew).`,
-    `Write a grammatical English sentence — the fodder cluster must read naturally (good: "That'd army, in chaos"; bad: "Thatd, Mary"). Use apostrophes in contractions.`,
+    `Write a grammatical English sentence — the fodder cluster must read as consecutive words with only spaces between them (good: "That'd army in chaos"; bad: "That'd, army, in chaos"). Use apostrophes in contractions.`,
     SURFACE_MISDIRECTION_RULE,
     `Do NOT use these overused indicators unless unavoidable: ${overused}.`,
     indicatorChoiceGuidance(avoidIndicators, guidanceChoiceOptions(guidance)),
@@ -425,10 +425,10 @@ RULES
 9. Set anagramIndicator to the exact phrase used (e.g. "in chaos" or "broken", whichever you chose).
 
 EXAMPLES (decoration on the whole surface — never bracketing fodder alone)
-- "Could it be a gaming plumber? That'd army, in chaos (5)"
-- (On reflection, a gaming plumber — That'd army, in chaos) (5)
-- A gaming plumber, That'd army, in chaos (5)
-- That'd army, in chaos — a gaming plumber (5) (definition last)`;
+- "Could it be a gaming plumber? That'd army in chaos (5)"
+- (On reflection a gaming plumber where That'd army in chaos) (5)
+- Perhaps a gaming plumber if That'd army in chaos (5)
+- That'd army in chaos for a gaming plumber (5) (definition last)`;
 }
 
 export function buildIndicatorRefinePrompt(
