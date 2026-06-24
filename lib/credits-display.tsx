@@ -22,20 +22,52 @@ function creditCountClassName(value: number): string {
     : "font-display text-lg font-bold tabular-nums text-ink/35";
 }
 
+/** Paid balance shown in a compact coin badge for the account menu. */
+function PaidCreditCoin({ count }: { count: number }) {
+  const active = count > 0;
+
+  return (
+    <span
+      className={[
+        "inline-flex shrink-0 items-center justify-center rounded-full border",
+        "h-6 min-w-6 px-1",
+        "font-display text-[11px] font-bold leading-none tabular-nums tracking-tight",
+        active
+          ? "border-accent/55 bg-accent/[0.08] text-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
+          : "border-ink/20 bg-ink/[0.04] text-ink/35",
+      ].join(" ")}
+      aria-hidden="true"
+    >
+      {count}
+    </span>
+  );
+}
+
+function creditsRowClassName(): string {
+  return "mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm leading-snug text-ink/70";
+}
+
 export function CreditsSummary({ credits }: { credits: CreditsStatus }) {
   const { freeRemaining, paidCredits } = credits;
 
   if (freeRemaining > 0 && paidCredits > 0) {
     return (
-      <p className="mt-1.5 text-sm leading-relaxed text-ink/70">
-        <span className={creditCountClassName(freeRemaining)}>{freeRemaining}</span>
-        <span className="ml-1">
-          free {freeRemaining === 1 ? "spin" : "spins"}
+      <p className={creditsRowClassName()}>
+        <span className="inline-flex items-baseline gap-1">
+          <span className={creditCountClassName(freeRemaining)}>{freeRemaining}</span>
+          <span>free {freeRemaining === 1 ? "spin" : "spins"}</span>
         </span>
-        <span className="mx-1.5 text-ink/30">·</span>
-        <span className={creditCountClassName(paidCredits)}>{paidCredits}</span>
-        <span className="ml-1">
-          paid {paidCredits === 1 ? "credit" : "credits"}
+        <span className="text-ink/30" aria-hidden="true">
+          ·
+        </span>
+        <span
+          className="inline-flex items-center gap-1.5"
+          aria-label={`${paidCredits} paid ${paidCredits === 1 ? "credit" : "credits"}`}
+        >
+          <PaidCreditCoin count={paidCredits} />
+          <span aria-hidden="true">
+            paid {paidCredits === 1 ? "credit" : "credits"}
+          </span>
         </span>
       </p>
     );
@@ -43,10 +75,10 @@ export function CreditsSummary({ credits }: { credits: CreditsStatus }) {
 
   if (freeRemaining > 0) {
     return (
-      <p className="mt-1.5 text-sm leading-relaxed text-ink/70">
-        <span className={creditCountClassName(freeRemaining)}>{freeRemaining}</span>
-        <span className="ml-1">
-          free {freeRemaining === 1 ? "spin" : "spins"} left
+      <p className={creditsRowClassName()}>
+        <span className="inline-flex items-baseline gap-1">
+          <span className={creditCountClassName(freeRemaining)}>{freeRemaining}</span>
+          <span>free {freeRemaining === 1 ? "spin" : "spins"} left</span>
         </span>
       </p>
     );
@@ -54,10 +86,15 @@ export function CreditsSummary({ credits }: { credits: CreditsStatus }) {
 
   if (paidCredits > 0) {
     return (
-      <p className="mt-1.5 text-sm leading-relaxed text-ink/70">
-        <span className={creditCountClassName(paidCredits)}>{paidCredits}</span>
-        <span className="ml-1">
-          paid {paidCredits === 1 ? "credit" : "credits"}
+      <p className={creditsRowClassName()}>
+        <span
+          className="inline-flex items-center gap-1.5"
+          aria-label={`${paidCredits} paid ${paidCredits === 1 ? "credit" : "credits"}`}
+        >
+          <PaidCreditCoin count={paidCredits} />
+          <span aria-hidden="true">
+            paid {paidCredits === 1 ? "credit" : "credits"}
+          </span>
         </span>
       </p>
     );
