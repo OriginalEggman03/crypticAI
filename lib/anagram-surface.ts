@@ -23,6 +23,7 @@ export interface SurfaceBuildOptions {
   avoidIndicators?: string[];
   suggestedAnswers?: string[];
   archiveCounts?: Map<string, number>;
+  minThemeScore?: number;
 }
 
 type SurfacePattern = (
@@ -141,6 +142,7 @@ export function buildProgrammaticClue(
           const verification = verifyAnagramClue(prepareAnagramClue(draft), {
             inspiration,
             suggestedAnswers: options.suggestedAnswers,
+            minThemeScore: options.minThemeScore,
           });
           if (!verification.ok) continue;
 
@@ -188,6 +190,7 @@ function buildFallbackClue(
   const verification = verifyAnagramClue(draft, {
     inspiration,
     suggestedAnswers: options.suggestedAnswers,
+    minThemeScore: options.minThemeScore,
   });
   return verification.ok ? verification.prepared : null;
 }

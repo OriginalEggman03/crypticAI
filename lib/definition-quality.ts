@@ -60,9 +60,11 @@ export function verifyDefinitionNotVague(definition: string): string | null {
 type ThemeDomain =
   | "fighting-game"
   | "spy-fiction"
+  | "detective-fiction"
   | "food-drink"
   | "sport"
   | "film-tv"
+  | "sitcom"
   | "literature"
   | "music"
   | "geography"
@@ -83,6 +85,14 @@ const DOMAIN_DEFINITION_SEEDS: Record<ThemeDomain, string[]> = {
     "A cinematic arch-villain",
     "A foe of the secret service",
     "An operative's nemesis",
+  ],
+  "detective-fiction": [
+    "A consulting detective's ally",
+    "A casebook regular",
+    "A Baker Street associate",
+    "A Scotland Yard foil",
+    "A mystery's mastermind",
+    "A sleuth's quarry",
   ],
   "food-drink": [
     "A pantry staple",
@@ -108,6 +118,13 @@ const DOMAIN_DEFINITION_SEEDS: Record<ThemeDomain, string[]> = {
     "A box-office draw",
     "A television fixture",
     "A Hollywood player",
+  ],
+  sitcom: [
+    "A sitcom fixture",
+    "A comic landlord",
+    "A small-screen schemer",
+    "A farcical host",
+    "A guest from the sitcom canon",
   ],
   literature: [
     "A literary creation",
@@ -155,6 +172,13 @@ function detectThemeDomains(inspiration: string): ThemeDomain[] {
     domains.add("spy-fiction");
   }
   if (
+    /\b(sherlock|holmes|watson|detective|conan|baker street|scotland yard|lestrade|moriarty)\b/i.test(
+      lower
+    )
+  ) {
+    domains.add("detective-fiction");
+  }
+  if (
     /\b(food|drink|tea|teas|coffee|wine|beer|cheese|fruit|vegetable|herb|herbal|spice|carob|cocoa|meal|recipe|cuisine|kitchen|infusion|infusions|beverage)\b/i.test(
       lower
     )
@@ -170,6 +194,14 @@ function detectThemeDomains(inspiration: string): ThemeDomain[] {
   }
   if (/\b(film|movie|cinema|television|tv series|sitcom|actor|actress|hollywood)\b/i.test(lower)) {
     domains.add("film-tv");
+  }
+  if (
+    /\b(fawlty|blackadder|comedy series|british comedy|office farce)\b/i.test(
+      lower
+    ) ||
+    /\bsitcom\b/i.test(lower)
+  ) {
+    domains.add("sitcom");
   }
   if (/\b(book|novel|author|poet|literature|playwright|shakespeare)\b/i.test(lower)) {
     domains.add("literature");

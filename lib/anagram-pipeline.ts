@@ -77,6 +77,9 @@ interface PipelineContext {
   llmCalls: number;
   deadlineAt: number;
   usedClaudeRanking: boolean;
+  minThemeScore?: number;
+  /** Skip Claude polish/refine — return the first verified programmatic clue. */
+  skipLlmPolish?: boolean;
 }
 
 function lockPairDraft(
@@ -121,7 +124,61 @@ function verifyOptions(ctx: PipelineContext) {
   return {
     inspiration: ctx.inspiration,
     suggestedAnswers: ctx.suggestedAnswers,
+    minThemeScore: ctx.minThemeScore,
   };
+}
+
+function surfaceBuildOptions(ctx: PipelineContext) {
+  return {
+    avoidIndicators: ctx.avoidIndicators,
+    suggestedAnswers: ctx.suggestedAnswers,
+    archiveCounts: ctx.indicatorGuidance.archiveCounts,
+    minThemeScore: ctx.minThemeScore,
+  };
+}
+
+function summarizePairFailures(
+  ctx: PipelineContext,
+  pairs: AnagramPair[]
+): string {
+  const failureCounts = new Map<string, number>();
+  let templatesBuilt = 0;
+
+  for (const pair of pairs.slice(0, 12)) {
+    const template = buildProgrammaticClue(pair, ctx.inspiration, surfaceBuildOptions(ctx));
+    if (template) {
+      templatesBuilt++;
+      continue;
+    }
+    const probe = verifyAnagramClue(
+      {
+        answer: pair.answer,
+        clue: `Probe: ${pair.fodder} in chaos (${pair.answer.replace(/[^A-Z]/g, "").length})`,
+        anagramFodder: pair.fodder,
+        anagramIndicator: "in chaos",
+      },
+      verifyOptions(ctx)
+    );
+    for (const err of probe.errors) {
+      failureCounts.set(err, (failureCounts.get(err) ?? 0) + 1);
+    }
+  }
+
+  const topFailures = [...failureCounts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 4)
+    .map(([reason, count]) => `${count}x ${reason}`)
+    .join("; ");
+
+  return [
+    `pairs=${pairs.length}`,
+    `exclude=${ctx.exclude.length}`,
+    `templates=${templatesBuilt}/${Math.min(12, pairs.length)}`,
+    `suggested=${ctx.suggestedAnswers.length}`,
+    topFailures ? `failures=${topFailures}` : "",
+  ]
+    .filter(Boolean)
+    .join(", ");
 }
 
 function successResult(
@@ -422,11 +479,7 @@ async function generateFromPairs(
   for (const pair of ordered.slice(0, maxTry)) {
     if (isAnswerExcluded(pair.answer, exclude)) continue;
 
-    const template = buildProgrammaticClue(pair, ctx.inspiration, {
-      avoidIndicators: ctx.avoidIndicators,
-      suggestedAnswers: ctx.suggestedAnswers,
-      archiveCounts: ctx.indicatorGuidance.archiveCounts,
-    });
+    const template = buildProgrammaticClue(pair, ctx.inspiration, surfaceBuildOptions(ctx));
     if (!template) continue;
 
     const plainStrategy: AnagramStrategy = ctx.usedClaudeRanking
@@ -435,6 +488,10 @@ async function generateFromPairs(
     const plain = successResult(ctx, template, plainStrategy, 1);
     if (!plain || isAnswerExcluded(plain.clue.answer, exclude)) {
       continue;
+    }
+
+    if (ctx.skipLlmPolish) {
+      return plain;
     }
 
     if (hasPipelineTime(ctx)) {
@@ -497,6 +554,8 @@ async function enrichWithAnswerContext(
 export interface AnagramPipelineFailure {
   error: string;
   llmCalls: number;
+  /** Server-side diagnostics — not shown to users. */
+  debug?: string;
 }
 
 async function suggestThemeAnswers(ctx: PipelineContext): Promise<string[]> {
@@ -647,11 +706,44 @@ export async function generateVerifiedAnagramClue(
   const result = await generateFromPairs(ctx, pairs);
   if (result) return enrichWithAnswerContext(ctx, result);
 
+  const diagnostics = summarizePairFailures(ctx, pairs);
+
+  if (hasPipelineTime(ctx)) {
+    const relaxedCtx: PipelineContext = {
+      ...ctx,
+      avoidIndicators: indicatorGuidance.themeAvoid,
+      minThemeScore: 220,
+      skipLlmPolish: true,
+      usedClaudeRanking: false,
+    };
+
+    const relaxedPairs =
+      pairs.length >= 8
+        ? pairs
+        : searchCandidatePairs(ctx, bounds, suggestedAnswers, excludedAnswers, {
+            minThemeScore: 220,
+            dictionaryScanLimit: difficulty === "hard" ? 200 : 160,
+            maxAnswersToProcess:
+              defaultMaxAnswersToProcess(bounds, exclude.length) + 24,
+          });
+
+    const relaxed = await generateFromPairs(relaxedCtx, relaxedPairs);
+    if (relaxed) {
+      return enrichWithAnswerContext(ctx, {
+        ...relaxed,
+        strategy: "programmatic-surface",
+      });
+    }
+  }
+
   const timedOut = !hasPipelineTime(ctx);
   return {
     error: timedOut
       ? "Generation timed out. Check your connection and try again."
-      : `Could not build a verified clue from ${pairs.length} candidate pair(s). Many themed names lack valid anagram fodder — try a shorter inspiration or rephrase the theme.`,
+      : exclude.length > 0
+        ? `Could not find another unused answer for this theme after ${pairs.length} attempt(s). Try Restart with a fresh theme, or broaden the inspiration.`
+        : `Could not build a verified clue from ${pairs.length} candidate pair(s). Many themed names lack valid anagram fodder — try a shorter inspiration or rephrase the theme.`,
     llmCalls: ctx.llmCalls,
+    debug: diagnostics,
   };
 }

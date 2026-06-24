@@ -62,6 +62,8 @@ export interface AnagramVerifyOptions {
   inspiration?: string;
   /** Theme answers Claude suggested — counted when scoring the inspiration link. */
   suggestedAnswers?: string[];
+  /** Lower bar for fallback passes when themed retries exhaust strong pairs. */
+  minThemeScore?: number;
 }
 
 export function verifyAnagramClue(
@@ -134,7 +136,10 @@ export function verifyAnagramClue(
     const themeLinkErr = verifyAnswerThematicLink(
       prepared.answer,
       options.inspiration,
-      { suggestedAnswers: options.suggestedAnswers }
+      {
+        suggestedAnswers: options.suggestedAnswers,
+        minScore: options.minThemeScore,
+      }
     );
     add(
       "theme link",

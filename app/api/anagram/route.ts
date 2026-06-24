@@ -51,6 +51,17 @@ export async function POST(request: NextRequest) {
     });
 
     if ("error" in outcome) {
+      console.error(
+        "[anagram] 422",
+        JSON.stringify({
+          inspiration: req.inspiration.slice(0, 160),
+          excludeCount: req.exclude?.length ?? 0,
+          difficulty: req.difficulty,
+          error: outcome.error,
+          debug: outcome.debug,
+          llmCalls: outcome.llmCalls,
+        })
+      );
       return NextResponse.json({ error: outcome.error }, { status: 422 });
     }
 
