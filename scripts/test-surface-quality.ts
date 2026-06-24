@@ -9,7 +9,6 @@ import {
   resetDictionaryProperNounCache,
   verifyClueCapitalizationRules,
 } from "../lib/dictionary-proper-nouns";
-import { verifyNoTelegraphingPunctuation } from "../lib/clue-surface-misdirection";
 import { verifyNoSuperfluousWords } from "../lib/clue-surface-tightness";
 
 assert.equal(possessiveNameStem("jonahs"), "jonah");
@@ -92,15 +91,6 @@ assert.match(
     "Lost at sea? help me john agency in chaos for a roster member (6,4)"
   ) ?? "",
   /help.*Help/
-);
-
-assert.match(
-  verifyNoTelegraphingPunctuation(
-    "A roster member, John agency in chaos (6,4)",
-    "agency john",
-    "in chaos"
-  ) ?? "",
-  /telegraphs/i
 );
 
 assert.match(

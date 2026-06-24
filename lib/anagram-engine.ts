@@ -18,7 +18,6 @@ import {
   verifyLinkingWordCount,
 } from "./clue-surface-link";
 import { verifyNoSuperfluousWords } from "./clue-surface-tightness";
-import { verifyNoTelegraphingPunctuation } from "./clue-surface-misdirection";
 import {
   anagramMismatchReason,
   fixEnumerationInClue,
@@ -211,18 +210,6 @@ export function verifyAnagramClue(
       superfluousErr ?? "No superfluous words in definition or wordplay"
     );
 
-    const telegraphErr = verifyNoTelegraphingPunctuation(
-      prepared.clue,
-      prepared.anagramFodder,
-      prepared.anagramIndicator
-    );
-    add(
-      "surface misdirection",
-      !telegraphErr,
-      telegraphErr ??
-        "Punctuation misdirects rather than marking definition/wordplay boundaries"
-    );
-
     const inClue = phraseAppearsAsFodderInClue(
       prepared.clue,
       prepared.anagramFodder
@@ -231,8 +218,8 @@ export function verifyAnagramClue(
       "fodder in clue",
       inClue,
       inClue
-        ? `All fodder words from "${prepared.anagramFodder}" appear in the clue (spaces only between them)`
-        : `Fodder "${prepared.anagramFodder}" is not valid in the clue — use every fodder word, any order, with only spaces between them`
+        ? `All fodder words from "${prepared.anagramFodder}" appear in the clue`
+        : `Fodder "${prepared.anagramFodder}" is not valid in the clue — use every fodder word, any order`
     );
 
     const mismatch = anagramMismatchReason(

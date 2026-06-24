@@ -35,6 +35,7 @@ import {
 import { buildAnswerContext } from "./answer-context";
 import { buildClueSurfaceExplanation } from "./clue-surface-explain";
 import { createClaudeCallRecorder } from "./claude-trace";
+import { ensureClaudeDefinitionSeeds } from "./ensure-definition-seeds";
 import { anthropicChatJson, parseModelJson } from "./llm";
 import { setterModel } from "./models";
 import type {
@@ -77,6 +78,7 @@ interface PipelineContext {
   indicatorRefinePrompts: PromptTurn[];
   hotIndicatorSwapPrompts: PromptTurn[];
   claudeTrace: ClaudeCallTrace[];
+  claudeDefinitionSeeds: string[];
   llmCalls: number;
   deadlineAt: number;
   usedClaudeRanking: boolean;
@@ -157,6 +159,7 @@ function surfaceBuildOptions(ctx: PipelineContext) {
     suggestedAnswers: ctx.suggestedAnswers,
     archiveCounts: ctx.indicatorGuidance.archiveCounts,
     minThemeScore: ctx.minThemeScore,
+    claudeDefinitionSeeds: ctx.claudeDefinitionSeeds,
   };
 }
 
@@ -706,6 +709,7 @@ export async function generateVerifiedAnagramClue(
     indicatorRefinePrompts: [],
     hotIndicatorSwapPrompts: [],
     claudeTrace: options.initialClaudeTrace ? [...options.initialClaudeTrace] : [],
+    claudeDefinitionSeeds: [],
     llmCalls: 0,
     deadlineAt: Date.now() + PIPELINE_BUDGET_MS,
     usedClaudeRanking: false,
@@ -731,6 +735,8 @@ export async function generateVerifiedAnagramClue(
       llmCalls: ctx.llmCalls,
     };
   }
+
+  ctx.claudeDefinitionSeeds = await ensureClaudeDefinitionSeeds(ctx);
 
   const result = await generateFromPairs(ctx, pairs);
   if (result) return enrichWithAnswerContext(ctx, result);

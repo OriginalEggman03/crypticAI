@@ -16,7 +16,6 @@ import {
   extractDefinitionPhrase,
   linkingWordScore,
 } from "./clue-surface-link";
-import { misdirectionSurfaceScore } from "./clue-surface-misdirection";
 import { formatFodderForClue } from "./proper-noun-casing";
 import type { AnagramClueDraft } from "./types";
 
@@ -25,6 +24,8 @@ export interface SurfaceBuildOptions {
   suggestedAnswers?: string[];
   archiveCounts?: Map<string, number>;
   minThemeScore?: number;
+  /** Claude-cached definition phrases for this inspiration. */
+  claudeDefinitionSeeds?: string[];
 }
 
 type SurfacePattern = (
@@ -34,23 +35,20 @@ type SurfacePattern = (
   enumeration: string
 ) => string;
 
-/** Blended surfaces — linking words instead of boundary punctuation. */
+/** Definition first or last; minimal linking. */
 const SURFACE_PATTERNS: SurfacePattern[] = [
-  (d, f, i, e) => `${d} where ${f} ${i} ${e}`,
-  (d, f, i, e) => `${d} as ${f} ${i} ${e}`,
-  (d, f, i, e) => `${d} perhaps when ${f} ${i} ${e}`,
-  (d, f, i, e) => `Perhaps ${d} if ${f} ${i} ${e}`,
-  (d, f, i, e) => `${d} in tale of ${f} ${i} ${e}`,
-  (d, f, i, e) => `${f} ${i} for ${d} ${e}`,
-  (d, f, i, e) => `${f} ${i} may mean ${d} ${e}`,
-  (d, f, i, e) => `${f} ${i} and so ${d} ${e}`,
-  (d, f, i, e) => `${f} ${i} could be ${d} ${e}`,
+  (d, f, i, e) => `${d}: ${f} ${i} ${e}`,
+  (d, f, i, e) => `${d} — ${f} ${i} ${e}`,
+  (d, f, i, e) => `${d}, ${f} ${i} ${e}`,
+  (d, f, i, e) => `${d}; ${f} ${i} ${e}`,
+  (d, f, i, e) => `${f} ${i} — ${d} ${e}`,
+  (d, f, i, e) => `${f}, ${i}: ${d} ${e}`,
+  (d, f, i, e) => `${f}; ${i} — ${d} ${e}`,
+  (d, f, i, e) => `${f} ${i}, ${d} ${e}`,
   (d, f, i, e) => `(Could it be ${d}? ${f} ${i}) ${e}`,
-  (d, f, i, e) => `"${d}" though ${f} ${i} ${e}`,
-  (d, f, i, e) => `On hearing "${d}" ${f} ${i} ${e}`,
-  (d, f, i, e) => `*Perhaps* ${d} after ${f} ${i} ${e}`,
-  (d, f, i, e) => `Lost at sea? Help me ${f} ${i} for ${d} ${e}`,
-  (d, f, i, e) => `Is ${d} what ${f} ${i} suggests ${e}`,
+  (d, f, i, e) => `"${d}," they said — ${f} ${i} ${e}`,
+  (d, f, i, e) => `*Perhaps* ${d}: ${f} ${i} ${e}`,
+  (d, f, i, e) => `(On reflection, ${d} — ${f} ${i}) ${e}`,
 ];
 
 function fodderSurfaceVariants(fodder: string): string[] {
@@ -60,8 +58,12 @@ function fodderSurfaceVariants(fodder: string): string[] {
   return [fodder, [...words].reverse().join(" ")];
 }
 
-function definitionPhrases(inspiration: string, answer: string): string[] {
-  return themeDefinitionSeeds(inspiration, answer);
+function definitionPhrases(
+  inspiration: string,
+  answer: string,
+  claudeSeeds: string[] = []
+): string[] {
+  return themeDefinitionSeeds(inspiration, answer, claudeSeeds);
 }
 
 function scoreSurface(
@@ -78,7 +80,6 @@ function scoreSurface(
   );
   if (/^Item\b|^Thing\b|^Offering\b|^Subject\b/.test(clue)) score -= 20;
   if (clue.length >= 25 && clue.length <= 75) score += 6;
-  score += misdirectionSurfaceScore(clue, fodder, indicator);
   return score;
 }
 
@@ -95,7 +96,7 @@ export function buildProgrammaticClue(
   const seed = `${pair.answer}|${pair.fodder}|${inspiration}`;
 
   const definitions = shuffleWithSeed(
-    definitionPhrases(inspiration, pair.answer),
+    definitionPhrases(inspiration, pair.answer, options.claudeDefinitionSeeds),
     `${seed}-defs`
   ).slice(0, 8);
   const patterns = shuffleWithSeed(SURFACE_PATTERNS, `${seed}-patterns`).slice(
@@ -166,7 +167,11 @@ function buildFallbackClue(
   });
   const indicator =
     indicators.find((p) => !isOverusedIndicator(p)) ?? indicators[0] ?? "in chaos";
-  const definitions = themeDefinitionSeeds(inspiration, pair.answer);
+  const definitions = themeDefinitionSeeds(
+    inspiration,
+    pair.answer,
+    options.claudeDefinitionSeeds
+  );
   const definition =
     definitions[0] ?? "A thematic answer";
   const draft = prepareAnagramClue({

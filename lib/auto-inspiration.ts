@@ -1,62 +1,14 @@
-import { shuffleWithSeed } from "@/lib/anagram-indicators";
-import { listArchivedInspirations } from "@/lib/db/clue-archive";
-import { anthropicChatJson, parseModelJson } from "@/lib/llm";
+import { pickSeedBackedInspiration } from "@/lib/definition-quality";
+import { listArchivedInspirations } from "@/lib/db/clue-archive";import { anthropicChatJson, parseModelJson } from "@/lib/llm";
 import { setterModel } from "@/lib/models";
 import type { ClaudeCallTrace } from "@/lib/types";
 
 export const AUTO_INSPIRATION_SYSTEM =
   "You suggest fun crossword puzzle themes. Reply with JSON only — no markdown.";
 
-/** Fallback themes with plenty of anagram-friendly names and words. */
-const CURATED_FUN_THEMES = [
-  "Mortal Kombat characters",
-  "Batman villains and allies",
-  "Studio Ghibli films",
-  "Harry Potter spells and characters",
-  "Star Wars droids and pilots",
-  "Marvel Avengers roster",
-  "Classic detective fiction",
-  "British birds and garden wildlife",
-  "Jazz legends and instruments",
-  "Coffee, tea and café culture",
-  "Olympic sports and events",
-  "Shakespeare plays and characters",
-  "Greek mythology heroes",
-  "Norse gods and sagas",
-  "Chess openings and pieces",
-  "Board games and card games",
-  "Vintage cars and marques",
-  "London landmarks and boroughs",
-  "French cuisine and ingredients",
-  "Italian opera and composers",
-  "James Bond gadgets and villains",
-  "Doctor Who companions",
-  "Pixar movie characters",
-  "Nintendo heroes and items",
-  "Pokémon types and trainers",
-  "Lord of the Rings places",
-  "Sherlock Holmes cases",
-  "Agatha Christie detectives",
-  "Broadway musicals",
-  "Rock and roll hall of fame",
-  "Famous painters and art movements",
-  "Botany and flowers",
-  "Dogs, cats and pets",
-  "Weather and the seasons",
-  "Pirates and the high seas",
-  "Medieval knights and castles",
-  "Egyptian pharaohs and gods",
-  "Space exploration and planets",
-  "Chemistry elements and lab gear",
-  "Gardening tools and plants",
-] as const;
-
-/** Pick a theme at random — archived and curated themes may repeat across runs. */
+/** Pick a theme at random — prefers inspirations with known definition seeds. */
 export function pickFallbackTheme(seed = `${Date.now()}`): string {
-  const archived = listArchivedInspirations();
-  const pool = [...new Set([...CURATED_FUN_THEMES, ...archived])];
-  const shuffled = shuffleWithSeed(pool, seed);
-  return shuffled[0] ?? `Surprise theme ${seed.slice(-6)}`;
+  return pickSeedBackedInspiration([], seed);
 }
 
 function buildThemePrompt(previousThemes: string[]): string {

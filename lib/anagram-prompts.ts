@@ -7,7 +7,7 @@ import {
 } from "./anagram-indicators";
 import type { IndicatorGuidance } from "./indicator-archive-weights";
 import { MAX_LINKING_WORDS } from "./clue-surface-link";
-import { surfaceCraftRules, FODDER_PUNCTUATION_RULE, SURFACE_MISDIRECTION_RULE } from "./clue-surface-rules";
+import { surfaceCraftRules, FODDER_PUNCTUATION_RULE } from "./clue-surface-rules";
 import { DEFINITION_THEME_CRAFT_RULE } from "./definition-quality";
 import type { AnagramClueDraft } from "./types";
 
@@ -308,8 +308,7 @@ function surfacePolishRules(
 
   const extraRules: string[] = [
     `Capitalise proper names, eponyms, and places in the fodder and anywhere else in the clue (e.g. "Oort", "John", "Paris", "Poole"). Do not use obscure personal names (e.g. Agnew).`,
-    `Write a grammatical English sentence — the fodder cluster must read as consecutive words with only spaces between them (good: "That'd army in chaos"; bad: "That'd, army, in chaos"). Use apostrophes in contractions.`,
-    SURFACE_MISDIRECTION_RULE,
+    `Write a grammatical English sentence — the fodder cluster must read as consecutive words; ${FODDER_PUNCTUATION_RULE}`,
     `Do NOT use these overused indicators unless unavoidable: ${overused}.`,
     indicatorChoiceGuidance(avoidIndicators, guidanceChoiceOptions(guidance)),
   ];
@@ -340,7 +339,7 @@ LOCKED (do not change)
 - answer: ${answer}
 - anagramFodder word set: ${anagramFodder} (every word must appear; you may reorder; ${FODDER_PUNCTUATION_RULE})
 
-TEMPLATE (letter-math is correct — improve the prose and misdirection)
+TEMPLATE (letter-math is correct — improve the prose and surface read)
 ${templateClue}
 
 ${surfacePolishRules(answer, anagramFodder, enumeration, inspiration, guidance)}
@@ -412,16 +411,15 @@ RULES
 3. Pick whichever indicator (single- or multi-word) makes the whole sentence most grammatical — no bias toward length.
 4. Do NOT use unless unavoidable: ${overused}${avoidIndicators.length > 0 ? `; also avoid: ${avoidIndicators.join(", ")}` : ""}.
 5. All fodder words must appear; reorder freely; ${FODDER_PUNCTUATION_RULE}
-6. ${SURFACE_MISDIRECTION_RULE}
-7. At most ${MAX_LINKING_WORDS} linking words between definition and wordplay; nothing superfluous.
-8. Capitalise proper names and places.
-9. Set anagramIndicator to the exact phrase used (e.g. "in chaos" or "broken", whichever you chose).
+6. At most ${MAX_LINKING_WORDS} linking words between definition and wordplay; nothing superfluous.
+7. Capitalise proper names and places.
+8. Set anagramIndicator to the exact phrase used (e.g. "in chaos" or "broken", whichever you chose).
 
 EXAMPLES (decoration on the whole surface — never bracketing fodder alone)
 - "Could it be a gaming plumber? That'd army in chaos (5)"
-- (On reflection a gaming plumber where That'd army in chaos) (5)
-- Perhaps a gaming plumber if That'd army in chaos (5)
-- That'd army in chaos for a gaming plumber (5) (definition last)`;
+- (On reflection, a gaming plumber — That'd army in chaos) (5)
+- Perhaps a gaming plumber: That'd army in chaos (5)
+- That'd army in chaos — a gaming plumber (5) (definition last)`;
 }
 
 export function buildIndicatorRefinePrompt(
