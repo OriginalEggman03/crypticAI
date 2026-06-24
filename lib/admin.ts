@@ -1,5 +1,5 @@
 /** Hardcoded admin — unlimited test generations, credits never consumed. */
-export const ADMIN_EMAIL = "tlittle6425@gmail.com";
+export const ADMIN_EMAIL = "tlittle64525@gmail.com";
 
 function adminEmailAllowlist(): string[] {
   const fromEnv = process.env.ADMIN_EMAILS?.split(",")
