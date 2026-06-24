@@ -73,6 +73,16 @@ export interface AnagramVerification {
 export interface PromptTurn {
   system: string;
   user: string;
+  response?: string;
+}
+
+/** One Anthropic Messages API call, in chronological order. */
+export interface ClaudeCallTrace {
+  order: number;
+  label: string;
+  system: string;
+  user: string;
+  response?: string;
 }
 
 export interface AnswerContext {
@@ -109,6 +119,8 @@ export interface AnagramClueResult {
   difficulty: AnagramDifficulty;
   /** Successful Anthropic Messages API calls during clue generation. */
   llmCalls: number;
+  /** Every Claude call during generation, in the order it was made. */
+  claudeTrace?: ClaudeCallTrace[];
   prompts: {
     setter: PromptTurn;
     repairs: PromptTurn[];
@@ -117,6 +129,7 @@ export interface AnagramClueResult {
     pairSelect: PromptTurn[];
     templatePolish: PromptTurn[];
     indicatorRefine: PromptTurn[];
+    hotIndicatorSwap: PromptTurn[];
   };
 }
 

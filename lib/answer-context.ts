@@ -1,4 +1,5 @@
 import { answerWords, isMultiWordAnswer } from "./answer-format";
+import type { ClaudeCallRecorder } from "./claude-trace";
 import { anthropicChatJson, parseModelJson } from "./llm";
 import { explainModel } from "./models";
 import type { AnswerContext } from "./types";
@@ -77,21 +78,24 @@ async function fetchTopicRelation(
   answer: string,
   dictionaryDefinition: string,
   partOfSpeech: string | undefined,
-  inspiration: string
+  inspiration: string,
+  recordCall?: ClaudeCallRecorder
 ): Promise<string> {
+  const user = buildTopicRelationPrompt(
+    answer,
+    dictionaryDefinition,
+    partOfSpeech,
+    inspiration
+  );
   const content = await anthropicChatJson({
     apiKey,
     model: explainModel(),
     system: CONTEXT_SYSTEM,
-    user: buildTopicRelationPrompt(
-      answer,
-      dictionaryDefinition,
-      partOfSpeech,
-      inspiration
-    ),
+    user,
     maxTokens: 512,
     timeoutMs: 25_000,
   });
+  recordCall?.("Answer context (topic link)", CONTEXT_SYSTEM, user, content);
 
   const parsed = parseModelJson<{ topicRelation?: string }>(content);
   return parsed.topicRelation?.trim() ?? "";
@@ -100,13 +104,10 @@ async function fetchTopicRelation(
 async function fetchDefinitionAndRelation(
   apiKey: string,
   answer: string,
-  inspiration: string
+  inspiration: string,
+  recordCall?: ClaudeCallRecorder
 ): Promise<AnswerContext | null> {
-  const content = await anthropicChatJson({
-    apiKey,
-    model: explainModel(),
-    system: CONTEXT_SYSTEM,
-    user: `The crossword answer is ${answer}.
+  const user = `The crossword answer is ${answer}.
 The user's inspiration/topics: ${inspiration.trim()}
 
 Provide a standard British English dictionary-style definition of ${answer}, and one sentence on how it meaningfully connects to the inspiration.
@@ -118,10 +119,21 @@ Return ONLY valid JSON:
   "dictionaryDefinition": "concise dictionary definition",
   "partOfSpeech": "noun | verb | etc. or omit",
   "topicRelation": "one sentence linking answer to inspiration"
-}`,
+}`;
+  const content = await anthropicChatJson({
+    apiKey,
+    model: explainModel(),
+    system: CONTEXT_SYSTEM,
+    user,
     maxTokens: 768,
     timeoutMs: 25_000,
   });
+  recordCall?.(
+    "Answer context (definition + link)",
+    CONTEXT_SYSTEM,
+    user,
+    content
+  );
 
   const parsed = parseModelJson<{
     dictionaryDefinition?: string;
@@ -143,7 +155,8 @@ Return ONLY valid JSON:
 export async function buildAnswerContext(
   apiKey: string,
   answer: string,
-  inspiration: string
+  inspiration: string,
+  recordCall?: ClaudeCallRecorder
 ): Promise<{ context: AnswerContext; llmCalls: number } | null> {
   const lookupWord = isMultiWordAnswer(answer) ? answerWords(answer)[0] : answer;
   const dict = await lookupDictionaryDefinition(lookupWord);
@@ -156,7 +169,8 @@ export async function buildAnswerContext(
         ? `${answer} — dictionary entry for "${lookupWord}": ${dict.definition}`
         : dict.definition,
       dict.partOfSpeech,
-      inspiration
+      inspiration,
+      recordCall
     );
     if (!topicRelation) return null;
 
@@ -172,7 +186,12 @@ export async function buildAnswerContext(
     };
   }
 
-  const fallback = await fetchDefinitionAndRelation(apiKey, answer, inspiration);
+  const fallback = await fetchDefinitionAndRelation(
+    apiKey,
+    answer,
+    inspiration,
+    recordCall
+  );
   if (!fallback) return null;
 
   return { context: fallback, llmCalls: 1 };

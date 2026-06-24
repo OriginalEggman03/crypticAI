@@ -11,7 +11,7 @@ import {
 export { answerLetterCount };
 import { clueHasAnagramIndicator } from "./anagram-indicators";
 import type { ClueTypeOption } from "./clue-types";
-import { inspirationWordsInClue } from "./inspiration-parse";
+import { inspirationWordsInAnswer } from "./inspiration-parse";
 import { phraseAppearsAsFodderWords } from "./fodder-surface";
 import { spellingRepairHint, verifyClueSpelling } from "./spell-check";
 
@@ -189,17 +189,26 @@ export function verifyAnswerNotStandalone(
   return null;
 }
 
-/** Inspiration words must not appear in the clue — theme is implicit, not named. */
+/** Answer words must not repeat content words from the inspiration phrase. */
+export function verifyInspirationWordsNotInAnswer(
+  answer: string,
+  inspiration: string
+): string | null {
+  if (!inspiration.trim()) return null;
+
+  const found = inspirationWordsInAnswer(answer, inspiration);
+  if (found.length === 0) return null;
+
+  return `Answer must not contain words from the inspiration (${found.join(", ")})`;
+}
+
+/** @deprecated Clues may repeat inspiration words — use verifyInspirationWordsNotInAnswer. */
 export function verifyInspirationWordsNotInClue(
   clue: string,
   inspiration: string
 ): string | null {
   if (!inspiration.trim()) return null;
-
-  const found = inspirationWordsInClue(clue, inspiration);
-  if (found.length === 0) return null;
-
-  return `Clue must not contain words from the inspiration (${found.join(", ")}) — theme the clue without naming the topic`;
+  return null;
 }
 
 export function verifyHidden(clue: string, answer: string): boolean {

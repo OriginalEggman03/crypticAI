@@ -34,6 +34,7 @@ import {
 } from "./anagram-prompts";
 import { buildAnswerContext } from "./answer-context";
 import { buildClueSurfaceExplanation } from "./clue-surface-explain";
+import { createClaudeCallRecorder } from "./claude-trace";
 import { anthropicChatJson, parseModelJson } from "./llm";
 import { setterModel } from "./models";
 import type {
@@ -42,6 +43,7 @@ import type {
   AnagramDifficulty,
   AnagramRequest,
   AnagramStrategy,
+  ClaudeCallTrace,
   PromptTurn,
   UsedAnagramClue,
 } from "./types";
@@ -74,6 +76,7 @@ interface PipelineContext {
   templatePolishPrompts: PromptTurn[];
   indicatorRefinePrompts: PromptTurn[];
   hotIndicatorSwapPrompts: PromptTurn[];
+  claudeTrace: ClaudeCallTrace[];
   llmCalls: number;
   deadlineAt: number;
   usedClaudeRanking: boolean;
@@ -99,8 +102,10 @@ function hasPipelineTime(ctx: PipelineContext): boolean {
 
 async function callClaude(
   ctx: PipelineContext,
+  label: string,
   system: string,
-  user: string
+  user: string,
+  promptBucket?: PromptTurn[]
 ): Promise<string | null> {
   if (!hasPipelineTime(ctx)) return null;
 
@@ -114,8 +119,26 @@ async function callClaude(
       timeoutMs: LLM_TIMEOUT_MS,
     });
     ctx.llmCalls += 1;
+    const turn: PromptTurn = {
+      system,
+      user,
+      response: content,
+    };
+    promptBucket?.push(turn);
+    ctx.claudeTrace.push({
+      order: ctx.claudeTrace.length + 1,
+      label,
+      ...turn,
+    });
     return content;
   } catch {
+    const turn: PromptTurn = { system, user };
+    promptBucket?.push(turn);
+    ctx.claudeTrace.push({
+      order: ctx.claudeTrace.length + 1,
+      label,
+      ...turn,
+    });
     return null;
   }
 }
@@ -200,6 +223,7 @@ function successResult(
     strategy,
     difficulty: ctx.difficulty,
     llmCalls: ctx.llmCalls,
+    claudeTrace: ctx.claudeTrace,
     prompts: {
       setter: { system: ANAGRAM_SETTER_SYSTEM, user: ctx.setterPrompt },
       repairs: ctx.repairPrompts,
@@ -208,6 +232,7 @@ function successResult(
       pairSelect: ctx.pairSelectPrompts,
       templatePolish: ctx.templatePolishPrompts,
       indicatorRefine: ctx.indicatorRefinePrompts,
+      hotIndicatorSwap: ctx.hotIndicatorSwapPrompts,
     },
   };
 }
@@ -219,12 +244,13 @@ async function selectPairWithClaude(
   if (candidates.length < 2 || !hasPipelineTime(ctx)) return null;
 
   const prompt = buildPairSelectPrompt(ctx.inspiration, candidates);
-  ctx.pairSelectPrompts.push({
-    system: ANAGRAM_PAIR_SELECT_SYSTEM,
-    user: prompt,
-  });
-
-  const content = await callClaude(ctx, ANAGRAM_PAIR_SELECT_SYSTEM, prompt);
+  const content = await callClaude(
+    ctx,
+    "Pair selection",
+    ANAGRAM_PAIR_SELECT_SYSTEM,
+    prompt,
+    ctx.pairSelectPrompts
+  );
   if (!content) return null;
 
   const { selectedIndex } = parseModelJson<{ selectedIndex?: number }>(content);
@@ -266,14 +292,12 @@ async function polishTemplate(
         templateClue,
         ctx.indicatorGuidance
       );
-      ctx.templatePolishPrompts.push({
-        system: ANAGRAM_TEMPLATE_POLISH_SYSTEM,
-        user,
-      });
       const content = await callClaude(
         ctx,
+        attempt === 0 ? "Template polish" : "Template polish repair",
         ANAGRAM_TEMPLATE_POLISH_SYSTEM,
-        user
+        user,
+        ctx.templatePolishPrompts
       );
       if (!content) break;
       draft = lockPairDraft(parseModelJson<AnagramClueDraft>(content), pair);
@@ -287,14 +311,12 @@ async function polishTemplate(
         templateClue,
         ctx.indicatorGuidance
       );
-      ctx.templatePolishPrompts.push({
-        system: ANAGRAM_TEMPLATE_POLISH_SYSTEM,
-        user,
-      });
       const content = await callClaude(
         ctx,
+        attempt === 0 ? "Template polish" : "Template polish repair",
         ANAGRAM_TEMPLATE_POLISH_SYSTEM,
-        user
+        user,
+        ctx.templatePolishPrompts
       );
       if (!content) break;
       draft = lockPairDraft(parseModelJson<AnagramClueDraft>(content), pair);
@@ -334,14 +356,12 @@ async function refineIndicatorSurface(
         base.clue,
         ctx.indicatorGuidance
       );
-      ctx.indicatorRefinePrompts.push({
-        system: ANAGRAM_INDICATOR_REFINE_SYSTEM,
-        user,
-      });
       const content = await callClaude(
         ctx,
+        attempt === 0 ? "Indicator refine" : "Indicator refine repair",
         ANAGRAM_INDICATOR_REFINE_SYSTEM,
-        user
+        user,
+        ctx.indicatorRefinePrompts
       );
       if (!content) return null;
       draft = lockPairDraft(parseModelJson<AnagramClueDraft>(content), pair);
@@ -355,14 +375,12 @@ async function refineIndicatorSurface(
         base.clue,
         ctx.indicatorGuidance
       );
-      ctx.indicatorRefinePrompts.push({
-        system: ANAGRAM_INDICATOR_REFINE_SYSTEM,
-        user,
-      });
       const content = await callClaude(
         ctx,
+        attempt === 0 ? "Indicator refine" : "Indicator refine repair",
         ANAGRAM_INDICATOR_REFINE_SYSTEM,
-        user
+        user,
+        ctx.indicatorRefinePrompts
       );
       if (!content) return null;
       draft = lockPairDraft(parseModelJson<AnagramClueDraft>(content), pair);
@@ -401,15 +419,12 @@ async function swapHotIndicator(
     hotIndicator,
     ctx.indicatorGuidance
   );
-  ctx.hotIndicatorSwapPrompts.push({
-    system: ANAGRAM_HOT_INDICATOR_SWAP_SYSTEM,
-    user,
-  });
-
   const content = await callClaude(
     ctx,
+    "Hot indicator swap",
     ANAGRAM_HOT_INDICATOR_SWAP_SYSTEM,
-    user
+    user,
+    ctx.hotIndicatorSwapPrompts
   );
   if (!content) return null;
 
@@ -524,10 +539,20 @@ async function enrichWithAnswerContext(
   const remainingMs = ctx.deadlineAt - Date.now();
   if (remainingMs < 20_000) return result;
 
-  const [answerEnriched, surfaceEnriched] = await Promise.all([
-    buildAnswerContext(ctx.apiKey, result.clue.answer, ctx.inspiration),
-    buildClueSurfaceExplanation(ctx.apiKey, result.clue, ctx.inspiration),
-  ]);
+  const recordCall = createClaudeCallRecorder(ctx.claudeTrace);
+
+  const answerEnriched = await buildAnswerContext(
+    ctx.apiKey,
+    result.clue.answer,
+    ctx.inspiration,
+    recordCall
+  );
+  const surfaceEnriched = await buildClueSurfaceExplanation(
+    ctx.apiKey,
+    result.clue,
+    ctx.inspiration,
+    recordCall
+  );
 
   if (answerEnriched) {
     ctx.llmCalls += answerEnriched.llmCalls;
@@ -548,6 +573,7 @@ async function enrichWithAnswerContext(
     answerContext: answerEnriched?.context,
     surfaceExplanation: surfaceEnriched.explanation,
     llmCalls: ctx.llmCalls,
+    claudeTrace: ctx.claudeTrace,
   };
 }
 
@@ -567,12 +593,13 @@ async function suggestThemeAnswers(ctx: PipelineContext): Promise<string[]> {
     ctx.bounds,
     excludedAnswers
   );
-  ctx.answerPrompts.push({
-    system: ANAGRAM_ANSWER_LIST_SYSTEM,
+  const content = await callClaude(
+    ctx,
+    "Theme answer suggestions",
+    ANAGRAM_ANSWER_LIST_SYSTEM,
     user,
-  });
-
-  const content = await callClaude(ctx, ANAGRAM_ANSWER_LIST_SYSTEM, user);
+    ctx.answerPrompts
+  );
   if (!content) return [];
 
   const parsed = parseModelJson<{ answers?: string[] }>(content);
@@ -641,6 +668,7 @@ function searchCandidatePairs(
 
 export interface GenerateAnagramOptions {
   autoThemed?: boolean;
+  initialClaudeTrace?: ClaudeCallTrace[];
 }
 
 export async function generateVerifiedAnagramClue(
@@ -677,6 +705,7 @@ export async function generateVerifiedAnagramClue(
     templatePolishPrompts: [],
     indicatorRefinePrompts: [],
     hotIndicatorSwapPrompts: [],
+    claudeTrace: options.initialClaudeTrace ? [...options.initialClaudeTrace] : [],
     llmCalls: 0,
     deadlineAt: Date.now() + PIPELINE_BUDGET_MS,
     usedClaudeRanking: false,

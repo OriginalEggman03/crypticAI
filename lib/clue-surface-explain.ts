@@ -1,3 +1,4 @@
+import type { ClaudeCallRecorder } from "./claude-trace";
 import { anthropicChatJson, parseModelJson } from "./llm";
 import { explainModel } from "./models";
 import {
@@ -37,16 +38,13 @@ function fallbackExplanation(clue: AnagramClueDraft): ClueSurfaceExplanation {
 export async function buildClueSurfaceExplanation(
   apiKey: string,
   clue: AnagramClueDraft,
-  inspiration: string
+  inspiration: string,
+  recordCall?: ClaudeCallRecorder
 ): Promise<{ explanation: ClueSurfaceExplanation; llmCalls: number }> {
   const fallback = fallbackExplanation(clue);
 
   try {
-    const content = await anthropicChatJson({
-      apiKey,
-      model: explainModel(),
-      system: EXPLAIN_SYSTEM,
-      user: `Explain this verified anagram clue so a solver understands how the surface reads.
+    const user = `Explain this verified anagram clue so a solver understands how the surface reads.
 
 INSPIRATION / THEME
 ${inspiration.trim()}
@@ -77,10 +75,16 @@ Return ONLY valid JSON:
   "wordplay": "quoted wordplay phrase from the clue",
   "linkingWords": "brief note on connectors, or 'none'",
   "walkthrough": "2–4 sentences explaining the surface"
-}`,
+}`;
+    const content = await anthropicChatJson({
+      apiKey,
+      model: explainModel(),
+      system: EXPLAIN_SYSTEM,
+      user,
       maxTokens: 768,
       timeoutMs: 25_000,
     });
+    recordCall?.("Clue surface explanation", EXPLAIN_SYSTEM, user, content);
 
     const parsed = parseModelJson<{
       definition?: string;

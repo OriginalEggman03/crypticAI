@@ -23,7 +23,17 @@ interface AnagramResultProps {
   checkoutPackId?: CreditPackId | null;
 }
 
-function PromptBlock({ title, system, user }: { title: string; system: string; user: string }) {
+function PromptBlock({
+  title,
+  system,
+  user,
+  response,
+}: {
+  title: string;
+  system: string;
+  user: string;
+  response?: string;
+}) {
   return (
     <div className="rounded-lg border border-ink/10 bg-white/60 p-4">
       <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink/55">
@@ -34,9 +44,17 @@ function PromptBlock({ title, system, user }: { title: string; system: string; u
         {system}
       </pre>
       <p className="mb-1 text-xs font-medium text-ink/70">User</p>
-      <pre className="overflow-x-auto whitespace-pre-wrap rounded bg-ink/5 p-3 font-mono text-xs text-ink/85">
+      <pre className="mb-3 overflow-x-auto whitespace-pre-wrap rounded bg-ink/5 p-3 font-mono text-xs text-ink/85">
         {user}
       </pre>
+      {response !== undefined && (
+        <>
+          <p className="mb-1 text-xs font-medium text-ink/70">Claude response</p>
+          <pre className="overflow-x-auto whitespace-pre-wrap rounded bg-emerald-50 p-3 font-mono text-xs text-ink/85">
+            {response || "(no response — call failed or timed out)"}
+          </pre>
+        </>
+      )}
     </div>
   );
 }
@@ -57,14 +75,7 @@ export function AnagramResult({
   const [showPrompts, setShowPrompts] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [inspirationRevealed, setInspirationRevealed] = useState(false);
-  const { clue, answerContext, surfaceExplanation, prompts } = result;
-  const promptTurns = {
-    repairs: prompts?.repairs ?? [],
-    answer: prompts?.answer ?? [],
-    pairSelect: prompts?.pairSelect ?? [],
-    templatePolish: prompts?.templatePolish ?? [],
-    indicatorRefine: prompts?.indicatorRefine ?? [],
-  };
+  const { clue, answerContext, surfaceExplanation, claudeTrace } = result;
 
   useEffect(() => {
     setRevealed(false);
@@ -266,57 +277,27 @@ export function AnagramResult({
           onClick={() => setShowPrompts((v) => !v)}
           className="text-sm font-medium text-accent underline-offset-2 hover:underline"
         >
-          {showPrompts ? "Hide" : "Show"} exact prompts sent to Claude
+          {showPrompts ? "Hide" : "Show"} Claude call trace
         </button>
 
-        {showPrompts && prompts?.setter && (
+        {showPrompts && (claudeTrace?.length ?? 0) > 0 && (
           <div className="mt-4 space-y-4">
-            <PromptBlock
-              title="1. Setter (initial request)"
-              system={prompts.setter.system}
-              user={prompts.setter.user}
-            />
-            {promptTurns.repairs.map((p, i) => (
+            {claudeTrace!.map((call) => (
               <PromptBlock
-                key={`repair-${i}`}
-                title={`Repair (full clue) ${i + 1}`}
-                system={p.system}
-                user={p.user}
-              />
-            ))}
-            {promptTurns.answer.map((p, i) => (
-              <PromptBlock
-                key={`answer-${i}`}
-                title={`Theme answer suggestions ${i + 1}`}
-                system={p.system}
-                user={p.user}
-              />
-            ))}
-            {promptTurns.pairSelect.map((p, i) => (
-              <PromptBlock
-                key={`pair-${i}`}
-                title={`Pair selection ${i + 1}`}
-                system={p.system}
-                user={p.user}
-              />
-            ))}
-            {promptTurns.templatePolish.map((p, i) => (
-              <PromptBlock
-                key={`polish-${i}`}
-                title={`Template polish ${i + 1}`}
-                system={p.system}
-                user={p.user}
-              />
-            ))}
-            {promptTurns.indicatorRefine.map((p, i) => (
-              <PromptBlock
-                key={`refine-${i}`}
-                title={`Indicator refine ${i + 1}`}
-                system={p.system}
-                user={p.user}
+                key={`claude-${call.order}`}
+                title={`${call.order}. ${call.label}`}
+                system={call.system}
+                user={call.user}
+                response={call.response}
               />
             ))}
           </div>
+        )}
+
+        {showPrompts && (claudeTrace?.length ?? 0) === 0 && (
+          <p className="mt-3 text-sm text-ink/55">
+            No Claude calls were recorded for this clue.
+          </p>
         )}
       </div>
       )}

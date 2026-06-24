@@ -1,5 +1,3 @@
-import { phraseUsesHiddenInspirationWord } from "./inspiration-parse";
-
 /** Definition phrases too vague to stand alone — reject in verification. */
 export const VAGUE_DEFINITION_PATTERNS: RegExp[] = [
   /^a (named|notable|familiar|well[- ]known|pop[- ]?culture) (figure|name|face)\b/i,
@@ -245,7 +243,6 @@ export function themeDefinitionSeeds(
       const key = seed.toLowerCase();
       if (seen.has(key)) continue;
       if (key.includes(answerLower)) continue;
-      if (phraseUsesHiddenInspirationWord(seed, inspiration)) continue;
       seen.add(key);
       phrases.push(seed);
     }

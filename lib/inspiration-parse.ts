@@ -210,7 +210,7 @@ function escapeRegExp(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-/** Words from the inspiration that must not appear in the clue surface. */
+/** Content words from the inspiration — must not appear in the answer. */
 export function inspirationHiddenWords(inspiration: string): Set<string> {
   const parsed = parseInspiration(inspiration);
   const hidden = new Set<string>(parsed.themeTokens);
@@ -226,6 +226,26 @@ export function inspirationHiddenWords(inspiration: string): Set<string> {
   return hidden;
 }
 
+export function inspirationWordsInAnswer(
+  answer: string,
+  inspiration: string
+): string[] {
+  const hidden = inspirationHiddenWords(inspiration);
+  if (hidden.size === 0) return [];
+
+  const found: string[] = [];
+
+  for (const word of normalizeAnswer(answer).toLowerCase().split(/\s+/)) {
+    const token = word.replace(/[^a-z]/g, "");
+    if (token && hidden.has(token)) {
+      found.push(token);
+    }
+  }
+
+  return [...new Set(found)];
+}
+
+/** @deprecated Clues may repeat inspiration words — use inspirationWordsInAnswer. */
 export function inspirationWordsInClue(
   clue: string,
   inspiration: string
@@ -249,7 +269,7 @@ export function phraseUsesHiddenInspirationWord(
   phrase: string,
   inspiration: string
 ): boolean {
-  return inspirationWordsInClue(phrase, inspiration).length > 0;
+  return inspirationWordsInAnswer(phrase, inspiration).length > 0;
 }
 
 export function isDictionaryWord(word: string): boolean {

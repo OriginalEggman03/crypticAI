@@ -9,7 +9,6 @@ import type { IndicatorGuidance } from "./indicator-archive-weights";
 import { MAX_LINKING_WORDS } from "./clue-surface-link";
 import { surfaceCraftRules, FODDER_PUNCTUATION_RULE, SURFACE_MISDIRECTION_RULE } from "./clue-surface-rules";
 import { DEFINITION_THEME_CRAFT_RULE } from "./definition-quality";
-import { inspirationHiddenWords } from "./inspiration-parse";
 import type { AnagramClueDraft } from "./types";
 
 /** Exact system message sent to Claude for the setter call. */
@@ -307,7 +306,6 @@ function surfacePolishRules(
   const overused = [...OVERUSED_ANAGRAM_INDICATORS].join(", ");
   const avoidIndicators = guidance?.avoid ?? [];
 
-  const hiddenWords = [...inspirationHiddenWords(inspiration)].sort();
   const extraRules: string[] = [
     `Capitalise proper names, eponyms, and places in the fodder and anywhere else in the clue (e.g. "Oort", "John", "Paris", "Poole"). Do not use obscure personal names (e.g. Agnew).`,
     `Write a grammatical English sentence — the fodder cluster must read as consecutive words with only spaces between them (good: "That'd army in chaos"; bad: "That'd, army, in chaos"). Use apostrophes in contractions.`,
@@ -315,11 +313,6 @@ function surfacePolishRules(
     `Do NOT use these overused indicators unless unavoidable: ${overused}.`,
     indicatorChoiceGuidance(avoidIndicators, guidanceChoiceOptions(guidance)),
   ];
-  if (hiddenWords.length > 0) {
-    extraRules.push(
-      `Do NOT use any word from the inspiration in the clue surface: ${hiddenWords.join(", ")}. The solver knows the theme — imply it without naming it.`
-    );
-  }
 
   return surfaceCraftRules({
     answer,

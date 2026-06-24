@@ -27,7 +27,7 @@ import {
   verifyAnswerNotStandalone,
   verifyAnagram,
   verifyEnumeration,
-  verifyInspirationWordsNotInClue,
+  verifyInspirationWordsNotInAnswer,
 } from "./clue-verify";
 import { verifyDefinitionNotVague } from "./definition-quality";
 import { extractDefinitionPhrase } from "./clue-surface-link";
@@ -123,15 +123,15 @@ export function verifyAnagramClue(
   );
 
   if (options.inspiration?.trim()) {
-    const inspirationErr = verifyInspirationWordsNotInClue(
-      prepared.clue,
+    const inspirationErr = verifyInspirationWordsNotInAnswer(
+      prepared.answer,
       options.inspiration
     );
     add(
-      "no inspiration words",
+      "no inspiration words in answer",
       !inspirationErr,
       inspirationErr ??
-        "Clue does not repeat words from the inspiration phrase"
+        "Answer does not repeat words from the inspiration phrase"
     );
 
     const themeLinkErr = verifyAnswerThematicLink(
