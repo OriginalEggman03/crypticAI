@@ -2,6 +2,7 @@ import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { FREE_SPINS } from "@/lib/auth/constants";
+import { isAdminUser } from "@/lib/admin";
 import { hashVerificationToken } from "@/lib/auth/verification-token";
 import type { CreditsStatus, UserPublic } from "@/lib/types";
 
@@ -92,6 +93,15 @@ export function toPublicUser(user: UserRecord): UserPublic {
 }
 
 export function getCreditsStatus(user: UserRecord): CreditsStatus {
+  if (isAdminUser(user)) {
+    return {
+      freeRemaining: 0,
+      paidCredits: 0,
+      canGenerate: true,
+      adminUnlimited: true,
+    };
+  }
+
   const freeRemaining = Math.max(0, FREE_SPINS - user.freeSpinsUsed);
   const paidCredits = user.credits;
   return {
@@ -218,10 +228,14 @@ export function verifyEmailWithToken(token: string): UserRecord | null {
 
 /** Consume one free spin or paid credit after a verified clue with successful Claude usage. */
 export function consumeGenerationCredit(userId: number): CreditsStatus {
-  const database = getDb();
   const user = findUserById(userId);
   if (!user) throw new Error("User not found");
 
+  if (isAdminUser(user)) {
+    return getCreditsStatus(user);
+  }
+
+  const database = getDb();
   const status = getCreditsStatus(user);
   if (!status.canGenerate) {
     throw new Error("No credits remaining");

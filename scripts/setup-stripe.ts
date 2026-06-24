@@ -44,21 +44,21 @@ Missing STRIPE_SECRET_KEY.
 
   const prices = await createCreditPackPrices();
 
-  upsertEnvLocal("STRIPE_PRICE_ID_6", prices.pack_6.priceId);
+  upsertEnvLocal("STRIPE_PRICE_ID_5", prices.pack_5.priceId);
   upsertEnvLocal("STRIPE_PRICE_ID_12", prices.pack_12.priceId);
 
   console.log(`
 Stripe credit packs created.
 
-6 credits (£3):
-  Product:  ${prices.pack_6.productId}
-  Price:    ${prices.pack_6.priceId}
+5 credits (£2):
+  Product:  ${prices.pack_5.productId}
+  Price:    ${prices.pack_5.priceId}
 
-12 credits (£5):
+12 credits (£4):
   Product:  ${prices.pack_12.productId}
   Price:    ${prices.pack_12.priceId}
 
-Wrote STRIPE_PRICE_ID_6 and STRIPE_PRICE_ID_12 to .env.local.
+Wrote STRIPE_PRICE_ID_5 and STRIPE_PRICE_ID_12 to .env.local.
 
 Restart npm run dev, then test checkout with card 4242 4242 4242 4242.
 

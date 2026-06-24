@@ -33,7 +33,7 @@ setVar("ANTHROPIC_API_KEY", local.ANTHROPIC_API_KEY);
 setVar("SESSION_SECRET", randomBytes(32).toString("base64"));
 setVar("DATABASE_PATH", "/data/clues.db");
 setVar("STRIPE_SECRET_KEY", local.STRIPE_SECRET_KEY);
-if (local.STRIPE_PRICE_ID_6) setVar("STRIPE_PRICE_ID_6", local.STRIPE_PRICE_ID_6);
+if (local.STRIPE_PRICE_ID_5) setVar("STRIPE_PRICE_ID_5", local.STRIPE_PRICE_ID_5);
 if (local.STRIPE_PRICE_ID_12) setVar("STRIPE_PRICE_ID_12", local.STRIPE_PRICE_ID_12);
 if (local.STRIPE_PRICE_ID) setVar("STRIPE_PRICE_ID", local.STRIPE_PRICE_ID);
 setVar("STRIPE_CURRENCY", local.STRIPE_CURRENCY ?? "usd");

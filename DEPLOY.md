@@ -40,8 +40,8 @@ In Railway → **Variables** (production service):
 | `EMAIL_FROM` | Recommended | e.g. `CrypticAI <onboarding@crypticai.uk>` (domain verified in Resend) |
 | `STRIPE_SECRET_KEY` | For payments | Use `sk_live_…` when going live |
 | `STRIPE_WEBHOOK_SECRET` | Recommended | From Stripe webhook (step 6) |
-| `STRIPE_PRICE_ID_6` | Optional | Run `npm run setup:stripe` — $3 for 6 credits |
-| `STRIPE_PRICE_ID_12` | Optional | Run `npm run setup:stripe` — $5 for 12 credits |
+| `STRIPE_PRICE_ID_5` | Optional | Run `npm run setup:stripe` — £2 for 5 credits |
+| `STRIPE_PRICE_ID_12` | Optional | Run `npm run setup:stripe` — £4 for 12 credits |
 | `STRIPE_CURRENCY` | Optional | Default `usd` |
 
 Do **not** commit `.env.local`. Set secrets only in Railway.

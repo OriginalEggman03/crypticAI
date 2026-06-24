@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error:
-          "Credit purchases are not configured yet. Add STRIPE_SECRET_KEY to .env.local (see .env.example). Optional: STRIPE_PRICE_ID_6 / STRIPE_PRICE_ID_12 or run npm run setup:stripe.",
+          "Credit purchases are not configured yet. Add STRIPE_SECRET_KEY to .env.local (see .env.example). Optional: STRIPE_PRICE_ID_5 / STRIPE_PRICE_ID_12 or run npm run setup:stripe.",
       },
       { status: 503 }
     );
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       auth.user.id,
       auth.user.email,
       origin,
-      packId as "pack_6" | "pack_12"
+      packId as "pack_5" | "pack_12"
     );
 
     return NextResponse.json({ url });

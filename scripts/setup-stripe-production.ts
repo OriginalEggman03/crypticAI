@@ -84,14 +84,14 @@ To go live:
 
   console.log(`
 Live prices created:
-  6 credits:  ${prices.pack_6.priceId}
+  5 credits:  ${prices.pack_5.priceId}
   12 credits: ${prices.pack_12.priceId}
 `);
 
   console.log("Updating Railway variables...");
   setRailwayVar("STRIPE_SECRET_KEY", key);
   setRailwayVar("STRIPE_CURRENCY", currency);
-  setRailwayVar("STRIPE_PRICE_ID_6", prices.pack_6.priceId);
+  setRailwayVar("STRIPE_PRICE_ID_5", prices.pack_5.priceId);
   setRailwayVar("STRIPE_PRICE_ID_12", prices.pack_12.priceId);
   setRailwayVar("STRIPE_PRICE_ID", prices.pack_12.priceId);
 

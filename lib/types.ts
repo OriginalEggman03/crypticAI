@@ -17,6 +17,8 @@ export interface CreditsStatus {
   freeRemaining: number;
   paidCredits: number;
   canGenerate: boolean;
+  /** True for the hardcoded admin test account — spins are never consumed. */
+  adminUnlimited?: boolean;
 }
 
 export interface AuthMeResponse {

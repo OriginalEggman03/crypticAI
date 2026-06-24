@@ -33,8 +33,11 @@ function creditPackCurrency(): string {
 }
 
 function stripePriceIdForPack(pack: CreditPack): string | undefined {
-  if (pack.id === "pack_6") {
-    return process.env.STRIPE_PRICE_ID_6?.trim();
+  if (pack.id === "pack_5") {
+    return (
+      process.env.STRIPE_PRICE_ID_5?.trim() ||
+      process.env.STRIPE_PRICE_ID_6?.trim()
+    );
   }
   return (
     process.env.STRIPE_PRICE_ID_12?.trim() ||

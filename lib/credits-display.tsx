@@ -1,6 +1,10 @@
 import type { CreditsStatus } from "@/lib/types";
 
 export function formatCreditsSummary(credits: CreditsStatus): string {
+  if (credits.adminUnlimited) {
+    return "Unlimited spins (admin)";
+  }
+
   const freeRemaining = credits.freeRemaining;
   const paidCredits = credits.paidCredits;
 
@@ -48,6 +52,16 @@ function creditsRowClassName(): string {
 }
 
 export function CreditsSummary({ credits }: { credits: CreditsStatus }) {
+  if (credits.adminUnlimited) {
+    return (
+      <p className={creditsRowClassName()}>
+        <span className="font-display text-lg font-bold text-accent">∞</span>
+        <span>unlimited spins</span>
+        <span className="text-ink/40">(admin)</span>
+      </p>
+    );
+  }
+
   const { freeRemaining, paidCredits } = credits;
 
   if (freeRemaining > 0 && paidCredits > 0) {
