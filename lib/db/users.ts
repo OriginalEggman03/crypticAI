@@ -115,10 +115,35 @@ export function findUserByEmail(email: string): UserRecord | null {
   const row = getDb()
     .prepare(`SELECT * FROM users WHERE email = ? COLLATE NOCASE`)
     .get(email.trim()) as Record<string, unknown> | undefined;
-  return row ? rowToUser(row) : null;
+  return row ? ensureAdminVerified(rowToUser(row)) : null;
 }
 
 export function findUserById(id: number): UserRecord | null {
+  const row = getDb()
+    .prepare(`SELECT * FROM users WHERE id = ?`)
+    .get(id) as Record<string, unknown> | undefined;
+  if (!row) return null;
+  return ensureAdminVerified(rowToUser(row));
+}
+
+/** Admin test account is always verified so login/generation is never blocked. */
+function ensureAdminVerified(user: UserRecord): UserRecord {
+  if (!isAdminUser(user) || isEmailVerified(user)) return user;
+
+  getDb()
+    .prepare(
+      `UPDATE users
+       SET email_verified_at = datetime('now'),
+           email_verification_token_hash = NULL,
+           email_verification_expires_at = NULL
+       WHERE id = ?`
+    )
+    .run(user.id);
+
+  return findUserByIdUnchecked(user.id) ?? user;
+}
+
+function findUserByIdUnchecked(id: number): UserRecord | null {
   const row = getDb()
     .prepare(`SELECT * FROM users WHERE id = ?`)
     .get(id) as Record<string, unknown> | undefined;

@@ -59,7 +59,7 @@ export function AccountMenu({
   }, [open, close]);
 
   const { user, credits } = session;
-  const canGenerate = credits.canGenerate;
+  const canGenerate = credits.adminUnlimited || credits.canGenerate;
 
   async function handleLogout() {
     setLoggingOut(true);
@@ -125,6 +125,7 @@ export function AccountMenu({
 
           {!confirmDelete ? (
             <>
+              {!credits.adminUnlimited && (
               <div className="px-4 py-3">
                 <p className="mb-2 text-xs font-medium uppercase tracking-wide text-ink/45">
                   Buy credits
@@ -138,6 +139,7 @@ export function AccountMenu({
                   emphasis={canGenerate ? "optional" : "need-credits"}
                 />
               </div>
+              )}
 
               <div className="border-t border-ink/10 py-1">
                 <button

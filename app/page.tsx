@@ -234,7 +234,9 @@ export default function Home() {
     setUsedClues([]);
   };
 
-  const canGenerate = session?.credits?.canGenerate ?? false;
+  const canGenerate = Boolean(
+    session?.credits?.adminUnlimited || session?.credits?.canGenerate
+  );
 
   const handleLogout = useCallback(async () => {
     await fetch("/api/auth/logout", { method: "POST" });
