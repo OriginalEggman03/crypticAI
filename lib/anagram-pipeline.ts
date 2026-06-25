@@ -27,13 +27,16 @@ import {
   buildIndicatorRefinePrompt,
   buildIndicatorRefineRepairPrompt,
   buildHotIndicatorSwapPrompt,
+  buildSurfaceBlendPrompt,
   ANAGRAM_INDICATOR_REFINE_SYSTEM,
   ANAGRAM_HOT_INDICATOR_SWAP_SYSTEM,
+  ANAGRAM_SURFACE_BLEND_SYSTEM,
   ANAGRAM_SETTER_SYSTEM,
   buildAnagramSetterPrompt,
 } from "./anagram-prompts";
 import { buildAnswerContext } from "./answer-context";
 import { buildClueSurfaceExplanation } from "./clue-surface-explain";
+import { detectBoundaryTelegraph } from "./clue-surface-blend";
 import { createClaudeCallRecorder } from "./claude-trace";
 import { ensureClaudeDefinitionSeeds } from "./ensure-definition-seeds";
 import { anthropicChatJson, parseModelJson } from "./llm";
@@ -77,6 +80,7 @@ interface PipelineContext {
   templatePolishPrompts: PromptTurn[];
   indicatorRefinePrompts: PromptTurn[];
   hotIndicatorSwapPrompts: PromptTurn[];
+  surfaceBlendPrompts: PromptTurn[];
   claudeTrace: ClaudeCallTrace[];
   claudeDefinitionSeeds: string[];
   llmCalls: number;
@@ -236,6 +240,7 @@ function successResult(
       templatePolish: ctx.templatePolishPrompts,
       indicatorRefine: ctx.indicatorRefinePrompts,
       hotIndicatorSwap: ctx.hotIndicatorSwapPrompts,
+      surfaceBlend: ctx.surfaceBlendPrompts,
     },
   };
 }
@@ -438,6 +443,56 @@ async function swapHotIndicator(
   return successResult(ctx, verification.prepared, "indicator-refine", 1);
 }
 
+async function maybeBlendSurface(
+  ctx: PipelineContext,
+  pair: AnagramPair,
+  result: AnagramClueResult
+): Promise<AnagramClueResult> {
+  if (!hasPipelineTime(ctx)) return result;
+
+  const indicator =
+    result.clue.anagramIndicator?.trim() ||
+    extractIndicatorFromClue(result.clue.clue) ||
+    undefined;
+  const telegraph = detectBoundaryTelegraph(
+    result.clue.clue,
+    pair.fodder,
+    indicator
+  );
+  if (!telegraph.telegraphs || !telegraph.reason) return result;
+
+  const user = buildSurfaceBlendPrompt(
+    ctx.inspiration,
+    pair.answer,
+    pair.fodder,
+    result.clue.clue,
+    telegraph.reason,
+    ctx.indicatorGuidance
+  );
+  const content = await callClaude(
+    ctx,
+    "Surface blend",
+    ANAGRAM_SURFACE_BLEND_SYSTEM,
+    user,
+    ctx.surfaceBlendPrompts
+  );
+  if (!content) return result;
+
+  const draft = lockPairDraft(parseModelJson<AnagramClueDraft>(content), pair);
+  const verification = verifyAnagramClue(draft, verifyOptions(ctx));
+  if (!verification.ok) return result;
+
+  const blended = detectBoundaryTelegraph(
+    verification.prepared.clue,
+    pair.fodder,
+    verification.prepared.anagramIndicator
+  );
+  if (blended.telegraphs) return result;
+
+  const blendedResult = successResult(ctx, verification.prepared, "surface-blend", 1);
+  return blendedResult ?? result;
+}
+
 async function ensureFreshIndicator(
   ctx: PipelineContext,
   pair: AnagramPair,
@@ -454,11 +509,11 @@ async function ensureFreshIndicator(
     !isHotArchiveIndicator(indicator, ctx.indicatorGuidance.archiveCounts) ||
     !hasPipelineTime(ctx)
   ) {
-    return refined;
+    return maybeBlendSurface(ctx, pair, refined);
   }
 
   const swapped = await swapHotIndicator(ctx, pair, refined.clue, indicator);
-  return swapped ?? refined;
+  return maybeBlendSurface(ctx, pair, swapped ?? refined);
 }
 
 async function maybeRefineIndicator(
@@ -708,6 +763,7 @@ export async function generateVerifiedAnagramClue(
     templatePolishPrompts: [],
     indicatorRefinePrompts: [],
     hotIndicatorSwapPrompts: [],
+    surfaceBlendPrompts: [],
     claudeTrace: options.initialClaudeTrace ? [...options.initialClaudeTrace] : [],
     claudeDefinitionSeeds: [],
     llmCalls: 0,

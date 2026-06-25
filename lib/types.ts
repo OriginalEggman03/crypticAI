@@ -104,6 +104,7 @@ export type AnagramStrategy =
   | "programmatic-surface"
   | "template-polish"
   | "indicator-refine"
+  | "surface-blend"
   | "claude-ranked-pair";
 
 export interface AnagramClueResult {
@@ -133,6 +134,7 @@ export interface AnagramClueResult {
     templatePolish: PromptTurn[];
     indicatorRefine: PromptTurn[];
     hotIndicatorSwap: PromptTurn[];
+    surfaceBlend: PromptTurn[];
   };
 }
 

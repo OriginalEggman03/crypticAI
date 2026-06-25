@@ -11,6 +11,7 @@ import {
   pickIndicatorPhrases,
   shuffleWithSeed,
 } from "./anagram-indicators";
+import { blendSurfaceScore } from "./clue-surface-blend";
 import {
   MAX_LINKING_WORDS,
   extractDefinitionPhrase,
@@ -35,20 +36,20 @@ type SurfacePattern = (
   enumeration: string
 ) => string;
 
-/** Definition first or last; minimal linking. */
+/** Blended surfaces — linking words at the seam, not colons or commas. */
 const SURFACE_PATTERNS: SurfacePattern[] = [
-  (d, f, i, e) => `${d}: ${f} ${i} ${e}`,
-  (d, f, i, e) => `${d} — ${f} ${i} ${e}`,
-  (d, f, i, e) => `${d}, ${f} ${i} ${e}`,
-  (d, f, i, e) => `${d}; ${f} ${i} ${e}`,
-  (d, f, i, e) => `${f} ${i} — ${d} ${e}`,
-  (d, f, i, e) => `${f}, ${i}: ${d} ${e}`,
-  (d, f, i, e) => `${f}; ${i} — ${d} ${e}`,
-  (d, f, i, e) => `${f} ${i}, ${d} ${e}`,
+  (d, f, i, e) => `${d} where ${f} ${i} ${e}`,
+  (d, f, i, e) => `Perhaps ${d} if ${f} ${i} ${e}`,
+  (d, f, i, e) => `${f} ${i} for ${d} ${e}`,
+  (d, f, i, e) => `${f} ${i} may mean ${d} ${e}`,
+  (d, f, i, e) => `${f} ${i} could be ${d} ${e}`,
   (d, f, i, e) => `(Could it be ${d}? ${f} ${i}) ${e}`,
-  (d, f, i, e) => `"${d}," they said — ${f} ${i} ${e}`,
-  (d, f, i, e) => `*Perhaps* ${d}: ${f} ${i} ${e}`,
-  (d, f, i, e) => `(On reflection, ${d} — ${f} ${i}) ${e}`,
+  (d, f, i, e) => `Lost at sea? Help me ${f} ${i} for ${d} ${e}`,
+  (d, f, i, e) => `Is ${d} what ${f} ${i} suggests ${e}`,
+  (d, f, i, e) => `On reflection ${d} when ${f} ${i} ${e}`,
+  (d, f, i, e) => `${d} as ${f} ${i} ${e}`,
+  (d, f, i, e) => `${f} ${i} and so ${d} ${e}`,
+  (d, f, i, e) => `*Perhaps* ${d} after ${f} ${i} ${e}`,
 ];
 
 function fodderSurfaceVariants(fodder: string): string[] {
@@ -78,6 +79,7 @@ function scoreSurface(
   score += definitionThemeScore(
     extractDefinitionPhrase(clue, fodder, indicator)
   );
+  score += blendSurfaceScore(clue, fodder, indicator);
   if (/^Item\b|^Thing\b|^Offering\b|^Subject\b/.test(clue)) score -= 20;
   if (clue.length >= 25 && clue.length <= 75) score += 6;
   return score;

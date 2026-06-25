@@ -7,7 +7,7 @@ import {
 } from "./anagram-indicators";
 import type { IndicatorGuidance } from "./indicator-archive-weights";
 import { MAX_LINKING_WORDS } from "./clue-surface-link";
-import { surfaceCraftRules, FODDER_PUNCTUATION_RULE } from "./clue-surface-rules";
+import { surfaceCraftRules, FODDER_PUNCTUATION_RULE, SURFACE_BLEND_RULE } from "./clue-surface-rules";
 import { DEFINITION_THEME_CRAFT_RULE } from "./definition-quality";
 import type { AnagramClueDraft } from "./types";
 
@@ -411,15 +411,16 @@ RULES
 3. Pick whichever indicator (single- or multi-word) makes the whole sentence most grammatical — no bias toward length.
 4. Do NOT use unless unavoidable: ${overused}${avoidIndicators.length > 0 ? `; also avoid: ${avoidIndicators.join(", ")}` : ""}.
 5. All fodder words must appear; reorder freely; ${FODDER_PUNCTUATION_RULE}
-6. At most ${MAX_LINKING_WORDS} linking words between definition and wordplay; nothing superfluous.
-7. Capitalise proper names and places.
-8. Set anagramIndicator to the exact phrase used (e.g. "in chaos" or "broken", whichever you chose).
+6. ${SURFACE_BLEND_RULE}
+7. At most ${MAX_LINKING_WORDS} linking words between definition and wordplay; nothing superfluous.
+8. Capitalise proper names and places.
+9. Set anagramIndicator to the exact phrase used (e.g. "in chaos" or "broken", whichever you chose).
 
-EXAMPLES (decoration on the whole surface — never bracketing fodder alone)
+EXAMPLES (blended surfaces — no comma/colon/dash at the definition/wordplay seam)
 - "Could it be a gaming plumber? That'd army in chaos (5)"
-- (On reflection, a gaming plumber — That'd army in chaos) (5)
-- Perhaps a gaming plumber: That'd army in chaos (5)
-- That'd army in chaos — a gaming plumber (5) (definition last)`;
+- Perhaps a gaming plumber if That'd army in chaos (5)
+- That'd army in chaos for a gaming plumber (5) (definition last)
+- Lost at sea? Help me, john! Agency in chaos for a roster member (6,4)`;
 }
 
 export function buildIndicatorRefinePrompt(
@@ -511,6 +512,48 @@ RULES
 2. Do NOT reuse "${hotIndicator}" or any indicator listed in AVOID above.
 3. Prefer an indicator from the PREFER list when it fits grammatically.
 4. Set anagramIndicator to the exact replacement phrase used.
+
+Return ONLY valid JSON:
+${ANAGRAM_JSON_SCHEMA}`;
+}
+
+export const ANAGRAM_SURFACE_BLEND_SYSTEM =
+  "You are an expert British cryptic crossword setter. You rewrite anagram clues so definition and wordplay read as one blended sentence — no punctuation marking the break. The answer and fodder are fixed. Reply with JSON only.";
+
+export function buildSurfaceBlendPrompt(
+  inspiration: string,
+  answer: string,
+  anagramFodder: string,
+  currentClue: string,
+  telegraphReason: string,
+  guidance?: IndicatorGuidance
+): string {
+  const enumeration = answerEnumeration(answer);
+  const avoidIndicators = guidance?.avoid ?? [];
+
+  return `Rewrite this clue so definition and wordplay are woven together — not separated by a comma, colon, semi-colon, or dash at the seam.
+
+ISSUE
+${telegraphReason}
+
+THEME
+${inspiration.trim()}
+
+CURRENT CLUE
+${currentClue}
+
+LOCKED
+- answer: ${answer}
+- anagramFodder: ${anagramFodder} (every word must appear; any order; ${FODDER_PUNCTUATION_RULE})
+- enumeration: ${enumeration}
+
+${indicatorChoiceGuidance(avoidIndicators, guidanceChoiceOptions(guidance))}
+
+RULES
+1. ${SURFACE_BLEND_RULE}
+2. ${DEFINITION_THEME_CRAFT_RULE}
+3. Keep the same answer, fodder word set, and enumeration; you may reorder fodder and change the indicator phrase.
+4. At most ${MAX_LINKING_WORDS} linking words between halves.
 
 Return ONLY valid JSON:
 ${ANAGRAM_JSON_SCHEMA}`;
