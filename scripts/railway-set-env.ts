@@ -37,6 +37,7 @@ if (local.STRIPE_PRICE_ID_5) setVar("STRIPE_PRICE_ID_5", local.STRIPE_PRICE_ID_5
 if (local.STRIPE_PRICE_ID_12) setVar("STRIPE_PRICE_ID_12", local.STRIPE_PRICE_ID_12);
 if (local.STRIPE_PRICE_ID) setVar("STRIPE_PRICE_ID", local.STRIPE_PRICE_ID);
 setVar("STRIPE_CURRENCY", local.STRIPE_CURRENCY ?? "usd");
+setVar("RAILWAY_DEPLOYMENT_DRAINING_SECONDS", "30");
 if (local.RESEND_API_KEY) setVar("RESEND_API_KEY", local.RESEND_API_KEY);
 if (local.EMAIL_FROM) setVar("EMAIL_FROM", local.EMAIL_FROM);
 if (local.APP_URL) setVar("APP_URL", local.APP_URL);

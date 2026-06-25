@@ -83,6 +83,19 @@ Optional model overrides (defaults to Opus 4.8):
 
 **Live app:** https://crypticai-production.up.railway.app
 
+### “Deployment crashed” emails on every deploy
+
+Railway sends crash notifications when a container exits with a non-zero code. During a **rolling deploy**, the **previous** container is stopped while the new one starts. If the process does not shut down cleanly, Railway treats that as a crash — even when the new deployment succeeded.
+
+Common causes and fixes (already applied in this repo):
+
+1. **`npm start` intercepts SIGTERM** — npm does not forward shutdown signals to Node. Use a direct start command instead:
+   - `node ./node_modules/next/dist/bin/next start -H 0.0.0.0` (see `railway.toml` and `package.json`).
+2. **No drain window** — set `RAILWAY_DEPLOYMENT_DRAINING_SECONDS=30` on the service (also set by `npm run railway:set-env`) so the old instance can finish in-flight requests before exit.
+3. **Double deploys** — avoid triggering both GitHub auto-deploy and `railway up` for the same commit; one rollout is enough.
+
+If emails persist after these changes, check **Deployments** in the Railway dashboard: a **FAILED** status is a real problem; **SUCCESS** with a crash email is usually the old replica being torn down.
+
 After the first deploy:
 
 1. Open `https://your-domain.com/api/health` → `{ "ok": true }`

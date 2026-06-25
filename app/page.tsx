@@ -232,6 +232,7 @@ export default function Home() {
     setError(null);
     setRetryError(null);
     setUsedClues([]);
+    setRequest((prev) => ({ ...prev, inspiration: "" }));
   };
 
   const canGenerate = Boolean(
