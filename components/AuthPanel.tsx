@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import type { AuthMeResponse, SignupResponse } from "@/lib/types";
 
@@ -30,6 +31,7 @@ export function AuthPanel({ onSuccess }: AuthPanelProps) {
   const [resendLoading, setResendLoading] = useState(false);
   const [resendMessage, setResendMessage] = useState<string | null>(null);
   const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   async function handleResend(targetEmail: string) {
     setResendLoading(true);
@@ -47,16 +49,26 @@ export function AuthPanel({ onSuccess }: AuthPanelProps) {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
     setError(null);
     setResendMessage(null);
     setUnverifiedEmail(null);
+
+    if (mode === "signup" && !acceptedTerms) {
+      setError("Please accept the Terms and Privacy Policy to create an account.");
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const res = await fetch(`/api/auth/${mode}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({
+          email,
+          password,
+          ...(mode === "signup" ? { acceptedTerms: true } : {}),
+        }),
       });
 
       const data = (await res.json()) as AuthMeResponse &
@@ -177,6 +189,39 @@ export function AuthPanel({ onSuccess }: AuthPanelProps) {
           />
         </label>
 
+        {mode === "signup" && (
+          <label className="flex cursor-pointer items-start gap-2.5 text-sm text-ink/75">
+            <input
+              type="checkbox"
+              checked={acceptedTerms}
+              onChange={(e) => setAcceptedTerms(e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-ink/25 text-accent focus:ring-accent/30"
+              required
+            />
+            <span>
+              I agree to the{" "}
+              <Link
+                href="/terms"
+                className="font-medium text-accent underline-offset-2 hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/privacy"
+                className="font-medium text-accent underline-offset-2 hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Privacy Policy
+              </Link>
+              .
+            </span>
+          </label>
+        )}
+
         {error && (
           <p role="alert" className="text-sm text-red-700">
             {error}
@@ -202,7 +247,7 @@ export function AuthPanel({ onSuccess }: AuthPanelProps) {
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || (mode === "signup" && !acceptedTerms)}
           className="w-full rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-paper shadow-md transition hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading
@@ -224,6 +269,7 @@ export function AuthPanel({ onSuccess }: AuthPanelProps) {
             setError(null);
             setUnverifiedEmail(null);
             setResendMessage(null);
+            if (mode === "signup") setAcceptedTerms(false);
           }}
           className="font-medium text-accent underline-offset-2 hover:underline"
         >

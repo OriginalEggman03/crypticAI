@@ -14,10 +14,21 @@ export async function POST(request: NextRequest) {
     const body = (await request.json()) as {
       email?: string;
       password?: string;
+      acceptedTerms?: boolean;
     };
 
     const email = body.email?.trim() ?? "";
     const password = body.password ?? "";
+
+    if (!body.acceptedTerms) {
+      return NextResponse.json(
+        {
+          error:
+            "You must accept the Terms of Service and Privacy Policy to sign up.",
+        },
+        { status: 400 }
+      );
+    }
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json(
