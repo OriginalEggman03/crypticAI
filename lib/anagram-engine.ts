@@ -28,7 +28,7 @@ import {
   verifyEnumeration,
   verifyInspirationWordsNotInAnswer,
 } from "./clue-verify";
-import { verifyDefinitionNotVague } from "./definition-quality";
+import { verifyDefinitionNotVague, verifyDefinitionMatchesAnswer } from "./definition-quality";
 import { extractDefinitionPhrase } from "./clue-surface-link";
 import type { AnagramClueDraft, AnagramVerification } from "./types";
 
@@ -197,6 +197,16 @@ export function verifyAnagramClue(
       "definition theme",
       !definitionErr,
       definitionErr ?? "Definition is specific to the inspiration's domain"
+    );
+
+    const definitionFitErr = verifyDefinitionMatchesAnswer(
+      definitionPhrase,
+      prepared.answer
+    );
+    add(
+      "definition fits answer",
+      !definitionFitErr,
+      definitionFitErr ?? "Definition accurately describes the answer"
     );
 
     const superfluousErr = verifyNoSuperfluousWords(

@@ -419,8 +419,8 @@ RULES
 EXAMPLES (blended surfaces — no comma/colon/dash at the definition/wordplay seam)
 - "Could it be a gaming plumber? That'd army in chaos (5)"
 - Perhaps a gaming plumber if That'd army in chaos (5)
-- That'd army in chaos for a gaming plumber (5) (definition last)
-- Lost at sea? Help me, john! Agency in chaos for a roster member (6,4)`;
+- Sham needs sorting for a warming winter mash (4)
+- That'd army in chaos for a gaming plumber (5) (definition last)`;
 }
 
 export function buildIndicatorRefinePrompt(

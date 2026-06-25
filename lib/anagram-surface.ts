@@ -44,7 +44,6 @@ const SURFACE_PATTERNS: SurfacePattern[] = [
   (d, f, i, e) => `${f} ${i} may mean ${d} ${e}`,
   (d, f, i, e) => `${f} ${i} could be ${d} ${e}`,
   (d, f, i, e) => `(Could it be ${d}? ${f} ${i}) ${e}`,
-  (d, f, i, e) => `Lost at sea? Help me ${f} ${i} for ${d} ${e}`,
   (d, f, i, e) => `Is ${d} what ${f} ${i} suggests ${e}`,
   (d, f, i, e) => `On reflection ${d} when ${f} ${i} ${e}`,
   (d, f, i, e) => `${d} as ${f} ${i} ${e}`,

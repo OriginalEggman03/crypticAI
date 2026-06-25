@@ -149,7 +149,11 @@ export function extractDefinitionPhrase(
     const substantiveAfter = afterTokens.filter((t) => !LINKING_WORDS.has(t))
       .length;
 
-    if (substantiveBefore >= substantiveAfter) {
+    const definitionAtEnd =
+      substantiveAfter > substantiveBefore ||
+      (substantiveAfter > 0 && substantiveBefore > 0);
+
+    if (!definitionAtEnd) {
       while (
         beforeTokens.length > 0 &&
         LINKING_WORDS.has(beforeTokens[beforeTokens.length - 1])

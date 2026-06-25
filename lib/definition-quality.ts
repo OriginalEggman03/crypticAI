@@ -66,6 +66,44 @@ export function verifyDefinitionNotVague(definition: string): string | null {
   return null;
 }
 
+const DESSERT_DEFINITION_CUE =
+  /\b(pudding|dessert|sweet|afters|confection|sundae|trifle|sponge pudding|sticky toffee)\b/i;
+
+/** Savoury dishes that must not be defined as desserts. */
+const SAVOURY_FOOD_ANSWERS = new Set([
+  "mash",
+  "soup",
+  "stew",
+  "gravy",
+  "broth",
+  "chips",
+  "fries",
+  "roast",
+  "curry",
+  "hash",
+]);
+
+/** Reject definitions that misclassify the answer (e.g. mash as a pudding). */
+export function verifyDefinitionMatchesAnswer(
+  definition: string,
+  answer: string
+): string | null {
+  const trimmed = definition.trim();
+  if (!trimmed) return null;
+
+  const answerToken = answer.toLowerCase().replace(/\s+/g, " ").trim();
+  const primaryWord = answerToken.split(/\s+/)[0] ?? answerToken;
+
+  if (
+    DESSERT_DEFINITION_CUE.test(trimmed) &&
+    SAVOURY_FOOD_ANSWERS.has(primaryWord)
+  ) {
+    return `Definition "${trimmed}" misdescribes the answer — ${answer} is a savoury dish, not a pudding or dessert`;
+  }
+
+  return null;
+}
+
 /**
  * Inspiration phrases that reliably match domain detectors so programmatic
  * templates get concrete definition seeds. Keep in sync with DOMAIN_REGISTRY.

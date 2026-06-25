@@ -6,7 +6,7 @@ import { stripEnumerationForLinking } from "./clue-surface-link";
 const BOUNDARY_PUNCT_AT_EDGE = /[,;:—–-]$/;
 const BOUNDARY_PUNCT_AFTER_WORDPLAY = /^[,;:—–-]/;
 
-export const SURFACE_BLEND_RULE = `Weave definition and wordplay into one flowing sentence. Do NOT put a comma, colon, semi-colon, or dash immediately before the fodder cluster or immediately after the wordplay half — that telegraphs the break (weak: "An arcade combatant, John agency in chaos"; stronger: "Perhaps John agency in chaos for an arcade combatant"). Question marks and exclamation marks are fine when the whole clue is phrased as a question or outburst. Commas between fodder words are allowed when they help grammar (e.g. "That'd army, in chaos").`;
+export const SURFACE_BLEND_RULE = `Weave definition and wordplay into one flowing sentence. Do NOT put a comma, colon, semi-colon, or dash immediately before the fodder cluster or immediately after the wordplay half — that telegraphs the break (weak: "An arcade combatant, John agency in chaos"; stronger: "Perhaps John agency in chaos for an arcade combatant"). Question marks and exclamation marks are fine when the whole clue is phrased as a question or outburst. Commas between fodder words are allowed when they help grammar (e.g. "That'd army, in chaos"). Do NOT add decorative padding that is neither definition nor wordplay (e.g. "Lost at sea? Help me" before the fodder when the definition comes after).`;
 
 export interface BoundaryTelegraphResult {
   telegraphs: boolean;

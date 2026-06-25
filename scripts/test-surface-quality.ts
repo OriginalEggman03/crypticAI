@@ -9,6 +9,7 @@ import {
   resetDictionaryProperNounCache,
   verifyClueCapitalizationRules,
 } from "../lib/dictionary-proper-nouns";
+import { verifyDefinitionMatchesAnswer } from "../lib/definition-quality";
 import { verifyNoSuperfluousWords } from "../lib/clue-surface-tightness";
 
 assert.equal(possessiveNameStem("jonahs"), "jonah");
@@ -118,6 +119,20 @@ assert.match(
     "in chaos"
   ) ?? "",
   /Superfluous word "really"/
+);
+
+assert.match(
+  verifyNoSuperfluousWords(
+    "Lost at sea? Help me sham needs sorting for a warming winter pudding (4)",
+    "sham",
+    "needs sorting"
+  ) ?? "",
+  /Stray padding/i
+);
+
+assert.match(
+  verifyDefinitionMatchesAnswer("a warming winter pudding", "MASH") ?? "",
+  /misdescribes|savoury/i
 );
 
 const verified = verifyAnagramClue({

@@ -133,12 +133,80 @@ function leadingLinkerCount(occs: WordOcc[], startInclusive: number): number {
   return count;
 }
 
+/** True when substantive content follows wordplay — definition is at the end. */
+function definitionFollowsWordplay(
+  body: string,
+  fodderSpan: { start: number; end: number },
+  indicatorPhrase: string
+): boolean {
+  let afterText = body.slice(fodderSpan.end);
+  if (indicatorPhrase) {
+    const idx = afterText.toLowerCase().indexOf(indicatorPhrase.toLowerCase());
+    if (idx >= 0) {
+      afterText = afterText.slice(idx + indicatorPhrase.length);
+    }
+  }
+  return tokenize(afterText).some((token) => !LINKING_WORDS.has(token));
+}
+
+function tokenize(text: string): string[] {
+  return text
+    .replace(/[^a-zA-Z\s]/g, " ")
+    .split(/\s+/)
+    .map((t) => t.toLowerCase())
+    .filter(Boolean);
+}
+
+/**
+ * When the definition sits after wordplay, only linking words may appear
+ * before the fodder — no decorative openers like "Lost at sea? Help me".
+ */
+export function verifyNoStrayPadding(
+  clue: string,
+  fodder: string,
+  indicator?: string
+): string | null {
+  const body = stripEnumerationForLinking(clue);
+  const fodderTokList = fodderTokens(fodder);
+  if (fodderTokList.length === 0) return null;
+
+  const positions = assignFodderPositions(body, fodderTokList);
+  if (!positions?.length) return null;
+
+  const fodderSpan = {
+    start: positions[0].start,
+    end: positions[positions.length - 1].end,
+  };
+  const indicatorPhrase =
+    indicator?.trim() || extractIndicatorFromClue(body) || "";
+
+  if (!definitionFollowsWordplay(body, fodderSpan, indicatorPhrase)) {
+    return null;
+  }
+
+  const occs = listWordOccurrences(body);
+  const fodderUsed = fodderOccIndices(body, fodder);
+  const indicatorUsed = indicatorOccIndices(body, indicatorPhrase, fodderSpan);
+
+  for (let i = 0; i < occs.length; i++) {
+    if (occs[i].end > fodderSpan.start) continue;
+    if (fodderUsed.has(i) || indicatorUsed.has(i)) continue;
+    if (LINKING_WORDS.has(occs[i].lower)) continue;
+    return `Stray padding "${occs[i].text}" before wordplay — when the definition follows, only brief linking words may precede the fodder`;
+  }
+
+  return null;
+}
+
 /** Reject filler words wedged into wordplay or stray linkers inside the definition. */
 export function verifyNoSuperfluousWords(
   clue: string,
   fodder: string,
   indicator?: string
 ): string | null {
+  const paddingErr = verifyNoStrayPadding(clue, fodder, indicator);
+  if (paddingErr) return paddingErr;
+
   const body = stripEnumerationForLinking(clue);
   const fodderTokList = fodderTokens(fodder);
   if (fodderTokList.length === 0) return null;
