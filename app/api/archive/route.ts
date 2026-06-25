@@ -5,7 +5,11 @@ import {
   validateRating,
 } from "@/lib/db/clue-archive";
 import { invalidateIndicatorUsageCache } from "@/lib/indicator-archive-weights";
+import { requireVerifiedUser } from "@/lib/auth/require-user";
+import { enforceRateLimit } from "@/lib/rate-limit";
 import type { AnagramDifficulty } from "@/lib/types";
+
+const MAX_ARCHIVE_TEXT = 2000;
 
 function parseDifficulty(value: string | null): AnagramDifficulty | undefined {
   if (value === "easy" || value === "hard") return value;
@@ -47,6 +51,16 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const auth = await requireVerifiedUser();
+    if ("response" in auth) return auth.response;
+
+    const limited = enforceRateLimit({
+      key: `archive:user:${auth.user.id}`,
+      limit: 20,
+      windowMs: 60 * 60 * 1000,
+    });
+    if (limited) return limited;
+
     const body = (await request.json()) as {
       inspiration?: string;
       difficulty?: string;
@@ -66,13 +80,18 @@ export async function POST(request: NextRequest) {
 
     const difficulty = body.difficulty === "hard" ? "hard" : "easy";
 
+    const inspiration = (body.inspiration ?? "").slice(0, MAX_ARCHIVE_TEXT);
+    const answer = (body.answer ?? "").slice(0, 200);
+    const clue = (body.clue ?? "").slice(0, MAX_ARCHIVE_TEXT);
+    const anagramFodder = (body.anagramFodder ?? "").slice(0, 200);
+
     const archived = archiveClue({
-      inspiration: body.inspiration ?? "",
+      inspiration,
       difficulty,
-      answer: body.answer ?? "",
-      clue: body.clue ?? "",
-      anagramFodder: body.anagramFodder ?? "",
-      anagramIndicator: body.anagramIndicator,
+      answer,
+      clue,
+      anagramFodder,
+      anagramIndicator: body.anagramIndicator?.slice(0, 200),
       rating: body.rating,
     });
 

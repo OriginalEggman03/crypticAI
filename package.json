@@ -15,10 +15,12 @@
     "setup:stripe": "tsx scripts/setup-stripe.ts",
     "setup:stripe:production": "tsx scripts/setup-stripe-production.ts",
     "setup:stripe:webhook": "tsx scripts/setup-stripe-webhook.ts",
-    "railway:env": "tsx scripts/railway-set-env.ts"
+    "railway:env": "tsx scripts/railway-set-env.ts",
+    "backup:db": "tsx scripts/backup-database.ts"
   },
   "dependencies": {
     "@cdot/dictionary": "^1.0.3",
+    "@sentry/nextjs": "^9.47.1",
     "dictionary-en-gb": "^3.0.0",
     "next": "^15.3.3",
     "nspell": "^2.1.5",

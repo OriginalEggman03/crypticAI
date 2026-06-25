@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isLegacyApiDisabled } from "@/lib/legacy-api";
 import { buildCrossword } from "@/lib/crossword";
 import {
   dedupeFailuresForRepair,
@@ -365,6 +366,10 @@ async function ensureVerifiedPuzzle(
 }
 
 export async function POST(request: NextRequest) {
+  if (isLegacyApiDisabled()) {
+    return NextResponse.json({ error: "Not found." }, { status: 404 });
+  }
+
   try {
     const body = (await request.json()) as { preferences: UserPreferences };
 

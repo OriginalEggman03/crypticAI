@@ -7,8 +7,18 @@ import {
   isEmailVerified,
   toPublicUser,
 } from "@/lib/db/users";
+import { enforceRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/request-client-ip";
+import { captureServerError } from "@/lib/monitoring";
 
 export async function POST(request: NextRequest) {
+  const limited = enforceRateLimit({
+    key: `login:${getClientIp(request)}`,
+    limit: 10,
+    windowMs: 15 * 60 * 1000,
+  });
+  if (limited) return limited;
+
   try {
     const body = (await request.json()) as {
       email?: string;
@@ -54,6 +64,7 @@ export async function POST(request: NextRequest) {
     response.cookies.set(sessionCookieOptions(token));
     return response;
   } catch (err) {
+    await captureServerError(err, { route: "auth/login" });
     const message = err instanceof Error ? err.message : "Sign in failed";
     return NextResponse.json({ error: message }, { status: 500 });
   }

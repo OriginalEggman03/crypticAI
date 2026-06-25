@@ -8,6 +8,8 @@ import {
   setEmailVerificationToken,
   verifyEmailWithToken,
 } from "@/lib/db/users";
+import { enforceRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/request-client-ip";
 
 function redirectUrl(request: NextRequest, query: string): URL {
   const origin =
@@ -38,6 +40,13 @@ export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as { email?: string };
     const email = body.email?.trim() ?? "";
+
+    const limited = enforceRateLimit({
+      key: `verify-resend:${getClientIp(request)}:${email.toLowerCase()}`,
+      limit: 3,
+      windowMs: 60 * 60 * 1000,
+    });
+    if (limited) return limited;
 
     if (!email) {
       return NextResponse.json(

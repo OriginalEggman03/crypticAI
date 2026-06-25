@@ -35,14 +35,17 @@ In Railway → **Variables** (production service):
 | `ANTHROPIC_API_KEY` | Yes | [Anthropic console](https://console.anthropic.com/) — set a spend limit |
 | `SESSION_SECRET` | Yes | Long random string, e.g. `openssl rand -base64 32` |
 | `DATABASE_PATH` | Yes | `/data/clues.db` (with volume mounted at `/data`) |
-| `APP_URL` | Recommended | `https://www.crypticai.uk` — used in verification email links |
+| `APP_URL` | Yes | `https://www.crypticai.uk` — used in verification email links |
 | `RESEND_API_KEY` | Yes (signup) | [Resend](https://resend.com/) — sends verification emails |
 | `EMAIL_FROM` | Recommended | e.g. `CrypticAI <onboarding@crypticai.uk>` (domain verified in Resend) |
 | `STRIPE_SECRET_KEY` | For payments | Use `sk_live_…` when going live |
 | `STRIPE_WEBHOOK_SECRET` | Recommended | From Stripe webhook (step 6) |
 | `STRIPE_PRICE_ID_5` | Optional | Run `npm run setup:stripe` — £2 for 5 credits |
 | `STRIPE_PRICE_ID_12` | Optional | Run `npm run setup:stripe` — £4 for 12 credits |
-| `STRIPE_CURRENCY` | Optional | Default `usd` |
+| `STRIPE_CURRENCY` | Optional | Default `gbp` |
+| `ADMIN_EMAILS` | Recommended | Comma-separated admin emails (unlimited test generations) |
+| `SENTRY_DSN` | Optional | [Sentry](https://sentry.io/) for error alerts |
+| `RAILWAY_DEPLOYMENT_DRAINING_SECONDS` | Recommended | `30` — graceful shutdown during deploys |
 
 Do **not** commit `.env.local`. Set secrets only in Railway.
 
@@ -98,20 +101,41 @@ If emails persist after these changes, check **Deployments** in the Railway dash
 
 After the first deploy:
 
-1. Open `https://your-domain.com/api/health` → `{ "ok": true }`
-2. Sign up and log in (session cookie requires HTTPS).
-3. Generate a clue (may take 1–3 minutes).
-4. Archive a clue and search the archive.
-5. Buy credits and confirm balance updates (webhook + success redirect).
+1. Open `https://your-domain.com/api/health` → `{ "ok": true, "checks": { ... } }`
+2. Confirm legacy LLM routes return 404: `POST /api/generate`, `POST /api/explain`
+3. Sign up and log in (session cookie requires HTTPS).
+4. Generate a clue (may take 1–3 minutes).
+5. Archive a clue (requires sign-in) and search the archive.
+6. Buy credits and confirm balance updates (webhook + success redirect).
+7. Set `ADMIN_EMAILS` on Railway for your operator account.
+8. Set an Anthropic monthly spend limit in the [Anthropic console](https://console.anthropic.com/).
+
+### Deploy workflow
+
+Use **one** deploy path per change:
+
+- **GitHub auto-deploy** (recommended): push to `main` and let Railway build from the repo, or
+- **CLI**: `railway up --detach` from a linked project.
+
+Do not run both for the same commit — it triggers duplicate rollouts and crash emails.
 
 ## 8. Backups
 
 Download or snapshot `/data/clues.db` regularly. Railway volumes persist across deploys but are not a substitute for off-site backups.
 
+**Automated on-server copies** (included in this repo):
+
+```bash
+# On Railway (volume at /data):
+BACKUP_DIR=/data/backups npm run backup:db
+```
+
+Schedule weekly via [Railway Cron](https://docs.railway.com/guides/cron-jobs) or an external cron that runs `railway run npm run backup:db`. Copy `/data/backups/*.db` off-site (S3/R2) for disaster recovery.
+
 Options:
 
-- Periodic `railway run` + copy (if using Railway CLI)
-- A small cron job that uploads the file to S3/R2
+- `npm run backup:db` — timestamped copy with 14-day retention (`BACKUP_RETENTION_DAYS`)
+- Periodic off-site upload to S3/R2
 - Migrate to Turso/Postgres later if you need multi-instance scaling
 
 ## 9. Costs to monitor
@@ -121,6 +145,14 @@ Options:
 - **Stripe**: per-transaction fees
 
 Set Anthropic billing alerts before opening to many users.
+
+### Resend deliverability
+
+Before marketing, verify your sending domain in Resend and add **SPF**, **DKIM**, and **DMARC** DNS records for `crypticai.uk`. Send a test verification email and confirm it lands in the inbox, not spam.
+
+### Error monitoring
+
+Optional but recommended: create a Sentry project, set `SENTRY_DSN` on Railway, and confirm errors appear after a test failure. Client and server errors are reported when the DSN is set.
 
 ## 10. Google Search (SEO)
 

@@ -1,11 +1,15 @@
-/** Hardcoded admin — unlimited test generations, credits never consumed. */
-export const ADMIN_EMAIL = "tlittle64525@gmail.com";
-
+/** Admin allowlist — set ADMIN_EMAILS in production (comma-separated). */
 function adminEmailAllowlist(): string[] {
   const fromEnv = process.env.ADMIN_EMAILS?.split(",")
     .map((e) => e.trim())
     .filter(Boolean);
-  return fromEnv?.length ? fromEnv : [ADMIN_EMAIL];
+
+  if (fromEnv?.length) return fromEnv;
+
+  if (process.env.NODE_ENV === "production") return [];
+
+  // Local dev fallback when ADMIN_EMAILS is unset.
+  return ["dev-admin@localhost"];
 }
 
 /** Gmail treats dots/plus-tags as equivalent; googlemail.com = gmail.com. */

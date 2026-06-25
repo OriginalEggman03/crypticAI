@@ -1,10 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isLegacyApiDisabled } from "@/lib/legacy-api";
 import { anthropicChatJson, parseModelJson } from "@/lib/llm";
 import { explainModel } from "@/lib/models";
 import { buildExplainPrompt, EXPLAIN_SYSTEM } from "@/lib/prompts";
 import type { ClueExplanation } from "@/lib/types";
 
 export async function POST(request: NextRequest) {
+  if (isLegacyApiDisabled()) {
+    return NextResponse.json({ error: "Not found." }, { status: 404 });
+  }
+
   try {
     const body = (await request.json()) as {
       clue: string;

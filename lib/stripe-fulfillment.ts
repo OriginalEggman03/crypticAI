@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import type Stripe from "stripe";
 import { sendPurchaseReceiptEmail } from "@/lib/email/purchase-receipt-email";
-import { addCredits, findUserById, getCreditsStatus, type UserRecord } from "@/lib/db/users";
+import { findUserById, getCreditsStatus, type UserRecord } from "@/lib/db/users";
 import type { CreditsStatus } from "@/lib/types";
 import { getStripe } from "@/lib/stripe";
 
@@ -46,6 +46,37 @@ function markFulfilled(sessionId: string, userId: number, credits: number): void
       `INSERT INTO stripe_fulfillments (session_id, user_id, credits) VALUES (?, ?, ?)`
     )
     .run(sessionId, userId, credits);
+}
+
+/** Atomically grant credits once per Checkout session. */
+function grantCreditsForSession(
+  sessionId: string,
+  userId: number,
+  credits: number
+): boolean {
+  const database = getDb();
+
+  database.exec("BEGIN IMMEDIATE");
+  try {
+    const existing = database
+      .prepare(`SELECT 1 FROM stripe_fulfillments WHERE session_id = ?`)
+      .get(sessionId);
+    if (existing) {
+      database.exec("ROLLBACK");
+      return false;
+    }
+
+    database
+      .prepare(`UPDATE users SET credits = credits + ? WHERE id = ?`)
+      .run(credits, userId);
+
+    markFulfilled(sessionId, userId, credits);
+    database.exec("COMMIT");
+    return true;
+  } catch (err) {
+    database.exec("ROLLBACK");
+    throw err;
+  }
 }
 
 function receiptEmailForSession(
@@ -114,11 +145,15 @@ export async function fulfillCheckoutSession(
   const user = findUserById(userId);
   if (!user) return null;
 
-  markFulfilled(sessionId, userId, credits);
-  const status = addCredits(userId, credits);
+  const newlyFulfilled = grantCreditsForSession(sessionId, userId, credits);
+  if (!newlyFulfilled) {
+    return { user, credits: getCreditsStatus(user), newlyFulfilled: false };
+  }
+
   const updated = findUserById(userId);
   if (!updated) return null;
 
+  const status = getCreditsStatus(updated);
   await sendReceiptIfPossible(session, updated, credits, status);
 
   return { user: updated, credits: status, newlyFulfilled: true };

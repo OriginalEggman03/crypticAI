@@ -8,8 +8,21 @@ import {
   isEmailVerified,
   refreshUnverifiedSignup,
 } from "@/lib/db/users";
+import { enforceRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/request-client-ip";
+import { captureServerError } from "@/lib/monitoring";
+
+const MAX_PASSWORD_LENGTH = 128;
+const MAX_EMAIL_LENGTH = 254;
 
 export async function POST(request: NextRequest) {
+  const limited = enforceRateLimit({
+    key: `signup:${getClientIp(request)}`,
+    limit: 5,
+    windowMs: 60 * 60 * 1000,
+  });
+  if (limited) return limited;
+
   try {
     const body = (await request.json()) as {
       email?: string;
@@ -37,9 +50,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (email.length > MAX_EMAIL_LENGTH) {
+      return NextResponse.json(
+        { error: "Email address is too long." },
+        { status: 400 }
+      );
+    }
+
     if (password.length < 8) {
       return NextResponse.json(
         { error: "Password must be at least 8 characters." },
+        { status: 400 }
+      );
+    }
+
+    if (password.length > MAX_PASSWORD_LENGTH) {
+      return NextResponse.json(
+        { error: "Password is too long." },
         { status: 400 }
       );
     }
@@ -87,6 +114,7 @@ export async function POST(request: NextRequest) {
       email: email.toLowerCase(),
     });
   } catch (err) {
+    await captureServerError(err, { route: "auth/signup" });
     const message = err instanceof Error ? err.message : "Sign up failed";
     return NextResponse.json({ error: message }, { status: 500 });
   }
