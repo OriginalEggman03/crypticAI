@@ -29,11 +29,13 @@ export function ClueArchiveSearch() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [openShareId, setOpenShareId] = useState<number | null>(null);
 
   const search = useCallback(async () => {
     setLoading(true);
     setError(null);
     setExpandedId(null);
+    setOpenShareId(null);
 
     const params = new URLSearchParams();
     if (filters.inspiration.trim()) {
@@ -76,6 +78,7 @@ export function ClueArchiveSearch() {
     setSearched(false);
     setError(null);
     setExpandedId(null);
+    setOpenShareId(null);
   };
 
   return (
@@ -193,50 +196,58 @@ export function ClueArchiveSearch() {
         <ul className="mt-4 space-y-3">
           {results.map((item) => {
             const expanded = expandedId === item.id;
+            const shareOpen = openShareId === item.id;
 
             return (
               <li
                 key={item.id}
-                className="rounded-xl border border-ink/10 bg-cream/40"
+                className={`rounded-xl border border-ink/10 bg-cream/40 ${
+                  expanded || shareOpen ? "relative z-20" : ""
+                }`}
               >
-                <button
-                  type="button"
-                  onClick={() =>
-                    setExpandedId(expanded ? null : item.id)
-                  }
-                  aria-expanded={expanded}
-                  className="w-full px-4 py-4 text-left transition hover:bg-cream/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
-                >
-                  <p className="font-display text-base leading-relaxed text-ink">
-                    {item.clue}
-                  </p>
-                  {!expanded && (
-                    <span className="mt-2 block text-xs font-medium text-ink/45">
-                      Click for details
-                    </span>
-                  )}
-                </button>
+                <div className="flex items-start gap-3 px-4 py-4">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setExpandedId(expanded ? null : item.id)
+                    }
+                    aria-expanded={expanded}
+                    className="min-w-0 flex-1 text-left transition hover:text-ink/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
+                  >
+                    <p className="font-display text-base leading-relaxed text-ink">
+                      {item.clue}
+                    </p>
+                    {!expanded && (
+                      <span className="mt-2 block text-xs font-medium text-ink/45">
+                        Click for details
+                      </span>
+                    )}
+                  </button>
+                  <div className="flex shrink-0 flex-wrap items-center gap-2">
+                    <CopyClueButton text={item.clue} />
+                    <ShareClueMenu
+                      clueText={item.clue}
+                      onOpenChange={(open) =>
+                        setOpenShareId(open ? item.id : null)
+                      }
+                    />
+                  </div>
+                </div>
 
                 {expanded && (
                   <div className="border-t border-ink/10 bg-white/50 px-4 py-4">
-                    <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink/55">
-                        <span className="font-medium text-ink/75">
-                          {item.inspiration}
-                        </span>
-                        <span>{difficultyLabel(item.difficulty)}</span>
-                        <StarDisplay rating={item.rating} />
-                        <time dateTime={item.createdAt}>
-                          {new Date(item.createdAt + "Z").toLocaleDateString(
-                            undefined,
-                            { dateStyle: "medium" }
-                          )}
-                        </time>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <CopyClueButton text={item.clue} />
-                        <ShareClueMenu clueText={item.clue} />
-                      </div>
+                    <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink/55">
+                      <span className="font-medium text-ink/75">
+                        {item.inspiration}
+                      </span>
+                      <span>{difficultyLabel(item.difficulty)}</span>
+                      <StarDisplay rating={item.rating} />
+                      <time dateTime={item.createdAt}>
+                        {new Date(item.createdAt + "Z").toLocaleDateString(
+                          undefined,
+                          { dateStyle: "medium" }
+                        )}
+                      </time>
                     </div>
 
                     <dl className="grid gap-2 text-sm sm:grid-cols-2">

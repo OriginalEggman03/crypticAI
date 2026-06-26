@@ -13,15 +13,28 @@ import {
 interface ShareClueMenuProps {
   clueText: string;
   className?: string;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export function ShareClueMenu({ clueText, className = "" }: ShareClueMenuProps) {
+export function ShareClueMenu({
+  clueText,
+  className = "",
+  onOpenChange,
+}: ShareClueMenuProps) {
   const menuId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
 
-  const close = useCallback(() => setOpen(false), []);
+  const setMenuOpen = useCallback(
+    (value: boolean) => {
+      setOpen(value);
+      onOpenChange?.(value);
+    },
+    [onOpenChange]
+  );
+
+  const close = useCallback(() => setMenuOpen(false), [setMenuOpen]);
 
   useEffect(() => {
     if (!open) return;
@@ -90,7 +103,7 @@ export function ShareClueMenu({ clueText, className = "" }: ShareClueMenuProps) 
     <div ref={rootRef} className={`relative ${className}`}>
       <button
         type="button"
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => setMenuOpen(!open)}
         aria-expanded={open}
         aria-haspopup="menu"
         aria-controls={menuId}
@@ -114,7 +127,7 @@ export function ShareClueMenu({ clueText, className = "" }: ShareClueMenuProps) 
           id={menuId}
           role="menu"
           aria-label="Share clue"
-          className="absolute right-0 z-50 mt-2 max-h-64 w-48 overflow-y-auto rounded-xl border border-ink/10 bg-paper py-1 shadow-lg"
+          className="absolute right-0 z-50 mt-2 w-48 rounded-xl border border-ink/10 bg-paper py-1 shadow-lg"
         >
           {canUseNativeShare() && (
             <button
