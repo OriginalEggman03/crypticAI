@@ -18,7 +18,8 @@
     "railway:env": "tsx scripts/railway-set-env.ts",
     "backup:db": "tsx scripts/backup-database.ts",
     "railway:backup:setup": "tsx scripts/setup-railway-backup-cron.ts",
-    "smoke:prod": "tsx scripts/smoke-test-production.ts"
+    "smoke:prod": "tsx scripts/smoke-test-production.ts",
+    "brand:assets": "tsx scripts/generate-brand-assets.ts"
   },
   "dependencies": {
     "@cdot/dictionary": "^1.0.3",
@@ -37,6 +38,7 @@
     "@types/react-dom": "^19.1.5",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
+    "sharp": "^0.35.2",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
