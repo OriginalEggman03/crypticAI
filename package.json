@@ -16,7 +16,9 @@
     "setup:stripe:production": "tsx scripts/setup-stripe-production.ts",
     "setup:stripe:webhook": "tsx scripts/setup-stripe-webhook.ts",
     "railway:env": "tsx scripts/railway-set-env.ts",
-    "backup:db": "tsx scripts/backup-database.ts"
+    "backup:db": "tsx scripts/backup-database.ts",
+    "railway:backup:setup": "tsx scripts/setup-railway-backup-cron.ts",
+    "smoke:prod": "tsx scripts/smoke-test-production.ts"
   },
   "dependencies": {
     "@cdot/dictionary": "^1.0.3",

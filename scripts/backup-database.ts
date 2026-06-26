@@ -1,5 +1,13 @@
-import { copyFileSync, mkdirSync, readdirSync, statSync, unlinkSync } from "node:fs";
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  statSync,
+  unlinkSync,
+} from "node:fs";
 import { dirname, join } from "node:path";
+import { DatabaseSync } from "node:sqlite";
 
 const DEFAULT_RETENTION_DAYS = 14;
 
@@ -28,6 +36,27 @@ function pruneOldBackups(dir: string, retentionDays: number): void {
   }
 }
 
+function backupDatabase(source: string, dest: string): void {
+  if (!existsSync(source)) {
+    throw new Error(`Database not found: ${source}`);
+  }
+
+  const escapedDest = dest.replace(/'/g, "''");
+
+  try {
+    const database = new DatabaseSync(source, { readonly: true });
+    database.exec(`VACUUM INTO '${escapedDest}'`);
+    database.close();
+    return;
+  } catch (err) {
+    console.warn(
+      "SQLite VACUUM INTO failed, falling back to file copy:",
+      err instanceof Error ? err.message : err
+    );
+    copyFileSync(source, dest);
+  }
+}
+
 function main(): void {
   const source = databasePath();
   const destDir = backupDirectory();
@@ -36,13 +65,25 @@ function main(): void {
   const stamp = new Date().toISOString().replace(/[:.]/g, "-");
   const dest = join(destDir, `clues-${stamp}.db`);
 
-  copyFileSync(source, dest);
-  console.log("Backup written:", dest);
+  backupDatabase(source, dest);
 
-  const retention = Number(process.env.BACKUP_RETENTION_DAYS ?? DEFAULT_RETENTION_DAYS);
+  const sizeKb = Math.round(statSync(dest).size / 1024);
+  console.log(`Backup written: ${dest} (${sizeKb} KB)`);
+
+  const retention = Number(
+    process.env.BACKUP_RETENTION_DAYS ?? DEFAULT_RETENTION_DAYS
+  );
   if (Number.isFinite(retention) && retention > 0) {
     pruneOldBackups(destDir, retention);
   }
 }
 
-main();
+try {
+  main();
+} catch (err) {
+  console.error(
+    "Backup failed:",
+    err instanceof Error ? err.message : err
+  );
+  process.exit(1);
+}

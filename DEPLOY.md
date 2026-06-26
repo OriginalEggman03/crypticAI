@@ -123,20 +123,46 @@ Do not run both for the same commit — it triggers duplicate rollouts and crash
 
 Download or snapshot `/data/clues.db` regularly. Railway volumes persist across deploys but are not a substitute for off-site backups.
 
-**Automated on-server copies** (included in this repo):
+### Automated weekly backups (recommended)
+
+This repo includes a dedicated Railway cron config:
+
+1. Run `npm run railway:backup:setup` (sets `BACKUP_DIR` / retention on the linked service).
+2. In Railway, add a **second service** from the same GitHub repo named `crypticAI-backup`.
+3. Set **Config file path** to `railway.backup.toml` (cron: Sundays 03:00 UTC).
+4. Attach the **same volume** at `/data` as the web service.
+5. Set `DATABASE_PATH=/data/clues.db` and `BACKUP_DIR=/data/backups`.
+6. Deploy once, then test: `railway run --service crypticAI-backup npm run backup:db`.
+
+Backups land in `/data/backups/clues-<timestamp>.db` with 14-day retention.
+
+Copy backups off-site (S3/R2) for disaster recovery.
+
+### Manual backup
 
 ```bash
-# On Railway (volume at /data):
 BACKUP_DIR=/data/backups npm run backup:db
 ```
 
-Schedule weekly via [Railway Cron](https://docs.railway.com/guides/cron-jobs) or an external cron that runs `railway run npm run backup:db`. Copy `/data/backups/*.db` off-site (S3/R2) for disaster recovery.
+## 8b. Production smoke test
 
-Options:
+Quick health check after deploy:
 
-- `npm run backup:db` — timestamped copy with 14-day retention (`BACKUP_RETENTION_DAYS`)
-- Periodic off-site upload to S3/R2
-- Migrate to Turso/Postgres later if you need multi-instance scaling
+```bash
+npm run smoke:prod
+```
+
+Authenticated checks (existing verified account):
+
+```bash
+SMOKE_TEST_EMAIL=you@example.com SMOKE_TEST_PASSWORD=secret npm run smoke:prod
+```
+
+Full clue generation (~1–3 min, uses a credit):
+
+```bash
+SMOKE_TEST_GENERATE=1 SMOKE_TEST_EMAIL=... SMOKE_TEST_PASSWORD=... npm run smoke:prod
+```
 
 ## 9. Costs to monitor
 
