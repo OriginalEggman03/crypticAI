@@ -114,7 +114,7 @@ export function ShareClueMenu({ clueText, className = "" }: ShareClueMenuProps) 
           id={menuId}
           role="menu"
           aria-label="Share clue"
-          className="absolute right-0 z-10 mt-2 w-48 rounded-xl border border-ink/10 bg-paper py-1 shadow-lg"
+          className="absolute right-0 z-50 mt-2 max-h-64 w-48 overflow-y-auto rounded-xl border border-ink/10 bg-paper py-1 shadow-lg"
         >
           {canUseNativeShare() && (
             <button

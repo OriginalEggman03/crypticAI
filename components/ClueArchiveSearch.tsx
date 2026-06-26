@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import { StarDisplay } from "@/components/StarRating";
 import { InspirationArchiveInput } from "@/components/InspirationArchiveInput";
+import { CopyClueButton } from "@/components/CopyClueButton";
 import { ShareClueMenu } from "@/components/ShareClueMenu";
 import { difficultyLabel } from "@/lib/anagram-difficulty";
 import type { AnagramDifficulty, ArchivedClue } from "@/lib/types";
@@ -196,7 +197,7 @@ export function ClueArchiveSearch() {
             return (
               <li
                 key={item.id}
-                className="rounded-xl border border-ink/10 bg-cream/40 overflow-hidden"
+                className="rounded-xl border border-ink/10 bg-cream/40"
               >
                 <button
                   type="button"
@@ -232,7 +233,10 @@ export function ClueArchiveSearch() {
                           )}
                         </time>
                       </div>
-                      <ShareClueMenu clueText={item.clue} />
+                      <div className="flex flex-wrap items-center gap-2">
+                        <CopyClueButton text={item.clue} />
+                        <ShareClueMenu clueText={item.clue} />
+                      </div>
                     </div>
 
                     <dl className="grid gap-2 text-sm sm:grid-cols-2">
