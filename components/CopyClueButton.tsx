@@ -30,10 +30,11 @@ export function CopyClueButton({ text, className = "" }: CopyClueButtonProps) {
       <button
         type="button"
         onClick={copy}
-        className="inline-flex items-center gap-1.5 rounded-lg border border-ink/15 bg-white px-3 py-2 text-sm font-medium text-ink transition hover:bg-cream/80"
+        aria-label="Copy text"
+        title="Copy text"
+        className="inline-flex items-center justify-center rounded-lg border border-ink/15 bg-white p-2 text-ink transition hover:bg-cream/80"
       >
         <CopyIcon />
-        Copy text
       </button>
 
       {feedback && (

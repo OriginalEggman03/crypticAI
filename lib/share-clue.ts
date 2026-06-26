@@ -44,10 +44,20 @@ export function buildClueShareMessage(
   ].join("\n");
 }
 
+export function buildRedditShareUrl(
+  clueText: string,
+  siteUrl = siteUrlForSharing()
+): string {
+  const title = `COTD: ${clueText.trim()}`;
+  const body = `Made with ${siteUrl.replace(/\/$/, "")}/`;
+  return `https://www.reddit.com/r/crosswords/submit?title=${encodeURIComponent(title)}&text=${encodeURIComponent(body)}`;
+}
+
 export function shareUrlForPlatform(
   platform: SharePlatform,
   message: string,
-  siteUrl: string
+  siteUrl: string,
+  clueText?: string
 ): string | null {
   const encodedMessage = encodeURIComponent(message);
   const encodedUrl = encodeURIComponent(siteUrl);
@@ -62,7 +72,7 @@ export function shareUrlForPlatform(
     case "linkedin":
       return `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
     case "reddit":
-      return `https://www.reddit.com/submit?title=${encodeURIComponent("Cryptic crossword clue")}&text=${encodedMessage}`;
+      return buildRedditShareUrl(clueText ?? message, siteUrl);
     case "email":
       return `mailto:?subject=${encodeURIComponent("Cryptic crossword clue")}&body=${encodedMessage}`;
     case "copy":

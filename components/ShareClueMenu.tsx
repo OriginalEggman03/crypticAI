@@ -78,7 +78,7 @@ export function ShareClueMenu({
       return;
     }
 
-    const url = shareUrlForPlatform(platform, message, siteUrl);
+    const url = shareUrlForPlatform(platform, message, siteUrl, clueText);
     if (url) {
       window.open(url, "_blank", "noopener,noreferrer");
     }
