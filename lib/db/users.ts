@@ -3,6 +3,10 @@ import { dirname, join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { FREE_SPINS } from "@/lib/auth/constants";
 import { isAdminUser } from "@/lib/admin";
+import {
+  getLifetimeFreeSpinsUsed,
+  setLifetimeFreeSpinsUsed,
+} from "@/lib/db/free-spin-claims";
 import { hashVerificationToken } from "@/lib/auth/verification-token";
 import type { CreditsStatus, UserPublic } from "@/lib/types";
 
@@ -102,7 +106,9 @@ export function getCreditsStatus(user: UserRecord): CreditsStatus {
     };
   }
 
-  const freeRemaining = Math.max(0, FREE_SPINS - user.freeSpinsUsed);
+  const lifetimeUsed = getLifetimeFreeSpinsUsed(user.email);
+  const effectiveUsed = Math.max(user.freeSpinsUsed, lifetimeUsed);
+  const freeRemaining = Math.max(0, FREE_SPINS - effectiveUsed);
   const paidCredits = user.credits;
   return {
     freeRemaining,
@@ -158,20 +164,23 @@ export function createUser(
 ): UserRecord {
   const normalized = email.trim().toLowerCase();
   const database = getDb();
+  const priorFreeSpinsUsed = getLifetimeFreeSpinsUsed(normalized);
   const info = database
     .prepare(
       `INSERT INTO users (
         email,
         password_hash,
         email_verification_token_hash,
-        email_verification_expires_at
-      ) VALUES (?, ?, ?, ?)`
+        email_verification_expires_at,
+        free_spins_used
+      ) VALUES (?, ?, ?, ?, ?)`
     )
     .run(
       normalized,
       passwordHash,
       verificationTokenHash,
-      verificationExpiresAt
+      verificationExpiresAt,
+      priorFreeSpinsUsed
     );
 
   const created = findUserById(Number(info.lastInsertRowid));
@@ -267,12 +276,20 @@ export function consumeGenerationCredit(userId: number): CreditsStatus {
   }
 
   if (status.freeRemaining > 0) {
+    const lifetimeUsed = getLifetimeFreeSpinsUsed(user.email);
+    const effectiveUsed = Math.max(user.freeSpinsUsed, lifetimeUsed);
+    const newUsed = effectiveUsed + 1;
+
+    if (newUsed > FREE_SPINS) {
+      throw new Error("No credits remaining");
+    }
+
     const info = database
-      .prepare(
-        `UPDATE users SET free_spins_used = free_spins_used + 1 WHERE id = ? AND free_spins_used < ?`
-      )
-      .run(userId, FREE_SPINS);
+      .prepare(`UPDATE users SET free_spins_used = ? WHERE id = ?`)
+      .run(newUsed, userId);
     if (info.changes === 0) throw new Error("No credits remaining");
+
+    setLifetimeFreeSpinsUsed(user.email, newUsed);
   } else {
     const info = database
       .prepare(`UPDATE users SET credits = credits - 1 WHERE id = ? AND credits > 0`)
@@ -297,6 +314,14 @@ export function addCredits(userId: number, amount: number): CreditsStatus {
 }
 
 export function deleteUserById(userId: number): boolean {
+  const user = findUserById(userId);
+  if (!user) return false;
+
+  setLifetimeFreeSpinsUsed(
+    user.email,
+    Math.max(getLifetimeFreeSpinsUsed(user.email), user.freeSpinsUsed)
+  );
+
   const info = getDb().prepare(`DELETE FROM users WHERE id = ?`).run(userId);
   return info.changes > 0;
 }
