@@ -7,14 +7,16 @@ export function emailFromAddress(): string {
 }
 
 export async function sendResendEmail(options: {
-  to: string;
+  to: string | string[];
   subject: string;
   html: string;
 }): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY?.trim();
-  const to = options.to.trim();
+  const recipients = (Array.isArray(options.to) ? options.to : [options.to])
+    .map((address) => address.trim())
+    .filter(Boolean);
 
-  if (!to) {
+  if (!recipients.length) {
     throw new Error("Recipient email is required");
   }
 
@@ -22,7 +24,9 @@ export async function sendResendEmail(options: {
     if (process.env.NODE_ENV === "production") {
       throw new Error("RESEND_API_KEY is not configured — cannot send email.");
     }
-    console.info(`[dev] Email to ${to}: ${options.subject}`);
+    console.info(
+      `[dev] Email to ${recipients.join(", ")}: ${options.subject}`
+    );
     return;
   }
 
@@ -34,7 +38,7 @@ export async function sendResendEmail(options: {
     },
     body: JSON.stringify({
       from: emailFromAddress(),
-      to: [to],
+      to: recipients,
       subject: options.subject,
       html: options.html,
     }),

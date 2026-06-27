@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { hashPassword } from "@/lib/auth/password";
 import { createVerificationToken } from "@/lib/auth/verification-token";
 import { sendVerificationEmail } from "@/lib/auth/verification-email";
+import { sendNewSignupAlertEmail } from "@/lib/email/signup-alert-email";
 import {
   createUser,
   findUserByEmail,
@@ -108,6 +109,12 @@ export async function POST(request: NextRequest) {
 
     createUser(email, passwordHash, hash, expiresAt);
     await sendVerificationEmail(email, token, origin);
+    void sendNewSignupAlertEmail(email).catch((alertErr) => {
+      void captureServerError(alertErr, {
+        route: "auth/signup",
+        context: "admin-signup-alert",
+      });
+    });
 
     return NextResponse.json({
       needsEmailVerification: true,

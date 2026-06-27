@@ -1,4 +1,8 @@
 /** Admin allowlist — set ADMIN_EMAILS in production (comma-separated). */
+export function getAdminNotificationEmails(): string[] {
+  return adminEmailAllowlist();
+}
+
 function adminEmailAllowlist(): string[] {
   const fromEnv = process.env.ADMIN_EMAILS?.split(",")
     .map((e) => e.trim())
