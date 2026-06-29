@@ -52,8 +52,6 @@ Do **not** commit `.env.local`. Set secrets only in Railway.
 Optional model overrides (defaults to Opus 4.8):
 
 - `ANTHROPIC_SETTER_MODEL`
-- `ANTHROPIC_CRITIC_MODEL`
-- `ANTHROPIC_REPAIR_MODEL`
 - `ANTHROPIC_EXPLAIN_MODEL`
 
 ## 5. Custom domain
@@ -102,13 +100,12 @@ If emails persist after these changes, check **Deployments** in the Railway dash
 After the first deploy:
 
 1. Open `https://your-domain.com/api/health` → `{ "ok": true, "checks": { ... } }`
-2. Confirm legacy LLM routes return 404: `POST /api/generate`, `POST /api/explain`
-3. Sign up and log in (session cookie requires HTTPS).
-4. Generate a clue (may take 1–3 minutes).
-5. Archive a clue (requires sign-in) and search the archive.
-6. Buy credits and confirm balance updates (webhook + success redirect).
-7. Set `ADMIN_EMAILS` on Railway for your operator account.
-8. Set an Anthropic monthly spend limit in the [Anthropic console](https://console.anthropic.com/).
+2. Sign up and log in (session cookie requires HTTPS).
+3. Generate a clue (may take 1–3 minutes).
+4. Archive a clue (requires sign-in) and search the archive.
+5. Buy credits and confirm balance updates (webhook + success redirect).
+6. Set `ADMIN_EMAILS` on Railway for your operator account.
+7. Set an Anthropic monthly spend limit in the [Anthropic console](https://console.anthropic.com/).
 
 ### Deploy workflow
 

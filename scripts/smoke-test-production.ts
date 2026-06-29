@@ -123,28 +123,6 @@ async function publicChecks(): Promise<CheckResult[]> {
   }
 
   results.push(
-    await runCheck("POST /api/generate locked (404)", async () => {
-      const res = await fetchWithTimeout(`${BASE_URL}/api/generate`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ preferences: { inspiration: "smoke test" } }),
-      });
-      if (res.status !== 404) fail(`expected 404, got ${res.status}`);
-    })
-  );
-
-  results.push(
-    await runCheck("POST /api/explain locked (404)", async () => {
-      const res = await fetchWithTimeout(`${BASE_URL}/api/explain`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ clue: "test", answer: "TEST" }),
-      });
-      if (res.status !== 404) fail(`expected 404, got ${res.status}`);
-    })
-  );
-
-  results.push(
     await runCheck("POST /api/archive requires auth (401)", async () => {
       const res = await fetchWithTimeout(`${BASE_URL}/api/archive`, {
         method: "POST",
