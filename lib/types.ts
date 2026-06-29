@@ -37,6 +37,8 @@ export interface ArchivedClue {
   difficulty: AnagramDifficulty;
   answer: string;
   clue: string;
+  originalClue: string | null;
+  improvementNotes: string | null;
   anagramFodder: string;
   anagramIndicator: string | null;
   rating: number;

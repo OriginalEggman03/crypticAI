@@ -9,6 +9,8 @@ export interface ArchivedClue {
   difficulty: AnagramDifficulty;
   answer: string;
   clue: string;
+  originalClue: string | null;
+  improvementNotes: string | null;
   anagramFodder: string;
   anagramIndicator: string | null;
   rating: number;
@@ -20,6 +22,8 @@ export interface ArchiveClueInput {
   difficulty: AnagramDifficulty;
   answer: string;
   clue: string;
+  originalClue?: string;
+  improvementNotes?: string;
   anagramFodder: string;
   anagramIndicator?: string;
   rating: number;
@@ -41,6 +45,20 @@ let db: DatabaseSync | null = null;
 
 function databasePath(): string {
   return process.env.DATABASE_PATH ?? join(process.cwd(), "data", "clues.db");
+}
+
+function migrateArchivedCluesTable(database: DatabaseSync): void {
+  const cols = database
+    .prepare("PRAGMA table_info(archived_clues)")
+    .all() as { name: string }[];
+  const names = new Set(cols.map((c) => c.name));
+
+  if (!names.has("original_clue")) {
+    database.exec(`ALTER TABLE archived_clues ADD COLUMN original_clue TEXT`);
+  }
+  if (!names.has("improvement_notes")) {
+    database.exec(`ALTER TABLE archived_clues ADD COLUMN improvement_notes TEXT`);
+  }
 }
 
 function getDb(): DatabaseSync {
@@ -69,6 +87,7 @@ function getDb(): DatabaseSync {
     CREATE INDEX IF NOT EXISTS idx_archived_difficulty ON archived_clues(difficulty);
     CREATE INDEX IF NOT EXISTS idx_archived_created ON archived_clues(created_at DESC);
   `);
+  migrateArchivedCluesTable(db);
 
   return db;
 }
@@ -80,6 +99,8 @@ function rowToArchived(row: Record<string, unknown>): ArchivedClue {
     difficulty: row.difficulty as AnagramDifficulty,
     answer: row.answer as string,
     clue: row.clue as string,
+    originalClue: (row.original_clue as string | null) ?? null,
+    improvementNotes: (row.improvement_notes as string | null) ?? null,
     anagramFodder: row.anagram_fodder as string,
     anagramIndicator: (row.anagram_indicator as string | null) ?? null,
     rating: Number(row.rating),
@@ -167,9 +188,19 @@ export function archiveClue(input: ArchiveClueInput): ArchivedClue {
   const clue = input.clue.trim();
   const answer = input.answer.trim();
   const anagramFodder = input.anagramFodder.trim();
+  const originalClue = input.originalClue?.trim() || null;
+  const improvementNotes = input.improvementNotes?.trim() || null;
 
   if (!inspiration || !clue || !answer || !anagramFodder) {
     throw new Error("Inspiration, clue, answer, and anagram fodder are required");
+  }
+
+  if (originalClue && originalClue === clue) {
+    throw new Error("Original and improved clue text must differ");
+  }
+
+  if (originalClue && !improvementNotes) {
+    throw new Error("Improvement notes are required when the clue was rewritten");
   }
 
   if (input.difficulty !== "easy" && input.difficulty !== "hard") {
@@ -179,8 +210,9 @@ export function archiveClue(input: ArchiveClueInput): ArchivedClue {
   const database = getDb();
   const insert = database.prepare(`
     INSERT INTO archived_clues (
-      inspiration, difficulty, answer, clue, anagram_fodder, anagram_indicator, rating
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+      inspiration, difficulty, answer, clue, original_clue, improvement_notes,
+      anagram_fodder, anagram_indicator, rating
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
   const result = insert.run(
@@ -188,6 +220,8 @@ export function archiveClue(input: ArchiveClueInput): ArchivedClue {
     input.difficulty,
     answer.toUpperCase(),
     clue,
+    originalClue,
+    improvementNotes,
     anagramFodder.toLowerCase(),
     input.anagramIndicator?.trim() || null,
     input.rating

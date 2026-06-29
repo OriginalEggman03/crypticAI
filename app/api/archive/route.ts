@@ -66,6 +66,8 @@ export async function POST(request: NextRequest) {
       difficulty?: string;
       answer?: string;
       clue?: string;
+      originalClue?: string;
+      improvementNotes?: string;
       anagramFodder?: string;
       anagramIndicator?: string;
       rating?: number;
@@ -83,6 +85,8 @@ export async function POST(request: NextRequest) {
     const inspiration = (body.inspiration ?? "").slice(0, MAX_ARCHIVE_TEXT);
     const answer = (body.answer ?? "").slice(0, 200);
     const clue = (body.clue ?? "").slice(0, MAX_ARCHIVE_TEXT);
+    const originalClue = body.originalClue?.slice(0, MAX_ARCHIVE_TEXT);
+    const improvementNotes = body.improvementNotes?.slice(0, MAX_ARCHIVE_TEXT);
     const anagramFodder = (body.anagramFodder ?? "").slice(0, 200);
 
     const archived = archiveClue({
@@ -90,6 +94,8 @@ export async function POST(request: NextRequest) {
       difficulty,
       answer,
       clue,
+      originalClue,
+      improvementNotes,
       anagramFodder,
       anagramIndicator: body.anagramIndicator?.slice(0, 200),
       rating: body.rating,

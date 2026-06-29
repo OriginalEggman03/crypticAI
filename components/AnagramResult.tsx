@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ArchiveCluePanel } from "@/components/ArchiveCluePanel";
 import { AnswerChecker } from "@/components/AnswerChecker";
 import { BuyCreditsButtons } from "@/components/BuyCreditsButtons";
+import { ClueImprovementEditor } from "@/components/ClueImprovementEditor";
 import { DifficultyToggle } from "@/components/DifficultyToggle";
 import { ShareClueMenu } from "@/components/ShareClueMenu";
 import type { CreditPackId } from "@/lib/credit-packs";
@@ -78,13 +79,22 @@ export function AnagramResult({
   const [showPrompts, setShowPrompts] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [inspirationRevealed, setInspirationRevealed] = useState(false);
+  const [originalClue, setOriginalClue] = useState(result.clue.clue);
+  const [displayClue, setDisplayClue] = useState(result.clue.clue);
+  const [improvementNotes, setImprovementNotes] = useState("");
   const { clue, answerContext, surfaceExplanation, claudeTrace } = result;
 
   useEffect(() => {
+    setOriginalClue(clue.clue);
+    setDisplayClue(clue.clue);
+    setImprovementNotes("");
     setRevealed(false);
     setShowPrompts(false);
     setInspirationRevealed(false);
   }, [clue.clue, clue.answer]);
+
+  const isEdited =
+    displayClue.trim() !== originalClue.trim() || improvementNotes.trim().length > 0;
 
   return (
     <div className="space-y-6">
@@ -168,12 +178,19 @@ export function AnagramResult({
 
       <div className="rounded-2xl border border-ink/10 bg-cream/50 p-6 shadow-sm">
         <div className="flex items-start justify-between gap-3">
-          <p className="min-w-0 flex-1 font-display text-lg leading-relaxed text-ink">
-            {clue.clue}
-          </p>
-          <ShareClueMenu clueText={clue.clue} className="shrink-0" />
+          <div className="min-w-0 flex-1">
+            {isEdited && (
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-accent">
+                Your version
+              </p>
+            )}
+            <p className="font-display text-lg leading-relaxed text-ink">
+              {displayClue}
+            </p>
+          </div>
+          <ShareClueMenu clueText={displayClue} className="shrink-0" />
         </div>
-        <AnswerChecker answer={clue.answer} clue={clue.clue} />
+        <AnswerChecker answer={clue.answer} clue={displayClue} />
         {revealed && (
           <dl className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
             <div>
@@ -194,10 +211,28 @@ export function AnagramResult({
         )}
       </div>
 
+      <ClueImprovementEditor
+        originalClue={originalClue}
+        clueText={displayClue}
+        improvementNotes={improvementNotes}
+        onApply={(nextClue, nextNotes) => {
+          setDisplayClue(nextClue);
+          setImprovementNotes(nextNotes);
+        }}
+        onReset={() => {
+          setDisplayClue(originalClue);
+          setImprovementNotes("");
+        }}
+        disabled={retryLoading}
+      />
+
       <ArchiveCluePanel
         inspiration={inspiration}
         difficulty={difficulty}
         clue={clue}
+        displayClue={displayClue}
+        originalClue={originalClue}
+        improvementNotes={improvementNotes}
       />
 
       <div>

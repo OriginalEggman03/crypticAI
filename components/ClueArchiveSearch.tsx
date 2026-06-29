@@ -217,6 +217,11 @@ export function ClueArchiveSearch() {
                     <p className="font-display text-base leading-relaxed text-ink">
                       {item.clue}
                     </p>
+                    {item.originalClue && !expanded && (
+                      <span className="mt-2 block text-xs font-medium text-accent">
+                        Human-edited
+                      </span>
+                    )}
                     {!expanded && (
                       <span className="mt-2 block text-xs font-medium text-ink/45">
                         Click for details
@@ -249,6 +254,31 @@ export function ClueArchiveSearch() {
                         )}
                       </time>
                     </div>
+
+                    {(item.originalClue || item.improvementNotes) && (
+                      <div className="mb-4 space-y-3 rounded-xl border border-ink/10 bg-cream/40 p-4 text-sm">
+                        {item.originalClue && (
+                          <div>
+                            <dt className="text-xs font-semibold uppercase tracking-wide text-ink/50">
+                              AI version
+                            </dt>
+                            <dd className="mt-1 leading-relaxed text-ink/70">
+                              {item.originalClue}
+                            </dd>
+                          </div>
+                        )}
+                        {item.improvementNotes && (
+                          <div>
+                            <dt className="text-xs font-semibold uppercase tracking-wide text-ink/50">
+                              How it was improved
+                            </dt>
+                            <dd className="mt-1 whitespace-pre-wrap leading-relaxed text-ink">
+                              {item.improvementNotes}
+                            </dd>
+                          </div>
+                        )}
+                      </div>
+                    )}
 
                     <dl className="grid gap-2 text-sm sm:grid-cols-2">
                       <div>

@@ -8,12 +8,18 @@ interface ArchiveCluePanelProps {
   inspiration: string;
   difficulty: AnagramDifficulty;
   clue: AnagramClueDraft;
+  displayClue: string;
+  originalClue: string;
+  improvementNotes: string;
 }
 
 export function ArchiveCluePanel({
   inspiration,
   difficulty,
   clue,
+  displayClue,
+  originalClue,
+  improvementNotes,
 }: ArchiveCluePanelProps) {
   const [rating, setRating] = useState<number | null>(null);
   const [saving, setSaving] = useState(false);
@@ -24,7 +30,14 @@ export function ArchiveCluePanel({
     setRating(null);
     setError(null);
     setSaved(null);
-  }, [clue.clue, clue.answer, inspiration, difficulty]);
+  }, [
+    clue.clue,
+    clue.answer,
+    inspiration,
+    difficulty,
+    displayClue,
+    improvementNotes,
+  ]);
 
   const archive = async () => {
     if (rating === null) {
@@ -36,6 +49,7 @@ export function ArchiveCluePanel({
     setError(null);
 
     try {
+      const rewritten = displayClue.trim() !== originalClue.trim();
       const res = await fetch("/api/archive", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -43,7 +57,9 @@ export function ArchiveCluePanel({
           inspiration,
           difficulty,
           answer: clue.answer,
-          clue: clue.clue,
+          clue: displayClue.trim(),
+          originalClue: rewritten ? originalClue.trim() : undefined,
+          improvementNotes: improvementNotes.trim() || undefined,
           anagramFodder: clue.anagramFodder,
           anagramIndicator: clue.anagramIndicator,
           rating,
