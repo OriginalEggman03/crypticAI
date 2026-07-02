@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   archiveClue,
+  countArchivedClues,
   searchArchivedClues,
   validateRating,
 } from "@/lib/db/clue-archive";
+import { GUEST_ARCHIVE_PREVIEW_CLUES } from "@/lib/guest-archive-preview";
 import { invalidateIndicatorUsageCache } from "@/lib/indicator-archive-weights";
+import { getSessionUserId } from "@/lib/auth/session";
 import { requireVerifiedUser } from "@/lib/auth/require-user";
 import { enforceRateLimit } from "@/lib/rate-limit";
 import type { AnagramDifficulty } from "@/lib/types";
@@ -31,15 +34,30 @@ export async function GET(request: NextRequest) {
     const minRating = parseRatingParam(searchParams.get("minRating"));
     const maxRating = parseRatingParam(searchParams.get("maxRating"));
     const limitRaw = searchParams.get("limit");
-    const limit = limitRaw ? parseInt(limitRaw, 10) : undefined;
+    const requestedLimit = limitRaw ? parseInt(limitRaw, 10) : undefined;
 
-    const results = searchArchivedClues({
+    const isLoggedIn = Boolean(await getSessionUserId());
+    const searchQuery = {
       inspiration,
       difficulty,
       rating,
       minRating,
       maxRating,
-      limit: Number.isFinite(limit) ? limit : undefined,
+    };
+
+    if (!isLoggedIn) {
+      const totalCount = countArchivedClues({});
+
+      return NextResponse.json({
+        results: GUEST_ARCHIVE_PREVIEW_CLUES,
+        totalCount,
+        guestPreview: true,
+      });
+    }
+
+    const results = searchArchivedClues({
+      ...searchQuery,
+      limit: Number.isFinite(requestedLimit) ? requestedLimit : undefined,
     });
 
     return NextResponse.json({ results });

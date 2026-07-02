@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { StarDisplay } from "@/components/StarRating";
 import { InspirationArchiveInput } from "@/components/InspirationArchiveInput";
 import { CopyClueButton } from "@/components/CopyClueButton";
@@ -22,64 +22,128 @@ const emptyFilters: SearchFilters = {
   minRating: "",
 };
 
-export function ClueArchiveSearch() {
+interface ClueArchiveSearchProps {
+  isLoggedIn: boolean;
+  authReady: boolean;
+  onSignUp: () => void;
+}
+
+export function ClueArchiveSearch({
+  isLoggedIn,
+  authReady,
+  onSignUp,
+}: ClueArchiveSearchProps) {
   const [filters, setFilters] = useState<SearchFilters>(emptyFilters);
   const [results, setResults] = useState<ArchivedClue[]>([]);
+  const [totalCount, setTotalCount] = useState<number | null>(null);
   const [searched, setSearched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [openShareId, setOpenShareId] = useState<number | null>(null);
 
-  const search = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    setExpandedId(null);
-    setOpenShareId(null);
-
+  const buildParams = useCallback((nextFilters: SearchFilters) => {
     const params = new URLSearchParams();
-    if (filters.inspiration.trim()) {
-      params.set("inspiration", filters.inspiration.trim());
+    if (nextFilters.inspiration.trim()) {
+      params.set("inspiration", nextFilters.inspiration.trim());
     }
-    if (filters.difficulty) {
-      params.set("difficulty", filters.difficulty);
+    if (nextFilters.difficulty) {
+      params.set("difficulty", nextFilters.difficulty);
     }
-    if (filters.rating) {
-      params.set("rating", filters.rating);
-    } else if (filters.minRating) {
-      params.set("minRating", filters.minRating);
+    if (nextFilters.rating) {
+      params.set("rating", nextFilters.rating);
+    } else if (nextFilters.minRating) {
+      params.set("minRating", nextFilters.minRating);
     }
+    return params;
+  }, []);
 
-    try {
-      const res = await fetch(`/api/archive?${params.toString()}`);
-      const data = (await res.json()) as {
-        results?: ArchivedClue[];
-        error?: string;
-      };
+  const runSearch = useCallback(
+    async (nextFilters: SearchFilters) => {
+      setLoading(true);
+      setError(null);
+      setExpandedId(null);
+      setOpenShareId(null);
 
-      if (!res.ok) {
-        throw new Error(data.error ?? "Search failed");
+      try {
+        const res = await fetch(`/api/archive?${buildParams(nextFilters).toString()}`);
+        const data = (await res.json()) as {
+          results?: ArchivedClue[];
+          totalCount?: number;
+          guestPreview?: boolean;
+          error?: string;
+        };
+
+        if (!res.ok) {
+          throw new Error(data.error ?? "Search failed");
+        }
+
+        setResults(data.results ?? []);
+        setTotalCount(
+          data.guestPreview && typeof data.totalCount === "number"
+            ? data.totalCount
+            : null
+        );
+        setSearched(true);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Search failed");
+        setResults([]);
+        setTotalCount(null);
+        setSearched(true);
+      } finally {
+        setLoading(false);
       }
+    },
+    [buildParams]
+  );
 
-      setResults(data.results ?? []);
-      setSearched(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Search failed");
+  const search = useCallback(() => {
+    if (!isLoggedIn) return;
+    void runSearch(filters);
+  }, [filters, isLoggedIn, runSearch]);
+
+  const prevLoggedInRef = useRef<boolean | null>(null);
+
+  const guestPreview = authReady && !isLoggedIn;
+
+  useEffect(() => {
+    if (!authReady) return;
+
+    const wasLoggedIn = prevLoggedInRef.current;
+
+    if (!isLoggedIn) {
+      void runSearch(emptyFilters);
+    } else if (wasLoggedIn === false) {
+      setFilters(emptyFilters);
       setResults([]);
-      setSearched(true);
-    } finally {
-      setLoading(false);
+      setTotalCount(null);
+      setSearched(false);
+      setError(null);
+      setExpandedId(null);
+      setOpenShareId(null);
     }
-  }, [filters]);
+
+    prevLoggedInRef.current = isLoggedIn;
+  }, [authReady, isLoggedIn, runSearch]);
 
   const clear = () => {
+    if (!isLoggedIn) return;
     setFilters(emptyFilters);
     setResults([]);
+    setTotalCount(null);
     setSearched(false);
     setError(null);
     setExpandedId(null);
     setOpenShareId(null);
   };
+
+  const hiddenCount =
+    guestPreview && totalCount != null
+      ? Math.max(0, totalCount - results.length)
+      : 0;
+
+  const disabledFieldClass =
+    "disabled:cursor-not-allowed disabled:bg-ink/5 disabled:text-ink/45";
 
   return (
     <section className="rounded-2xl border border-ink/10 bg-white/40 p-6 shadow-sm">
@@ -87,7 +151,19 @@ export function ClueArchiveSearch() {
         Search archive
       </h2>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      {!authReady ? (
+        <p className="mb-4 text-sm text-ink/60">Loading…</p>
+      ) : guestPreview ? (
+        <p className="mb-4 text-sm text-ink/60">
+          Featured clues from the archive. Sign up to search the full collection.
+        </p>
+      ) : null}
+
+      <div
+        className={`grid gap-4 sm:grid-cols-2 ${
+          guestPreview ? "opacity-60" : ""
+        }`}
+      >
         <label className="block sm:col-span-2">
           <span className="mb-1 block text-sm font-medium text-ink/80">
             Inspiration
@@ -97,6 +173,7 @@ export function ClueArchiveSearch() {
             onChange={(inspiration) =>
               setFilters((f) => ({ ...f, inspiration }))
             }
+            disabled={guestPreview}
           />
         </label>
 
@@ -106,13 +183,14 @@ export function ClueArchiveSearch() {
           </span>
           <select
             value={filters.difficulty}
+            disabled={guestPreview}
             onChange={(e) =>
               setFilters((f) => ({
                 ...f,
                 difficulty: e.target.value as SearchFilters["difficulty"],
               }))
             }
-            className="w-full rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+            className={`w-full rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 ${disabledFieldClass}`}
           >
             <option value="">Any</option>
             <option value="easy">Easy</option>
@@ -125,7 +203,12 @@ export function ClueArchiveSearch() {
             Star rating
           </span>
           <select
-            value={filters.rating || filters.minRating ? (filters.rating || `min:${filters.minRating}`) : ""}
+            value={
+              filters.rating || filters.minRating
+                ? filters.rating || `min:${filters.minRating}`
+                : ""
+            }
+            disabled={guestPreview}
             onChange={(e) => {
               const v = e.target.value;
               if (!v) {
@@ -144,7 +227,7 @@ export function ClueArchiveSearch() {
                 }));
               }
             }}
-            className="w-full rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+            className={`w-full rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 ${disabledFieldClass}`}
           >
             <option value="">Any</option>
             <option value="5">Exactly 5 stars</option>
@@ -159,20 +242,20 @@ export function ClueArchiveSearch() {
         </label>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className={`mt-4 flex flex-wrap gap-2 ${guestPreview ? "opacity-60" : ""}`}>
         <button
           type="button"
           onClick={search}
-          disabled={loading}
-          className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-paper hover:bg-accent/90 disabled:opacity-60"
+          disabled={loading || guestPreview}
+          className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-paper hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? "Searching…" : "Search"}
         </button>
         <button
           type="button"
           onClick={clear}
-          disabled={loading}
-          className="rounded-lg border border-ink/15 bg-white px-4 py-2 text-sm font-medium text-ink hover:bg-cream/80"
+          disabled={loading || guestPreview}
+          className={`rounded-lg border border-ink/15 bg-white px-4 py-2 text-sm font-medium text-ink hover:bg-cream/80 disabled:cursor-not-allowed disabled:opacity-60 ${disabledFieldClass}`}
         >
           Clear
         </button>
@@ -184,7 +267,7 @@ export function ClueArchiveSearch() {
         </p>
       )}
 
-      {searched && !loading && !error && (
+      {searched && !loading && !error && isLoggedIn && (
         <p className="mt-4 text-sm text-ink/60">
           {results.length === 0
             ? "No archived clues match your filters."
@@ -314,6 +397,31 @@ export function ClueArchiveSearch() {
             );
           })}
         </ul>
+      )}
+
+      {guestPreview && searched && !loading && !error && (
+        <div className="mt-6 rounded-xl border border-accent/25 bg-gradient-to-b from-accent/10 to-cream/40 p-6 text-center">
+          {hiddenCount > 0 ? (
+            <p className="font-display text-lg font-semibold text-ink">
+              {hiddenCount} more archived clue{hiddenCount === 1 ? "" : "s"} waiting
+            </p>
+          ) : (
+            <p className="font-display text-lg font-semibold text-ink">
+              Search and save your own clues
+            </p>
+          )}
+          <p className="mt-2 text-sm leading-relaxed text-ink/70">
+            Create a free account to search the full archive, filter by inspiration
+            and rating, and save clues you generate.
+          </p>
+          <button
+            type="button"
+            onClick={onSignUp}
+            className="mt-4 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-paper transition hover:bg-accent/90"
+          >
+            Sign up free
+          </button>
+        </div>
       )}
     </section>
   );

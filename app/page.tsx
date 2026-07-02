@@ -365,7 +365,11 @@ export default function Home() {
         aria-labelledby="tab-archive"
         hidden={tab !== "archive"}
       >
-        <ClueArchiveSearch />
+        <ClueArchiveSearch
+          isLoggedIn={Boolean(session)}
+          authReady={!sessionLoading}
+          onSignUp={() => setTab("create")}
+        />
       </div>
     </main>
   );

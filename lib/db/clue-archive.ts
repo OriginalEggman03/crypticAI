@@ -234,7 +234,9 @@ export function archiveClue(input: ArchiveClueInput): ArchivedClue {
   return rowToArchived(row);
 }
 
-export function searchArchivedClues(query: ArchiveSearchQuery = {}): ArchivedClue[] {
+function buildArchiveSearchConditions(
+  query: Omit<ArchiveSearchQuery, "limit">
+): { where: string; params: (string | number)[] } {
   const conditions: string[] = [];
   const params: (string | number)[] = [];
 
@@ -273,6 +275,22 @@ export function searchArchivedClues(query: ArchiveSearchQuery = {}): ArchivedClu
   }
 
   const where = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+  return { where, params };
+}
+
+export function countArchivedClues(
+  query: Omit<ArchiveSearchQuery, "limit"> = {}
+): number {
+  const { where, params } = buildArchiveSearchConditions(query);
+  const row = getDb()
+    .prepare(`SELECT COUNT(*) AS count FROM archived_clues ${where}`)
+    .get(...params) as { count: number };
+
+  return row.count;
+}
+
+export function searchArchivedClues(query: ArchiveSearchQuery = {}): ArchivedClue[] {
+  const { where, params } = buildArchiveSearchConditions(query);
   const limit = Math.min(Math.max(query.limit ?? 50, 1), 200);
 
   const rows = getDb()
