@@ -10,6 +10,7 @@ import {
 
 export { answerLetterCount };
 import { clueHasAnagramIndicator } from "./anagram-indicators";
+import { clueHasHomophoneIndicator as clueContainsHomophoneIndicator } from "./homophone-indicators";
 import type { ClueTypeOption } from "./clue-types";
 import { inspirationWordsInAnswer } from "./inspiration-parse";
 import { phraseAppearsAsFodderWords } from "./fodder-surface";
@@ -36,9 +37,6 @@ export interface VerificationFailure {
   clueType: string;
   reason: string;
 }
-
-const HOMOPHONE_INDICATOR =
-  /\b(we hear|heard|hear|sounds? like|say|said|aloud|orally|speaking|reportedly|on the radio|recited|verbal|out loud|audibly|to the ear|sound of|voice of|vocal|pronounced|uttered)\b/i;
 
 const HIDDEN_INDICATOR =
   /\b(in|inside|within|part of|partly|some|extract|hidden|concealed|holding|fragment|snippet|bit of|briefly|portion|from|among|between)\b/i;
@@ -358,7 +356,7 @@ export function hasAnagramIndicator(clue: string): boolean {
 }
 
 export function hasHomophoneIndicator(clue: string): boolean {
-  return HOMOPHONE_INDICATOR.test(stripEnumeration(clue));
+  return clueContainsHomophoneIndicator(clue);
 }
 
 export function hasHiddenIndicator(clue: string): boolean {

@@ -5,16 +5,40 @@ import { FAMOUS_FODDER_PROPER_NAMES } from "./proper-noun-words";
 
 let lowercaseHeadwords: Set<string> | null = null;
 let capitalizedForms: Map<string, string> | null = null;
+/** Direct lowercase `.dic` entries → affix flags, or `null` when the line has no `/flags`. */
+let lowercaseEntryFlags: Map<string, string | null> | null = null;
+
+/** Bare Hunspell lemmas that are abbreviations, not standard crossword lexicon. */
+const BARE_DICTIONARY_ABBREVIATIONS = new Set([
+  "aux",
+  "blvd",
+  "comm",
+  "corp",
+  "corr",
+  "ext",
+  "gov",
+  "inc",
+  "ltd",
+  "misc",
+  "sci",
+  "tel",
+  "thru",
+]);
 
 function dictionaryPath(): string {
   return join(process.cwd(), "node_modules", "dictionary-en-gb", "index.dic");
 }
 
+function isAbbreviationOnlyAffixFlags(flags: string): boolean {
+  return /^[JL]+$/.test(flags);
+}
+
 function loadDictionaryProperNounData(): void {
-  if (lowercaseHeadwords && capitalizedForms) return;
+  if (lowercaseHeadwords && capitalizedForms && lowercaseEntryFlags) return;
 
   lowercaseHeadwords = new Set();
   capitalizedForms = new Map();
+  lowercaseEntryFlags = new Map();
 
   const dicPath = dictionaryPath();
   if (!existsSync(dicPath)) {
@@ -30,7 +54,7 @@ function loadDictionaryProperNounData(): void {
     const line = lines[i]?.trim() ?? "";
     if (!line) continue;
 
-    const slashMatch = line.match(/^([^/\s]+)\/[A-Za-z]+$/);
+    const slashMatch = line.match(/^([^/\s]+)\/([A-Za-z]+)$/);
     const surface = slashMatch?.[1] ?? (/^[A-Za-z]{3,}$/.test(line) ? line : null);
     if (!surface) continue;
 
@@ -40,6 +64,7 @@ function loadDictionaryProperNounData(): void {
     const lower = letters.toLowerCase();
     if (/^[a-z]/.test(surface)) {
       lowercaseHeadwords.add(lower);
+      lowercaseEntryFlags!.set(lower, slashMatch ? slashMatch[2] : null);
       continue;
     }
 
@@ -55,6 +80,25 @@ function loadDictionaryProperNounData(): void {
 export function hasLowercaseDictionaryHeadword(word: string): boolean {
   loadDictionaryProperNounData();
   return lowercaseHeadwords!.has(word.toLowerCase().replace(/[^a-z]/g, ""));
+}
+
+/**
+ * True for ordinary lowercase dictionary lemmas suitable as crossword answers/fodder.
+ * Excludes abbreviation-only stems (e.g. com/JL), bare abbreviations (comm), and
+ * capital-only proper nouns.
+ */
+export function isStandardDictionaryHeadword(word: string): boolean {
+  const lower = word.toLowerCase().replace(/[^a-z]/g, "");
+  if (!lower) return false;
+  if (!hasLowercaseDictionaryHeadword(lower)) return false;
+
+  loadDictionaryProperNounData();
+  if (!lowercaseEntryFlags!.has(lower)) return true;
+
+  const flags = lowercaseEntryFlags!.get(lower);
+  if (flags && isAbbreviationOnlyAffixFlags(flags)) return false;
+  if (flags === null && BARE_DICTIONARY_ABBREVIATIONS.has(lower)) return false;
+  return true;
 }
 
 export function getCapitalizedDictionaryForm(word: string): string | null {
@@ -256,4 +300,5 @@ export function applyDictionaryProperNounCasing(clue: string): string {
 export function resetDictionaryProperNounCache(): void {
   lowercaseHeadwords = null;
   capitalizedForms = null;
+  lowercaseEntryFlags = null;
 }

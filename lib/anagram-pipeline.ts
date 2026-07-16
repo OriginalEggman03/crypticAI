@@ -223,6 +223,7 @@ function successResult(
   return {
     inspiration: ctx.inspiration,
     autoThemed: ctx.autoThemed,
+    clueType: "anagram",
     clue: verification.prepared,
     verified: true,
     verification,

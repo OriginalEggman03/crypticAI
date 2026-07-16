@@ -16,7 +16,7 @@ interface DictionaryApiEntry {
 const CONTEXT_SYSTEM =
   "You explain crossword answers. Reply with a single JSON object — no markdown fences, no commentary.";
 
-async function lookupDictionaryDefinition(
+export async function lookupDictionaryDefinition(
   word: string
 ): Promise<{ definition: string; partOfSpeech?: string } | null> {
   const normalized = word.toLowerCase().replace(/[^a-z]/g, "");

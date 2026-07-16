@@ -7,6 +7,8 @@ export interface UsedAnagramClue {
 
 export type AnagramDifficulty = "easy" | "hard";
 
+export type ClueDevice = "anagram" | "homophone";
+
 export interface UserPublic {
   id: number;
   email: string;
@@ -53,11 +55,18 @@ export interface AnagramRequest {
   exclude?: UsedAnagramClue[];
 }
 
+export interface HomophoneRequest {
+  /** Clues already shown this session — retry must produce something new. */
+  exclude?: UsedAnagramClue[];
+}
+
 export interface AnagramClueDraft {
   answer: string;
   clue: string;
   anagramFodder: string;
   definition?: string;
+  /** Surface hint for the homophone (non-answer) side — not the literal homophone word. */
+  homophoneHint?: string;
   anagramIndicator?: string;
 }
 
@@ -102,23 +111,42 @@ export interface ClueSurfaceExplanation {
   walkthrough: string;
 }
 
+/** One side of a homophone clue (definition or homophone fodder). */
+export interface HomophoneSideBreakdown {
+  word: string;
+  surfaceHint: string;
+  dictionaryDefinition: string;
+  partOfSpeech?: string;
+  hasDictionaryEntry: boolean;
+}
+
+/** Structured breakdown for homophone clue details in the UI. */
+export interface HomophoneBreakdown {
+  definition: HomophoneSideBreakdown;
+  homophone: HomophoneSideBreakdown & { indicator: string };
+}
+
 export type AnagramStrategy =
   | "programmatic-surface"
   | "template-polish"
   | "indicator-refine"
   | "surface-blend"
-  | "claude-ranked-pair";
+  | "claude-ranked-pair"
+  | "homophone-programmatic"
+  | "homophone-claude";
 
 export interface AnagramClueResult {
   /** Effective theme for this clue (user-supplied or auto-picked). */
   inspiration: string;
   /** True when inspiration was chosen because the user left the field blank. */
   autoThemed?: boolean;
+  clueType?: ClueDevice;
   clue: AnagramClueDraft;
   verified: true;
   verification: AnagramVerification;
   answerContext?: AnswerContext;
   surfaceExplanation?: ClueSurfaceExplanation;
+  homophoneBreakdown?: HomophoneBreakdown;
   attempts: number;
   strategy: AnagramStrategy;
   difficulty: AnagramDifficulty;

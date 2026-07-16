@@ -9,7 +9,7 @@ import {
 
 export const metadata: Metadata = {
   title: "About",
-  description: `About ${SITE_NAME} — the AI-powered British cryptic anagram clue builder. Generate themed clues, archive your favourites, and share them online.`,
+  description: `About ${SITE_NAME} — the AI-powered British cryptic ${SITE_TAGLINE}. Generate themed clues, archive your favourites, and share them online.`,
   alternates: {
     canonical: "/about",
   },
@@ -47,7 +47,7 @@ export default function AboutPage() {
             What is Cryptic AI?
           </h2>
           <p className="mt-3">
-            Cryptic AI is an online anagram clue builder. Give it a theme — Bond
+            Cryptic AI is an online Cryptic Clue Builder. Give it a theme — Bond
             villains, English cheeses, Wimbledon champions — and it writes a fair
             British cryptic anagram clue with verified letter counts, natural
             surface reading, and varied anagram indicators.

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
+import { getHomophoneStats } from "@/lib/db/homophones";
 
 export const runtime = "nodejs";
 
@@ -37,6 +38,17 @@ export async function GET() {
   ]);
 
   const db = checkDatabase();
+  let homophones:
+    | { pairs: number; words: number; groups: number }
+    | { ok: false; detail: string };
+  try {
+    homophones = getHomophoneStats();
+  } catch (err) {
+    homophones = {
+      ok: false,
+      detail: err instanceof Error ? err.message : "Homophone tables unavailable",
+    };
+  }
 
   const ok = missing.length === 0 && db.ok;
 
@@ -52,6 +64,7 @@ export async function GET() {
         stripe: Boolean(process.env.STRIPE_SECRET_KEY?.trim()),
         resend: Boolean(process.env.RESEND_API_KEY?.trim()),
         sentry: Boolean(process.env.SENTRY_DSN?.trim()),
+        homophones,
       },
     },
     { status: ok ? 200 : 503 }

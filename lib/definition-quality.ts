@@ -23,6 +23,7 @@ export const VAGUE_DEFINITION_PATTERNS: RegExp[] = [
   /^one from the (canon|roster)\b/i,
   /^a fighter perhaps\b/i,
   /^a familiar face\b/i,
+  /^a common (noun|verb|adjective|adverb)\b/i,
 ];
 
 export const DEFINITION_THEME_CRAFT_RULE = `The definition must anchor the answer in the inspiration's world so a solver who does NOT know the setter's theme phrase can still grasp the domain — e.g. "A health-food infusion" for herbal teas, "A grass-court champion" for Wimbledon, "A spymaster's adversary" for Bond villains, "An arcade combatant" for fighting-game characters. FORBIDDEN vague fillers: "A named figure", "A familiar name", "A notable figure", "One possibility", "A roster member", "A well-known name", and similar placeholders that could fit any theme.`;

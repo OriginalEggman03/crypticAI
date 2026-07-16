@@ -2,35 +2,30 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { AccountMenu } from "@/components/AccountMenu";
-import { AnagramForm } from "@/components/AnagramForm";
 import { AnagramResult } from "@/components/AnagramResult";
 import { AuthPanel } from "@/components/AuthPanel";
 import { ClueArchiveSearch } from "@/components/ClueArchiveSearch";
+import { ClueBuilderNav } from "@/components/ClueBuilderNav";
+import { HomophoneForm } from "@/components/HomophoneForm";
 import { toUsedClue } from "@/lib/clue-history";
 import { fetchSession } from "@/lib/fetch-session";
-import { ClueBuilderNav } from "@/components/ClueBuilderNav";
-import { SITE_TAGLINE } from "@/lib/site-config";
+import { HOMOPHONE_TAGLINE } from "@/lib/site-config";
 import type { CreditPackId } from "@/lib/credit-packs";
 import type {
   AnagramApiResponse,
   AnagramClueResult,
-  AnagramRequest,
   AuthMeResponse,
   CreditsStatus,
+  HomophoneRequest,
   UsedAnagramClue,
 } from "@/lib/types";
 
-type HomeTab = "create" | "archive";
+type HomophoneTab = "create" | "archive";
 
-const defaultRequest: AnagramRequest = {
-  inspiration: "",
-  difficulty: "easy",
-};
-
-async function fetchAnagram(
-  request: AnagramRequest
+async function fetchHomophone(
+  request: HomophoneRequest
 ): Promise<{ result: AnagramClueResult; credits: CreditsStatus }> {
-  const res = await fetch("/api/anagram", {
+  const res = await fetch("/api/homophone", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ request }),
@@ -63,17 +58,16 @@ function formatFetchError(err: unknown): string {
     message =
       "Cannot reach the server. Run npm run dev and open the exact URL shown in the terminal (often http://localhost:3000, or 3001 if 3000 is busy).";
   } else if (err instanceof DOMException && err.name === "TimeoutError") {
-    message =
-      "Request timed out after 3 minutes. Try again — if it keeps happening, use a shorter inspiration.";
+    message = "Request timed out after 3 minutes. Try again.";
   }
   return message;
 }
 
-export default function Home() {
-  const [tab, setTab] = useState<HomeTab>("create");
+export default function HomophonePage() {
+  const [mounted, setMounted] = useState(false);
+  const [tab, setTab] = useState<HomophoneTab>("create");
   const [session, setSession] = useState<AuthMeResponse | null>(null);
   const [sessionLoading, setSessionLoading] = useState(true);
-  const [request, setRequest] = useState<AnagramRequest>(defaultRequest);
   const [loading, setLoading] = useState(false);
   const [retryLoading, setRetryLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -89,6 +83,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     let cancelled = false;
     void (async () => {
       try {
@@ -100,28 +99,7 @@ export default function Home() {
     return () => {
       cancelled = true;
     };
-  }, [refreshSession]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const verified = params.get("verified");
-    const verify = params.get("verify");
-
-    if (verified === "1" || verify === "invalid") {
-      window.history.replaceState({}, "", window.location.pathname);
-    }
-
-    if (verified === "1") {
-      refreshSession();
-      return;
-    }
-
-    if (verify === "invalid") {
-      setError(
-        "That verification link is invalid or has expired. Sign in and resend a new link."
-      );
-    }
-  }, [refreshSession]);
+  }, [mounted, refreshSession]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -180,16 +158,13 @@ export default function Home() {
     setLoading(true);
     setError(null);
     setRetryError(null);
-    setUsedClues([]);
 
     try {
-      const { result: next, credits } = await fetchAnagram(request);
-      setRequest((prev) => ({
-        ...prev,
-        inspiration: next.inspiration,
-      }));
+      const { result: next, credits } = await fetchHomophone({
+        exclude: usedClues,
+      });
       setResult(next);
-      setUsedClues([toUsedClue(next.clue)]);
+      setUsedClues((prev) => [...prev, toUsedClue(next.clue)]);
       updateCredits(credits);
     } catch (err) {
       setError(formatFetchError(err));
@@ -197,7 +172,7 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  }, [request, session, updateCredits]);
+  }, [session, usedClues, updateCredits]);
 
   const retry = useCallback(async () => {
     if (!result || !session) return;
@@ -206,15 +181,9 @@ export default function Home() {
     setRetryError(null);
 
     try {
-      const { result: next, credits } = await fetchAnagram({
-        inspiration: request.inspiration,
-        difficulty: request.difficulty ?? "easy",
+      const { result: next, credits } = await fetchHomophone({
         exclude: usedClues,
       });
-      setRequest((prev) => ({
-        ...prev,
-        inspiration: next.inspiration,
-      }));
       setResult(next);
       setUsedClues((prev) => [...prev, toUsedClue(next.clue)]);
       updateCredits(credits);
@@ -223,21 +192,13 @@ export default function Home() {
     } finally {
       setRetryLoading(false);
     }
-  }, [
-    request.inspiration,
-    request.difficulty,
-    result,
-    session,
-    usedClues,
-    updateCredits,
-  ]);
+  }, [result, session, usedClues, updateCredits]);
 
   const reset = () => {
     setResult(null);
     setError(null);
     setRetryError(null);
     setUsedClues([]);
-    setRequest((prev) => ({ ...prev, inspiration: "" }));
   };
 
   const canGenerate = Boolean(
@@ -301,7 +262,7 @@ export default function Home() {
             Cryptic AI
           </p>
           <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-            {SITE_TAGLINE}
+            {HOMOPHONE_TAGLINE}
           </h1>
           <div className="mt-4">
             <ClueBuilderNav />
@@ -315,7 +276,7 @@ export default function Home() {
         aria-labelledby="tab-create"
         hidden={tab !== "create"}
       >
-        {sessionLoading ? (
+        {!mounted ? null : sessionLoading ? (
           <p className="text-center text-sm text-ink/60">Loading…</p>
         ) : !session ? (
           <AuthPanel
@@ -327,9 +288,7 @@ export default function Home() {
         ) : !result ? (
           <div>
             <div className="rounded-2xl border border-ink/10 bg-cream/50 p-6 shadow-sm sm:p-8">
-              <AnagramForm
-                request={request}
-                onChange={setRequest}
+              <HomophoneForm
                 onSubmit={generate}
                 loading={loading || checkoutPackId != null}
                 canGenerate={canGenerate}
@@ -349,12 +308,9 @@ export default function Home() {
           </div>
         ) : (
           <AnagramResult
+            variant="homophone"
             result={result}
-            inspiration={result.inspiration}
-            difficulty={request.difficulty ?? "easy"}
-            onDifficultyChange={(difficulty) =>
-              setRequest((prev) => ({ ...prev, difficulty }))
-            }
+            inspiration=""
             error={retryError}
             onNew={reset}
             onRetry={retry}
@@ -362,7 +318,6 @@ export default function Home() {
             canGenerate={canGenerate}
             onBuyCredits={buyCredits}
             checkoutPackId={checkoutPackId}
-            showClaudeTrace={Boolean(session?.credits?.adminUnlimited)}
           />
         )}
       </div>
@@ -374,8 +329,9 @@ export default function Home() {
         hidden={tab !== "archive"}
       >
         <ClueArchiveSearch
+          variant="homophone"
           isLoggedIn={Boolean(session)}
-          authReady={!sessionLoading}
+          authReady={mounted && !sessionLoading}
           onSignUp={() => setTab("create")}
         />
       </div>

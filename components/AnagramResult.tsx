@@ -7,14 +7,16 @@ import { BuyCreditsButtons } from "@/components/BuyCreditsButtons";
 import { ClueImprovementEditor } from "@/components/ClueImprovementEditor";
 import { DifficultyToggle } from "@/components/DifficultyToggle";
 import { ShareClueMenu } from "@/components/ShareClueMenu";
+import { HOMOPHONE_ARCHIVE_INSPIRATION } from "@/lib/site-config";
+import { formatHomophoneLexemeDisplay } from "@/lib/homophone-spelling";
 import type { CreditPackId } from "@/lib/credit-packs";
 import type { AnagramClueResult, AnagramDifficulty } from "@/lib/types";
 
 interface AnagramResultProps {
   result: AnagramClueResult;
   inspiration: string;
-  difficulty: AnagramDifficulty;
-  onDifficultyChange: (difficulty: AnagramDifficulty) => void;
+  difficulty?: AnagramDifficulty;
+  onDifficultyChange?: (difficulty: AnagramDifficulty) => void;
   error?: string | null;
   onNew: () => void;
   onRetry: () => void;
@@ -24,6 +26,7 @@ interface AnagramResultProps {
   checkoutPackId?: CreditPackId | null;
   /** Admin test account — show Claude call trace in Details. */
   showClaudeTrace?: boolean;
+  variant?: "anagram" | "homophone";
 }
 
 function PromptBlock({
@@ -75,14 +78,18 @@ export function AnagramResult({
   onBuyCredits,
   checkoutPackId,
   showClaudeTrace = false,
+  variant = "anagram",
 }: AnagramResultProps) {
+  const isHomophone = variant === "homophone" || result.clueType === "homophone";
+  const fodderLabel = isHomophone ? "Homophone fodder" : "Anagram fodder";
   const [showPrompts, setShowPrompts] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [inspirationRevealed, setInspirationRevealed] = useState(false);
   const [originalClue, setOriginalClue] = useState(result.clue.clue);
   const [displayClue, setDisplayClue] = useState(result.clue.clue);
   const [improvementNotes, setImprovementNotes] = useState("");
-  const { clue, answerContext, surfaceExplanation, claudeTrace } = result;
+  const { clue, answerContext, surfaceExplanation, homophoneBreakdown, claudeTrace } =
+    result;
 
   useEffect(() => {
     setOriginalClue(clue.clue);
@@ -100,29 +107,30 @@ export function AnagramResult({
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
-          {inspirationRevealed ? (
-            <>
-              <h2 className="font-display text-2xl font-bold text-ink">
-                {inspiration.trim()}
-              </h2>
+          {!isHomophone &&
+            (inspirationRevealed ? (
+              <>
+                <h2 className="font-display text-2xl font-bold text-ink">
+                  {inspiration.trim()}
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => setInspirationRevealed(false)}
+                  className="mt-2 text-sm font-medium text-ink/55 underline-offset-2 hover:text-ink hover:underline"
+                >
+                  Hide Inspiration
+                </button>
+              </>
+            ) : (
               <button
                 type="button"
-                onClick={() => setInspirationRevealed(false)}
-                className="mt-2 text-sm font-medium text-ink/55 underline-offset-2 hover:text-ink hover:underline"
+                onClick={() => setInspirationRevealed(true)}
+                aria-expanded={false}
+                className="text-sm font-medium text-ink/55 underline-offset-2 hover:text-ink hover:underline"
               >
-                Hide Inspiration
+                Show Inspiration
               </button>
-            </>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setInspirationRevealed(true)}
-              aria-expanded={false}
-              className="text-sm font-medium text-ink/55 underline-offset-2 hover:text-ink hover:underline"
-            >
-              Show Inspiration
-            </button>
-          )}
+            ))}
         </div>
         <div className="flex flex-wrap gap-2">
           <button
@@ -144,11 +152,13 @@ export function AnagramResult({
         </div>
       </div>
 
-      <DifficultyToggle
-        value={difficulty}
-        onChange={onDifficultyChange}
-        disabled={retryLoading}
-      />
+      {!isHomophone && difficulty !== undefined && onDifficultyChange && (
+        <DifficultyToggle
+          value={difficulty}
+          onChange={onDifficultyChange}
+          disabled={retryLoading}
+        />
+      )}
 
       {!canGenerate && !error && (
         <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
@@ -195,11 +205,19 @@ export function AnagramResult({
           <dl className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
             <div>
               <dt className="text-ink/55">Answer</dt>
-              <dd className="font-mono font-semibold text-ink">{clue.answer}</dd>
+              <dd className="font-mono font-semibold text-ink">
+                {isHomophone
+                  ? formatHomophoneLexemeDisplay(clue.answer)
+                  : clue.answer}
+              </dd>
             </div>
             <div>
-              <dt className="text-ink/55">Anagram fodder</dt>
-              <dd className="font-mono text-ink">{clue.anagramFodder || "—"}</dd>
+              <dt className="text-ink/55">{fodderLabel}</dt>
+              <dd className="font-mono text-ink">
+                {isHomophone && clue.anagramFodder
+                  ? formatHomophoneLexemeDisplay(clue.anagramFodder)
+                  : clue.anagramFodder || "—"}
+              </dd>
             </div>
             {clue.anagramIndicator && (
               <div>
@@ -227,12 +245,15 @@ export function AnagramResult({
       />
 
       <ArchiveCluePanel
-        inspiration={inspiration}
-        difficulty={difficulty}
+        inspiration={
+          isHomophone ? HOMOPHONE_ARCHIVE_INSPIRATION : inspiration
+        }
+        difficulty={difficulty ?? result.difficulty ?? "easy"}
         clue={clue}
         displayClue={displayClue}
         originalClue={originalClue}
         improvementNotes={improvementNotes}
+        variant={isHomophone ? "homophone" : "anagram"}
       />
 
       <div>
@@ -281,7 +302,59 @@ export function AnagramResult({
         </div>
       )}
 
-      {revealed && answerContext && (
+      {revealed && isHomophone && homophoneBreakdown && (
+        <div className="rounded-2xl border border-ink/10 bg-white/50 p-6">
+          <h3 className="mb-3 font-display text-lg font-semibold text-ink">
+            Clue breakdown
+          </h3>
+          <dl className="space-y-4 text-sm">
+            <div>
+              <dt className="text-ink/55">Definition</dt>
+              <dd className="mt-1 leading-relaxed text-ink">
+                <span className="font-medium">
+                  {homophoneBreakdown.definition.surfaceHint}
+                </span>
+                {" → "}
+                <span className="font-mono font-semibold">
+                  {formatHomophoneLexemeDisplay(homophoneBreakdown.definition.word)}
+                </span>
+                {" — "}
+                {homophoneBreakdown.definition.partOfSpeech && (
+                  <span className="mr-1 text-xs uppercase tracking-wide text-ink/45">
+                    {homophoneBreakdown.definition.partOfSpeech}
+                  </span>
+                )}
+                {homophoneBreakdown.definition.dictionaryDefinition}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-ink/55">Homophone</dt>
+              <dd className="mt-1 leading-relaxed text-ink">
+                <span className="font-medium">
+                  {homophoneBreakdown.homophone.surfaceHint}
+                </span>
+                {" → "}
+                <span className="font-mono font-semibold">
+                  {formatHomophoneLexemeDisplay(homophoneBreakdown.homophone.word)}
+                </span>
+                {" — "}
+                {homophoneBreakdown.homophone.partOfSpeech && (
+                  <span className="mr-1 text-xs uppercase tracking-wide text-ink/45">
+                    {homophoneBreakdown.homophone.partOfSpeech}
+                  </span>
+                )}
+                {homophoneBreakdown.homophone.dictionaryDefinition}
+                {" — indicator: "}
+                <span className="font-medium">
+                  {homophoneBreakdown.homophone.indicator}
+                </span>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      )}
+
+      {revealed && answerContext && !isHomophone && (
         <div className="rounded-2xl border border-ink/10 bg-white/50 p-6">
           <h3 className="mb-3 font-display text-lg font-semibold text-ink">
             About {clue.answer}

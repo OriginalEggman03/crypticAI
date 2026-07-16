@@ -6,6 +6,7 @@ import { InspirationArchiveInput } from "@/components/InspirationArchiveInput";
 import { CopyClueButton } from "@/components/CopyClueButton";
 import { ShareClueMenu } from "@/components/ShareClueMenu";
 import { difficultyLabel } from "@/lib/anagram-difficulty";
+import { HOMOPHONE_ARCHIVE_INSPIRATION } from "@/lib/site-config";
 import type { AnagramDifficulty, ArchivedClue } from "@/lib/types";
 
 interface SearchFilters {
@@ -26,14 +27,26 @@ interface ClueArchiveSearchProps {
   isLoggedIn: boolean;
   authReady: boolean;
   onSignUp: () => void;
+  variant?: "anagram" | "homophone";
+}
+
+function filtersForVariant(variant: "anagram" | "homophone"): SearchFilters {
+  if (variant === "homophone") {
+    return { ...emptyFilters, inspiration: HOMOPHONE_ARCHIVE_INSPIRATION };
+  }
+  return { ...emptyFilters };
 }
 
 export function ClueArchiveSearch({
   isLoggedIn,
   authReady,
   onSignUp,
+  variant = "anagram",
 }: ClueArchiveSearchProps) {
-  const [filters, setFilters] = useState<SearchFilters>(emptyFilters);
+  const isHomophone = variant === "homophone";
+  const [filters, setFilters] = useState<SearchFilters>(() =>
+    filtersForVariant(variant)
+  );
   const [results, setResults] = useState<ArchivedClue[]>([]);
   const [totalCount, setTotalCount] = useState<number | null>(null);
   const [searched, setSearched] = useState(false);
@@ -42,21 +55,27 @@ export function ClueArchiveSearch({
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [openShareId, setOpenShareId] = useState<number | null>(null);
 
-  const buildParams = useCallback((nextFilters: SearchFilters) => {
-    const params = new URLSearchParams();
-    if (nextFilters.inspiration.trim()) {
-      params.set("inspiration", nextFilters.inspiration.trim());
-    }
-    if (nextFilters.difficulty) {
-      params.set("difficulty", nextFilters.difficulty);
-    }
+  const buildParams = useCallback(
+    (nextFilters: SearchFilters) => {
+      const params = new URLSearchParams();
+      const inspiration = isHomophone
+        ? HOMOPHONE_ARCHIVE_INSPIRATION
+        : nextFilters.inspiration.trim();
+      if (inspiration) {
+        params.set("inspiration", inspiration);
+      }
+      if (!isHomophone && nextFilters.difficulty) {
+        params.set("difficulty", nextFilters.difficulty);
+      }
     if (nextFilters.rating) {
       params.set("rating", nextFilters.rating);
     } else if (nextFilters.minRating) {
       params.set("minRating", nextFilters.minRating);
     }
     return params;
-  }, []);
+  },
+    [isHomophone]
+  );
 
   const runSearch = useCallback(
     async (nextFilters: SearchFilters) => {
@@ -112,29 +131,37 @@ export function ClueArchiveSearch({
     const wasLoggedIn = prevLoggedInRef.current;
 
     if (!isLoggedIn) {
-      void runSearch(emptyFilters);
-    } else if (wasLoggedIn === false) {
-      setFilters(emptyFilters);
+      void runSearch(filtersForVariant(variant));
+    } else if (wasLoggedIn === false || (isHomophone && wasLoggedIn === null)) {
+      const nextFilters = filtersForVariant(variant);
+      setFilters(nextFilters);
       setResults([]);
       setTotalCount(null);
       setSearched(false);
       setError(null);
       setExpandedId(null);
       setOpenShareId(null);
+      if (isHomophone) {
+        void runSearch(nextFilters);
+      }
     }
 
     prevLoggedInRef.current = isLoggedIn;
-  }, [authReady, isLoggedIn, runSearch]);
+  }, [authReady, isHomophone, isLoggedIn, runSearch, variant]);
 
   const clear = () => {
     if (!isLoggedIn) return;
-    setFilters(emptyFilters);
+    const nextFilters = filtersForVariant(variant);
+    setFilters(nextFilters);
     setResults([]);
     setTotalCount(null);
     setSearched(false);
     setError(null);
     setExpandedId(null);
     setOpenShareId(null);
+    if (isHomophone) {
+      void runSearch(nextFilters);
+    }
   };
 
   const hiddenCount =
@@ -148,14 +175,21 @@ export function ClueArchiveSearch({
   return (
     <section className="rounded-2xl border border-ink/10 bg-white/40 p-6 shadow-sm">
       <h2 className="mb-4 font-display text-xl font-semibold text-ink">
-        Search archive
+        {isHomophone ? "Homophone archive" : "Search archive"}
       </h2>
 
       {!authReady ? (
         <p className="mb-4 text-sm text-ink/60">Loading…</p>
       ) : guestPreview ? (
         <p className="mb-4 text-sm text-ink/60">
-          Featured clues from the archive. Sign up to search the full collection.
+          {isHomophone
+            ? "Sign up to search and save homophone clues in your archive."
+            : "Featured clues from the archive. Sign up to search the full collection."}
+        </p>
+      ) : isHomophone ? (
+        <p className="mb-4 text-sm text-ink/60">
+          Your saved homophone clues. Rate clues when you generate them to add
+          new entries here.
         </p>
       ) : null}
 
@@ -164,41 +198,45 @@ export function ClueArchiveSearch({
           guestPreview ? "opacity-60" : ""
         }`}
       >
-        <label className="block sm:col-span-2">
-          <span className="mb-1 block text-sm font-medium text-ink/80">
-            Inspiration
-          </span>
-          <InspirationArchiveInput
-            value={filters.inspiration}
-            onChange={(inspiration) =>
-              setFilters((f) => ({ ...f, inspiration }))
-            }
-            disabled={guestPreview}
-          />
-        </label>
+        {!isHomophone && (
+          <label className="block sm:col-span-2">
+            <span className="mb-1 block text-sm font-medium text-ink/80">
+              Inspiration
+            </span>
+            <InspirationArchiveInput
+              value={filters.inspiration}
+              onChange={(inspiration) =>
+                setFilters((f) => ({ ...f, inspiration }))
+              }
+              disabled={guestPreview}
+            />
+          </label>
+        )}
 
-        <label className="block">
-          <span className="mb-1 block text-sm font-medium text-ink/80">
-            Difficulty
-          </span>
-          <select
-            value={filters.difficulty}
-            disabled={guestPreview}
-            onChange={(e) =>
-              setFilters((f) => ({
-                ...f,
-                difficulty: e.target.value as SearchFilters["difficulty"],
-              }))
-            }
-            className={`w-full rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 ${disabledFieldClass}`}
-          >
-            <option value="">Any</option>
-            <option value="easy">Easy</option>
-            <option value="hard">Hard</option>
-          </select>
-        </label>
+        {!isHomophone && (
+          <label className="block">
+            <span className="mb-1 block text-sm font-medium text-ink/80">
+              Difficulty
+            </span>
+            <select
+              value={filters.difficulty}
+              disabled={guestPreview}
+              onChange={(e) =>
+                setFilters((f) => ({
+                  ...f,
+                  difficulty: e.target.value as SearchFilters["difficulty"],
+                }))
+              }
+              className={`w-full rounded-lg border border-ink/15 bg-white/80 px-3 py-2 text-sm outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 ${disabledFieldClass}`}
+            >
+              <option value="">Any</option>
+              <option value="easy">Easy</option>
+              <option value="hard">Hard</option>
+            </select>
+          </label>
+        )}
 
-        <label className="block">
+        <label className={`block ${isHomophone ? "sm:col-span-2" : ""}`}>
           <span className="mb-1 block text-sm font-medium text-ink/80">
             Star rating
           </span>
@@ -326,9 +364,11 @@ export function ClueArchiveSearch({
                   <div className="border-t border-ink/10 bg-white/50 px-4 py-4">
                     <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink/55">
                       <span className="font-medium text-ink/75">
-                        {item.inspiration}
+                        {isHomophone ? "Homophone" : item.inspiration}
                       </span>
-                      <span>{difficultyLabel(item.difficulty)}</span>
+                      {!isHomophone && (
+                        <span>{difficultyLabel(item.difficulty)}</span>
+                      )}
                       <StarDisplay rating={item.rating} />
                       <time dateTime={item.createdAt}>
                         {new Date(item.createdAt + "Z").toLocaleDateString(
@@ -371,14 +411,20 @@ export function ClueArchiveSearch({
                         </dd>
                       </div>
                       <div>
-                        <dt className="text-ink/55">Anagram fodder</dt>
+                        <dt className="text-ink/55">
+                          {isHomophone ? "Homophone word" : "Anagram fodder"}
+                        </dt>
                         <dd className="font-mono text-ink">
                           {item.anagramFodder || "—"}
                         </dd>
                       </div>
                       {item.anagramIndicator && (
                         <div className="sm:col-span-2">
-                          <dt className="text-ink/55">Indicator</dt>
+                          <dt className="text-ink/55">
+                            {isHomophone
+                              ? "Homophone indicator"
+                              : "Indicator"}
+                          </dt>
                           <dd className="text-ink">{item.anagramIndicator}</dd>
                         </div>
                       )}

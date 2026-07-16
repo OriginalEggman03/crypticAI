@@ -11,6 +11,7 @@ interface ArchiveCluePanelProps {
   displayClue: string;
   originalClue: string;
   improvementNotes: string;
+  variant?: "anagram" | "homophone";
 }
 
 export function ArchiveCluePanel({
@@ -20,6 +21,7 @@ export function ArchiveCluePanel({
   displayClue,
   originalClue,
   improvementNotes,
+  variant = "anagram",
 }: ArchiveCluePanelProps) {
   const [rating, setRating] = useState<number | null>(null);
   const [saving, setSaving] = useState(false);
@@ -89,7 +91,9 @@ export function ArchiveCluePanel({
         Save to archive
       </h3>
       <p className="mb-4 text-sm text-ink/60">
-        Rate this anagram and add it to the searchable archive.
+        {variant === "homophone"
+          ? "Rate this homophone clue and add it to your searchable archive."
+          : "Rate this anagram and add it to the searchable archive."}
       </p>
 
       <div className="flex flex-wrap items-end gap-4">

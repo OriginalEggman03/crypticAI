@@ -31,6 +31,22 @@ export function usedAnswersFromClues(exclude: UsedAnagramClue[]): string[] {
   return out;
 }
 
+/** Answer and fodder words already used in homophone clues (blocks flipped pairs on retry). */
+export function usedHomophoneWordsFromClues(exclude: UsedAnagramClue[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const raw of exclude) {
+    const used = normalizeUsedClue(raw);
+    for (const token of [used.answer, used.anagramFodder]) {
+      const normalized = normalizeAnswer(token);
+      if (!normalized || seen.has(normalized)) continue;
+      seen.add(normalized);
+      out.push(normalized);
+    }
+  }
+  return out;
+}
+
 /** Block reuse when fodder matches and answer or clue surface already appeared. */
 export function isClueReuseBlocked(
   draft: AnagramClueDraft,

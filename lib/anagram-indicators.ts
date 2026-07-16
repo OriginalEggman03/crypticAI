@@ -299,6 +299,21 @@ export function shuffleWithSeed<T>(items: readonly T[], seed: string): T[] {
   return arr;
 }
 
+/** Shuffled sample of up to `count` items, starting at a seed-derived offset. */
+export function sampleWithSeed<T>(
+  items: readonly T[],
+  count: number,
+  seed: string
+): T[] {
+  if (count <= 0 || items.length === 0) return [];
+  if (items.length <= count) return shuffleWithSeed(items, seed);
+
+  const shuffled = shuffleWithSeed(items, seed);
+  const offset = hashSeed(`${seed}-offset`) % shuffled.length;
+  const rotated = [...shuffled.slice(offset), ...shuffled.slice(0, offset)];
+  return rotated.slice(0, count);
+}
+
 /** Pick varied indicator phrases — single- and multi-word alternated, no length bias. */
 export function pickIndicatorPhrases(options: {
   seed: string;

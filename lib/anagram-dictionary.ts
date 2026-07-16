@@ -237,7 +237,7 @@ export function bestPairForAnswer(
   );
 }
 
-function collectAnswerCandidates(
+export function collectAnswerCandidates(
   parsed: ParsedInspiration,
   bounds: AnswerLengthBounds,
   suggestedSet?: Set<string>,

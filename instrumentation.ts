@@ -1,10 +1,18 @@
 export async function register() {
-  if (process.env.NEXT_RUNTIME === "nodejs" && process.env.SENTRY_DSN?.trim()) {
-    const Sentry = await import("@sentry/nextjs");
-    Sentry.init({
-      dsn: process.env.SENTRY_DSN,
-      environment: process.env.NODE_ENV ?? "development",
-      tracesSampleRate: 0.1,
-    });
+  if (process.env.NEXT_RUNTIME === "nodejs") {
+    if (process.env.SENTRY_DSN?.trim()) {
+      const Sentry = await import("@sentry/nextjs");
+      Sentry.init({
+        dsn: process.env.SENTRY_DSN,
+        environment: process.env.NODE_ENV ?? "development",
+        tracesSampleRate: 0.1,
+      });
+    }
+
+    import("@/lib/db/homophones")
+      .then(({ ensureHomophoneDatabase }) => ensureHomophoneDatabase())
+      .catch((err) => {
+        console.error("Homophone database warm-up failed:", err);
+      });
   }
 }

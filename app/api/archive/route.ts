@@ -10,6 +10,7 @@ import { invalidateIndicatorUsageCache } from "@/lib/indicator-archive-weights";
 import { getSessionUserId } from "@/lib/auth/session";
 import { requireVerifiedUser } from "@/lib/auth/require-user";
 import { enforceRateLimit } from "@/lib/rate-limit";
+import { HOMOPHONE_ARCHIVE_INSPIRATION } from "@/lib/site-config";
 import type { AnagramDifficulty } from "@/lib/types";
 
 const MAX_ARCHIVE_TEXT = 2000;
@@ -46,6 +47,20 @@ export async function GET(request: NextRequest) {
     };
 
     if (!isLoggedIn) {
+      const isHomophoneArchive =
+        inspiration?.trim().toLowerCase() ===
+        HOMOPHONE_ARCHIVE_INSPIRATION.toLowerCase();
+
+      if (isHomophoneArchive) {
+        return NextResponse.json({
+          results: [],
+          totalCount: countArchivedClues({
+            inspiration: HOMOPHONE_ARCHIVE_INSPIRATION,
+          }),
+          guestPreview: true,
+        });
+      }
+
       const totalCount = countArchivedClues({});
 
       return NextResponse.json({
