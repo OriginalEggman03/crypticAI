@@ -15,6 +15,8 @@ target/
 *.log
 .DS_Store
 Thumbs.db
-data/
+# Local SQLite and generated data — keep shipped gloss cache for production warm-up
+data/*
+!data/homophone-gloss-cache.json
 
 tsconfig.tsbuildinfo

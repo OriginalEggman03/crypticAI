@@ -10,7 +10,13 @@ export async function register() {
     }
 
     import("@/lib/db/homophones")
-      .then(({ ensureHomophoneDatabase }) => ensureHomophoneDatabase())
+      .then(async ({ ensureHomophoneDatabase, getHomophoneStats }) => {
+        await ensureHomophoneDatabase();
+        const stats = getHomophoneStats();
+        console.log(
+          `Homophone database ready: ${stats.pairs} pairs, ${stats.words} words`
+        );
+      })
       .catch((err) => {
         console.error("Homophone database warm-up failed:", err);
       });

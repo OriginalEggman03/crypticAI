@@ -1,0 +1,5184 @@
+{
+  "abbe": {
+    "gloss": "french abbot",
+    "definition": "A French abbot, the (male) head of an abbey.",
+    "partOfSpeech": "noun"
+  },
+  "abbey": {
+    "gloss": "office or dominion of an abbot or abbess",
+    "definition": "The office or dominion of an abbot or abbess.",
+    "partOfSpeech": "noun"
+  },
+  "acclamation": {
+    "gloss": "shout of approbation",
+    "definition": "A shout of approbation, favor, or assent; eager expression of approval; loud applause.",
+    "partOfSpeech": "noun"
+  },
+  "acclimation": {
+    "gloss": "process of becoming",
+    "definition": "The process of becoming, or the state of being, acclimated, or habituated to a new climate; acclimatization.",
+    "partOfSpeech": "noun"
+  },
+  "acetic": {
+    "gloss": "of",
+    "definition": "Of, pertaining to, or producing vinegar",
+    "partOfSpeech": "adjective"
+  },
+  "addition": {
+    "gloss": "act of adding anything",
+    "definition": "The act of adding anything.",
+    "partOfSpeech": "noun"
+  },
+  "adieu": {
+    "gloss": "farewell",
+    "definition": "A farewell, a goodbye; especially a fond farewell, or a lasting or permanent farewell.",
+    "partOfSpeech": "noun"
+  },
+  "adman": {
+    "gloss": "person in the business of devising"
+  },
+  "admen": {
+    "gloss": "person in the business of devising"
+  },
+  "ado": {
+    "gloss": "trouble",
+    "definition": "Trouble; troublesome business; fuss, commotion",
+    "partOfSpeech": "noun"
+  },
+  "aerie": {
+    "gloss": "local chapter of the fraternal order of eagles",
+    "definition": "A local chapter of the Fraternal Order of Eagles.",
+    "partOfSpeech": "noun"
+  },
+  "affect": {
+    "gloss": "to influence or alter",
+    "definition": "To influence or alter.",
+    "partOfSpeech": "verb"
+  },
+  "ail": {
+    "gloss": "ailment",
+    "definition": "An ailment; trouble; illness.",
+    "partOfSpeech": "noun"
+  },
+  "air": {
+    "gloss": "substance constituting earth s atmosphere",
+    "definition": "The substance constituting earth's atmosphere, particularly:",
+    "partOfSpeech": "noun"
+  },
+  "airy": {
+    "gloss": "consisting of air",
+    "definition": "Consisting of air.",
+    "partOfSpeech": "adjective"
+  },
+  "aisle": {
+    "gloss": "wing of a building",
+    "definition": "A wing of a building, notably in a church separated from the nave proper by piers.",
+    "partOfSpeech": "noun"
+  },
+  "ale": {
+    "gloss": "beer made without hops",
+    "definition": "A beer made without hops.",
+    "partOfSpeech": "noun"
+  },
+  "allowed": {
+    "gloss": "to grant",
+    "definition": "To grant, give, admit, accord, afford, or yield; to let one have.",
+    "partOfSpeech": "verb"
+  },
+  "aloud": {
+    "gloss": "spoken out loud",
+    "definition": "Spoken out loud.",
+    "partOfSpeech": "adjective"
+  },
+  "altar": {
+    "gloss": "table or similar flat topped structure used for religious rites",
+    "definition": "A table or similar flat-topped structure used for religious rites.",
+    "partOfSpeech": "noun"
+  },
+  "alter": {
+    "gloss": "to change the form or structure of",
+    "definition": "To change the form or structure of.",
+    "partOfSpeech": "verb"
+  },
+  "ant": {
+    "gloss": "any of various insects in the family formicidae in the order hymenoptera",
+    "definition": "Any of various insects in the family Formicidae in the order Hymenoptera, typically living in large colonies composed almost entirely of flightless females.",
+    "partOfSpeech": "noun"
+  },
+  "ante": {
+    "gloss": "price or cost",
+    "definition": "A price or cost, as in up the ante.",
+    "partOfSpeech": "noun"
+  },
+  "anti": {
+    "gloss": "person opposed to a concept or principle",
+    "definition": "A person opposed to a concept or principle.",
+    "partOfSpeech": "noun"
+  },
+  "apatite": {
+    "gloss": "calcium fluoride phosphate of variable composition",
+    "definition": "A calcium fluoride phosphate of variable composition, sometimes used in the manufacture of fertilizer.",
+    "partOfSpeech": "noun"
+  },
+  "appetite": {
+    "gloss": "desire to eat food or consume drink",
+    "definition": "Desire to eat food or consume drink.",
+    "partOfSpeech": "noun"
+  },
+  "arbitrager": {
+    "gloss": "one who participates in arbitrage",
+    "definition": "One who participates in arbitrage.",
+    "partOfSpeech": "noun"
+  },
+  "arbitrageur": {
+    "gloss": "one who engages in arbitrage",
+    "definition": "One who engages in arbitrage, such as a financial broker or an investment bank.",
+    "partOfSpeech": "noun"
+  },
+  "arc": {
+    "gloss": "that part of a circle which a heavenly body appears to pass through as it moves above and below the horizon",
+    "definition": "That part of a circle which a heavenly body appears to pass through as it moves above and below the horizon.",
+    "partOfSpeech": "noun"
+  },
+  "are": {
+    "gloss": "accepted si unit of area equal to 100 square metres",
+    "definition": "An accepted (but deprecated and rarely used) SI unit of area equal to 100 square metres, or a former unit of approximately the same extent. Symbol: a.",
+    "partOfSpeech": "noun"
+  },
+  "ark": {
+    "gloss": "large box with a flat lid",
+    "definition": "A large box with a flat lid.",
+    "partOfSpeech": "noun"
+  },
+  "ascent": {
+    "gloss": "act of ascending",
+    "definition": "The act of ascending; a motion upwards.",
+    "partOfSpeech": "noun"
+  },
+  "ascetic": {
+    "gloss": "one who is devoted to the practice of self denial",
+    "definition": "One who is devoted to the practice of self-denial, either through seclusion or stringent abstinence.",
+    "partOfSpeech": "noun"
+  },
+  "assent": {
+    "gloss": "agreement",
+    "definition": "Agreement; act of agreeing",
+    "partOfSpeech": "noun"
+  },
+  "ate": {
+    "gloss": "to ingest",
+    "definition": "To ingest; to be ingested.",
+    "partOfSpeech": "verb"
+  },
+  "auger": {
+    "gloss": "carpenter s tool for boring holes longer than those bored by a gimlet",
+    "definition": "A carpenter's tool for boring holes longer than those bored by a gimlet.",
+    "partOfSpeech": "noun"
+  },
+  "aught": {
+    "gloss": "anything whatsoever",
+    "definition": "Anything whatsoever, any part.",
+    "partOfSpeech": "pronoun"
+  },
+  "augur": {
+    "gloss": "diviner who foretells events by the behaviour of birds or other animals",
+    "definition": "A diviner who foretells events by the behaviour of birds or other animals, or by signs derived from celestial phenomena, or unusual occurrences.",
+    "partOfSpeech": "noun"
+  },
+  "aunt": {
+    "gloss": "sister or sister in law of one s parent",
+    "definition": "The sister or sister-in-law of one’s parent.",
+    "partOfSpeech": "noun"
+  },
+  "auntie": {
+    "gloss": "sister or sister in law of one s parent",
+    "definition": "The sister or sister-in-law of one’s parent.",
+    "partOfSpeech": "noun"
+  },
+  "aural": {
+    "gloss": "of or pertaining to the ear",
+    "definition": "Of or pertaining to the ear.",
+    "partOfSpeech": "adjective"
+  },
+  "aye": {
+    "gloss": "ever",
+    "definition": "Ever, always",
+    "partOfSpeech": "adverb"
+  },
+  "babble": {
+    "gloss": "idle talk",
+    "definition": "Idle talk; senseless prattle",
+    "partOfSpeech": "noun"
+  },
+  "babel": {
+    "gloss": "confused mixture of sounds and voices",
+    "definition": "A confused mixture of sounds and voices, especially in different languages.",
+    "partOfSpeech": "noun"
+  },
+  "baggie": {
+    "gloss": "small bag",
+    "definition": "A small bag, especially a small, clear, plastic bag.",
+    "partOfSpeech": "noun"
+  },
+  "baggy": {
+    "gloss": "of clothing",
+    "definition": "Of clothing, very loose-fitting, so as to hang away from the body.",
+    "partOfSpeech": "adjective"
+  },
+  "baht": {
+    "gloss": "official currency of thailand",
+    "definition": "The official currency of Thailand, equal to 100 satang.",
+    "partOfSpeech": "noun"
+  },
+  "bail": {
+    "gloss": "security",
+    "definition": "Security, usually a sum of money, exchanged for the release of an arrested person as a guarantee of that person's appearance for trial.",
+    "partOfSpeech": "noun"
+  },
+  "bailey": {
+    "gloss": "outer wall of a feudal castle",
+    "definition": "The outer wall of a feudal castle.",
+    "partOfSpeech": "noun"
+  },
+  "bait": {
+    "gloss": "any substance",
+    "definition": "Any substance, especially food, used in catching fish, or other animals, by alluring them to a hook, snare, trap, or net.",
+    "partOfSpeech": "noun"
+  },
+  "bale": {
+    "gloss": "evil",
+    "definition": "Evil, especially considered as an active force for destruction or death.",
+    "partOfSpeech": "noun"
+  },
+  "ball": {
+    "gloss": "solid or hollow sphere",
+    "definition": "A solid or hollow sphere, or roughly spherical mass.",
+    "partOfSpeech": "noun"
+  },
+  "bally": {
+    "gloss": "bloody",
+    "definition": "Bloody (used as a mild intensifier).",
+    "partOfSpeech": "adjective"
+  },
+  "balm": {
+    "gloss": "any of various aromatic resins exuded from certain plants",
+    "definition": "Any of various aromatic resins exuded from certain plants, especially trees of the genus Commiphora of Africa, Arabia and India and Myroxylon of South America.",
+    "partOfSpeech": "noun"
+  },
+  "band": {
+    "gloss": "strip of material used for strengthening or coupling",
+    "definition": "A strip of material used for strengthening or coupling.",
+    "partOfSpeech": "noun"
+  },
+  "banned": {
+    "gloss": "to summon",
+    "definition": "To summon; to call out.",
+    "partOfSpeech": "verb"
+  },
+  "bar": {
+    "gloss": "solid",
+    "definition": "A solid, more or less rigid object of metal or wood with a uniform cross-section smaller than its length.",
+    "partOfSpeech": "noun"
+  },
+  "barbel": {
+    "gloss": "freshwater fish of the genus barbus or other closely related genera",
+    "definition": "A freshwater fish of the genus Barbus or other closely related genera.",
+    "partOfSpeech": "noun"
+  },
+  "barbell": {
+    "gloss": "wide steel bar with premeasured weights affixed to either end",
+    "definition": "A wide steel bar with premeasured weights affixed to either end, with the central span open for the hands of the weightlifter.",
+    "partOfSpeech": "noun"
+  },
+  "bard": {
+    "gloss": "professional poet and singer",
+    "definition": "A professional poet and singer, like among the ancient Celts, whose occupation was to compose and sing verses in honor of the heroic achievements of princes and brave men.",
+    "partOfSpeech": "noun"
+  },
+  "bare": {
+    "gloss": "surface",
+    "definition": "(‘the bare’) The surface, the (bare) skin.",
+    "partOfSpeech": "noun"
+  },
+  "baron": {
+    "gloss": "male ruler of a barony",
+    "definition": "The male ruler of a barony.",
+    "partOfSpeech": "noun"
+  },
+  "barre": {
+    "gloss": "handrail fixed to a wall used for ballet exercises",
+    "definition": "A handrail fixed to a wall used for ballet exercises.",
+    "partOfSpeech": "noun"
+  },
+  "barred": {
+    "gloss": "to obstruct the passage of",
+    "definition": "To obstruct the passage of (someone or something).",
+    "partOfSpeech": "verb"
+  },
+  "barrel": {
+    "gloss": "round vessel or cask",
+    "definition": "A round vessel or cask, of greater length than breadth, and bulging in the middle, made of staves bound with hoops, and having flat ends or heads. Sometimes applied to a similar cylindrical container made of metal, usually called a drum.",
+    "partOfSpeech": "noun"
+  },
+  "barren": {
+    "gloss": "area of low fertility and habitation",
+    "definition": "An area of low fertility and habitation, a desolate place.",
+    "partOfSpeech": "noun"
+  },
+  "base": {
+    "gloss": "something from which other things extend",
+    "definition": "Something from which other things extend; a foundation.",
+    "partOfSpeech": "noun"
+  },
+  "bask": {
+    "gloss": "to bathe in warmth",
+    "definition": "To bathe in warmth; to be exposed to pleasant heat.",
+    "partOfSpeech": "verb"
+  },
+  "basque": {
+    "gloss": "part of a waistcoat etc extending below the waist",
+    "definition": "The part of a waistcoat etc. extending below the waist.",
+    "partOfSpeech": "noun"
+  },
+  "bass": {
+    "gloss": "low spectrum of sound tones",
+    "definition": "A low spectrum of sound tones.",
+    "partOfSpeech": "noun"
+  },
+  "bate": {
+    "gloss": "to reduce the force of something",
+    "definition": "To reduce the force of something; to abate.",
+    "partOfSpeech": "verb"
+  },
+  "baton": {
+    "gloss": "staff or truncheon",
+    "definition": "A staff or truncheon, used for various purposes",
+    "partOfSpeech": "noun"
+  },
+  "batten": {
+    "gloss": "to become better",
+    "definition": "To become better; improve in condition, especially by feeding.",
+    "partOfSpeech": "verb"
+  },
+  "bauble": {
+    "gloss": "cheap showy ornament piece of jewellery",
+    "definition": "A cheap showy ornament piece of jewellery; a gewgaw.",
+    "partOfSpeech": "noun"
+  },
+  "baud": {
+    "gloss": "unit of data transmission symbol rate",
+    "definition": "A unit of data transmission symbol rate; the number of signalling events per second.",
+    "partOfSpeech": "noun"
+  },
+  "bawd": {
+    "gloss": "person who keeps a house of prostitution",
+    "definition": "A person who keeps a house of prostitution, or procures women for prostitution; a procurer, a madame.",
+    "partOfSpeech": "noun"
+  },
+  "bawl": {
+    "gloss": "loud",
+    "definition": "A loud, intense shouting or wailing.",
+    "partOfSpeech": "noun"
+  },
+  "bay": {
+    "gloss": "berry",
+    "definition": "A berry.",
+    "partOfSpeech": "noun"
+  },
+  "bazaar": {
+    "gloss": "marketplace",
+    "definition": "A marketplace, particularly in the Middle East and South Asia, and often covered with shops and stalls.",
+    "partOfSpeech": "noun"
+  },
+  "beach": {
+    "gloss": "shore of a body of water",
+    "definition": "The shore of a body of water, especially when sandy or pebbly.",
+    "partOfSpeech": "noun"
+  },
+  "bear": {
+    "gloss": "large omnivorous mammal",
+    "definition": "A large omnivorous mammal, related to the dog and raccoon, having shaggy hair, a very small tail, and flat feet; a member of family Ursidae.",
+    "partOfSpeech": "noun"
+  },
+  "beat": {
+    "gloss": "stroke",
+    "definition": "A stroke; a blow.",
+    "partOfSpeech": "noun"
+  },
+  "beau": {
+    "gloss": "man with a reputation for fine dress and etiquette",
+    "definition": "A man with a reputation for fine dress and etiquette; a dandy or fop.",
+    "partOfSpeech": "noun"
+  },
+  "beech": {
+    "gloss": "tree of the genus fagus having a smooth",
+    "definition": "A tree of the genus Fagus having a smooth, light grey trunk, oval, pointed leaves and many branches.",
+    "partOfSpeech": "noun"
+  },
+  "been": {
+    "gloss": "flying insect",
+    "definition": "A flying insect, of the clade Anthophila within the hymenopteran superfamily Apoidea, known for its organised societies (though only a minority have them), for collecting pollen and (in some species) producing wax and honey.",
+    "partOfSpeech": "noun"
+  },
+  "beet": {
+    "gloss": "beta vulgaris",
+    "definition": "Beta vulgaris, a plant with a swollen root which is eaten or used to make sugar.",
+    "partOfSpeech": "noun"
+  },
+  "bell": {
+    "gloss": "percussive instrument made of metal or other hard material",
+    "definition": "A percussive instrument made of metal or other hard material, typically but not always in the shape of an inverted cup with a flared rim, which resonates when struck.",
+    "partOfSpeech": "noun"
+  },
+  "belle": {
+    "gloss": "attractive woman",
+    "definition": "An attractive woman.",
+    "partOfSpeech": "noun"
+  },
+  "below": {
+    "gloss": "in a lower place",
+    "definition": "In a lower place.",
+    "partOfSpeech": "adverb"
+  },
+  "benzene": {
+    "gloss": "aromatic hydrocarbon of formula c6h6 whose structure consists of a ring of alternate single and double bonds",
+    "definition": "An aromatic hydrocarbon of formula C6H6 whose structure consists of a ring of alternate single and double bonds.",
+    "partOfSpeech": "noun"
+  },
+  "benzine": {
+    "gloss": "benzene",
+    "definition": "Benzene",
+    "partOfSpeech": "noun"
+  },
+  "berg": {
+    "gloss": "iceberg",
+    "definition": "An iceberg.",
+    "partOfSpeech": "noun"
+  },
+  "berry": {
+    "gloss": "small succulent fruit",
+    "definition": "A small succulent fruit, of any one of many varieties.",
+    "partOfSpeech": "noun"
+  },
+  "berth": {
+    "gloss": "fixed bunk for sleeping",
+    "definition": "A fixed bunk for sleeping (in caravans, trains, etc).",
+    "partOfSpeech": "noun"
+  },
+  "berths": {
+    "gloss": "fixed bunk for sleeping",
+    "definition": "A fixed bunk for sleeping (in caravans, trains, etc).",
+    "partOfSpeech": "noun"
+  },
+  "beryl": {
+    "gloss": "mineral of pegmatite deposits",
+    "definition": "A mineral of pegmatite deposits, often used as a gemstone.",
+    "partOfSpeech": "noun"
+  },
+  "better": {
+    "gloss": "entity",
+    "definition": "An entity, usually animate, deemed superior to another; one who has a claim to precedence; a superior.",
+    "partOfSpeech": "noun"
+  },
+  "bettor": {
+    "gloss": "person who makes a bet",
+    "definition": "A person who makes a bet, such as a wager on the outcome of a game of chance or a sporting event.",
+    "partOfSpeech": "noun"
+  },
+  "bey": {
+    "gloss": "governor of a province or district in the turkish dominions",
+    "definition": "A governor of a province or district in the Turkish dominions",
+    "partOfSpeech": "noun"
+  },
+  "bight": {
+    "gloss": "corner",
+    "definition": "A corner, bend, or angle; a hollow",
+    "partOfSpeech": "noun"
+  },
+  "billow": {
+    "gloss": "large wave",
+    "definition": "A large wave, swell, surge, or undulating mass of something, such as water, smoke, fabric or sound",
+    "partOfSpeech": "noun"
+  },
+  "bin": {
+    "gloss": "box",
+    "definition": "A box, frame, crib, or enclosed place, used as a storage container.",
+    "partOfSpeech": "noun"
+  },
+  "birth": {
+    "gloss": "process of childbearing",
+    "definition": "The process of childbearing; the beginning of life.",
+    "partOfSpeech": "noun"
+  },
+  "births": {
+    "gloss": "process of childbearing",
+    "definition": "The process of childbearing; the beginning of life.",
+    "partOfSpeech": "noun"
+  },
+  "bite": {
+    "gloss": "act of biting",
+    "definition": "The act of biting.",
+    "partOfSpeech": "noun"
+  },
+  "bizarre": {
+    "gloss": "strangely unconventional in style or appearance",
+    "definition": "Strangely unconventional in style or appearance.",
+    "partOfSpeech": "adjective"
+  },
+  "blase": {
+    "gloss": "unimpressed with something because of over familiarity",
+    "definition": "Unimpressed with something because of over-familiarity.",
+    "partOfSpeech": "adjective"
+  },
+  "blaze": {
+    "gloss": "fire",
+    "definition": "A fire, especially a fast-burning fire producing a lot of flames and light.",
+    "partOfSpeech": "noun"
+  },
+  "blew": {
+    "gloss": "to produce an air current",
+    "definition": "To produce an air current.",
+    "partOfSpeech": "verb"
+  },
+  "bloc": {
+    "gloss": "group of voters or politicians who share common goals",
+    "definition": "A group of voters or politicians who share common goals.",
+    "partOfSpeech": "noun"
+  },
+  "block": {
+    "gloss": "substantial",
+    "definition": "A substantial, often approximately cuboid, piece of any substance.",
+    "partOfSpeech": "noun"
+  },
+  "blue": {
+    "gloss": "colour of the clear sky or the deep sea",
+    "definition": "The colour of the clear sky or the deep sea, between green and violet in the visible spectrum, and one of the primary additive colours for transmitted light; the colour obtained by subtracting red and green from white light using magenta and cyan filters; or any colour resembling this.",
+    "partOfSpeech": "noun"
+  },
+  "boar": {
+    "gloss": "wild boar",
+    "definition": "A wild boar (Sus scrofa), the wild ancestor of the domesticated pig.",
+    "partOfSpeech": "noun"
+  },
+  "boarder": {
+    "gloss": "pupil who lives at school during term time",
+    "definition": "A pupil who lives at school during term time.",
+    "partOfSpeech": "noun"
+  },
+  "bobble": {
+    "gloss": "furry ball attached on top of a hat",
+    "definition": "A furry ball attached on top of a hat.",
+    "partOfSpeech": "noun"
+  },
+  "bode": {
+    "gloss": "omen",
+    "definition": "An omen; a foreshadowing.",
+    "partOfSpeech": "noun"
+  },
+  "bogie": {
+    "gloss": "one who robs others in a lawless area",
+    "definition": "One who robs others in a lawless area, especially as part of a group.",
+    "partOfSpeech": "noun"
+  },
+  "bole": {
+    "gloss": "trunk or stem of a tree",
+    "definition": "The trunk or stem of a tree.",
+    "partOfSpeech": "noun"
+  },
+  "boll": {
+    "gloss": "rounded seed bearing capsule of a cotton or flax plant",
+    "definition": "The rounded seed-bearing capsule of a cotton or flax plant.",
+    "partOfSpeech": "noun"
+  },
+  "bomb": {
+    "gloss": "explosive device used or intended as a weapon",
+    "definition": "An explosive device used or intended as a weapon.",
+    "partOfSpeech": "noun"
+  },
+  "boogie": {
+    "gloss": "piece of solid or semisolid mucus in or removed from the nostril cavity",
+    "definition": "A piece of solid or semisolid mucus in or removed from the nostril cavity.",
+    "partOfSpeech": "noun"
+  },
+  "border": {
+    "gloss": "outer edge of something",
+    "definition": "The outer edge of something.",
+    "partOfSpeech": "noun"
+  },
+  "bore": {
+    "gloss": "hole drilled or milled through something",
+    "definition": "A hole drilled or milled through something, or (by extension) its diameter.",
+    "partOfSpeech": "noun"
+  },
+  "borough": {
+    "gloss": "fortified town",
+    "definition": "A fortified town.",
+    "partOfSpeech": "noun"
+  },
+  "bot": {
+    "gloss": "larva of a botfly",
+    "definition": "The larva of a botfly, which infests the skin of various mammals, producing warbles, or the nasal passage of sheep, or the stomach of horses.",
+    "partOfSpeech": "noun"
+  },
+  "bough": {
+    "gloss": "firm branch of a tree",
+    "definition": "A firm branch of a tree.",
+    "partOfSpeech": "noun"
+  },
+  "bought": {
+    "gloss": "to obtain in exchange for money or goods",
+    "definition": "To obtain (something) in exchange for money or goods",
+    "partOfSpeech": "verb"
+  },
+  "bow": {
+    "gloss": "weapon made of a curved piece of wood or other flexible material whose ends are connected by a string",
+    "definition": "A weapon made of a curved piece of wood or other flexible material whose ends are connected by a string, used for shooting arrows.",
+    "partOfSpeech": "noun"
+  },
+  "bowed": {
+    "gloss": "to play music on instrument using a bow",
+    "definition": "To play music on (a stringed) instrument using a bow.",
+    "partOfSpeech": "verb"
+  },
+  "bowl": {
+    "gloss": "roughly hemispherical container used to hold",
+    "definition": "A roughly hemispherical container used to hold, mix or present food, such as salad, fruit or soup, or other items.",
+    "partOfSpeech": "noun"
+  },
+  "bowman": {
+    "gloss": "man who uses a bow",
+    "definition": "A man who uses a bow; an archer.",
+    "partOfSpeech": "noun"
+  },
+  "bowmen": {
+    "gloss": "man who uses a bow",
+    "definition": "A man who uses a bow; an archer.",
+    "partOfSpeech": "noun"
+  },
+  "brae": {
+    "gloss": "sloping bank of a river valley",
+    "definition": "The sloping bank of a river valley.",
+    "partOfSpeech": "noun"
+  },
+  "brake": {
+    "gloss": "fern",
+    "definition": "A fern; bracken.",
+    "partOfSpeech": "noun"
+  },
+  "bray": {
+    "gloss": "cry of an animal",
+    "definition": "The cry of an animal, now chiefly that of animals related to the ass or donkey, or the camel.",
+    "partOfSpeech": "noun"
+  },
+  "breach": {
+    "gloss": "gap or opening made by breaking or battering",
+    "definition": "A gap or opening made by breaking or battering, as in a wall, fortification or levee / embankment; the space between the parts of a solid body rent by violence",
+    "partOfSpeech": "noun"
+  },
+  "bread": {
+    "gloss": "foodstuff made by baking dough made from cereals",
+    "definition": "A foodstuff made by baking dough made from cereals.",
+    "partOfSpeech": "noun"
+  },
+  "break": {
+    "gloss": "instance of breaking something into two or more pieces",
+    "definition": "An instance of breaking something into two or more pieces.",
+    "partOfSpeech": "noun"
+  },
+  "bred": {
+    "gloss": "to produce offspring sexually",
+    "definition": "To produce offspring sexually; to bear young.",
+    "partOfSpeech": "verb"
+  },
+  "breech": {
+    "gloss": "garment whose purpose is to cover or clothe the buttocks",
+    "definition": "(now only in the plural) A garment whose purpose is to cover or clothe the buttocks.",
+    "partOfSpeech": "noun"
+  },
+  "bridal": {
+    "gloss": "wedding feast or festival",
+    "definition": "A wedding feast or festival; a wedding.",
+    "partOfSpeech": "noun"
+  },
+  "bridle": {
+    "gloss": "headgear with which a horse is directed and which carries a bit and reins",
+    "definition": "The headgear with which a horse is directed and which carries a bit and reins.",
+    "partOfSpeech": "noun"
+  },
+  "broach": {
+    "gloss": "series of chisel points mounted on one piece of steel for example",
+    "definition": "A series of chisel points mounted on one piece of steel. For example, the toothed stone chisel shown here.",
+    "partOfSpeech": "noun"
+  },
+  "brooch": {
+    "gloss": "piece of women s ornamental jewellery having a pin allowing it to be fixed to garments worn on the upper body",
+    "definition": "A piece of women’s ornamental jewellery having a pin allowing it to be fixed to garments worn on the upper body.",
+    "partOfSpeech": "noun"
+  },
+  "bun": {
+    "gloss": "small bread roll",
+    "definition": "A small bread roll, often sweetened or spiced.",
+    "partOfSpeech": "noun"
+  },
+  "bur": {
+    "gloss": "rough",
+    "definition": "A rough, prickly husk around the seeds or fruit of some plants.",
+    "partOfSpeech": "noun"
+  },
+  "burg": {
+    "gloss": "city or town",
+    "definition": "A city or town.",
+    "partOfSpeech": "noun"
+  },
+  "burger": {
+    "gloss": "hamburger",
+    "definition": "A hamburger.",
+    "partOfSpeech": "noun"
+  },
+  "burgher": {
+    "gloss": "citizen of a borough or town",
+    "definition": "A citizen of a borough or town, especially one belonging to the middle class.",
+    "partOfSpeech": "noun"
+  },
+  "burr": {
+    "gloss": "sharp",
+    "definition": "A sharp, pointy object, such as a sliver or splinter.",
+    "partOfSpeech": "noun"
+  },
+  "burro": {
+    "gloss": "small donkey",
+    "definition": "A small donkey",
+    "partOfSpeech": "noun"
+  },
+  "burrow": {
+    "gloss": "mountain",
+    "definition": "A mountain.",
+    "partOfSpeech": "noun"
+  },
+  "bury": {
+    "gloss": "burrow",
+    "definition": "A burrow.",
+    "partOfSpeech": "noun"
+  },
+  "bus": {
+    "gloss": "motor vehicle for transporting large numbers of people along roads",
+    "definition": "A motor vehicle for transporting large numbers of people along roads.",
+    "partOfSpeech": "noun"
+  },
+  "but": {
+    "gloss": "instance or example of using the word but",
+    "definition": "An instance or example of using the word \"but\".",
+    "partOfSpeech": "noun"
+  },
+  "butt": {
+    "gloss": "larger or thicker end of something",
+    "definition": "The larger or thicker end of something; the blunt end, in distinction from the sharp or narrow end",
+    "partOfSpeech": "noun"
+  },
+  "buy": {
+    "gloss": "something which is bought",
+    "definition": "Something which is bought; a purchase.",
+    "partOfSpeech": "noun"
+  },
+  "bye": {
+    "gloss": "position of a person or team in a tournament or competition who draws no opponent in a particular round so advances to the next round unopposed",
+    "definition": "The position of a person or team in a tournament or competition who draws no opponent in a particular round so advances to the next round unopposed, or is awarded points for a win in a league table; also the phantom opponent of such a person or team.",
+    "partOfSpeech": "noun"
+  },
+  "byte": {
+    "gloss": "short sequence of bits that can be operated on as a unit by a computer",
+    "definition": "A short sequence of bits (binary digits) that can be operated on as a unit by a computer; the smallest usable machine word.",
+    "partOfSpeech": "noun"
+  },
+  "cache": {
+    "gloss": "store of things that may be required in the future",
+    "definition": "A store of things that may be required in the future, which can be retrieved rapidly, protected or hidden in some way.",
+    "partOfSpeech": "noun"
+  },
+  "cachet": {
+    "gloss": "seal",
+    "definition": "A seal, as of a letter.",
+    "partOfSpeech": "noun"
+  },
+  "callous": {
+    "gloss": "emotionally hardened",
+    "definition": "Emotionally hardened; unfeeling and indifferent to the suffering/feelings of others.",
+    "partOfSpeech": "adjective"
+  },
+  "callus": {
+    "gloss": "hardened area of the skin caused by repeated friction",
+    "definition": "A hardened area of the skin (especially on the foot or hand) caused by repeated friction, wear or use.",
+    "partOfSpeech": "noun"
+  },
+  "cannon": {
+    "gloss": "complete assembly",
+    "definition": "A complete assembly, consisting of an artillery tube and a breech mechanism, firing mechanism or base cap, which is a component of a gun, howitzer or mortar. It may include muzzle appendages.",
+    "partOfSpeech": "noun"
+  },
+  "canon": {
+    "gloss": "generally accepted principle",
+    "definition": "A generally accepted principle; a rule.",
+    "partOfSpeech": "noun"
+  },
+  "canter": {
+    "gloss": "gait of a horse between a trot and a gallop",
+    "definition": "A gait of a horse between a trot and a gallop, consisting of three beats and a \"suspension\" phase, where there are no feet on the ground. Also describing this gait on other four legged animals.",
+    "partOfSpeech": "noun"
+  },
+  "cantor": {
+    "gloss": "singer",
+    "definition": "Singer, especially someone who takes a special role of singing or song leading at a ceremony.",
+    "partOfSpeech": "noun"
+  },
+  "canvas": {
+    "gloss": "type of coarse cloth",
+    "definition": "A type of coarse cloth, woven from hemp, useful for making sails and tents or as a surface for paintings.",
+    "partOfSpeech": "noun"
+  },
+  "capital": {
+    "gloss": "already produced durable goods available for use as a factor of production",
+    "definition": "Already-produced durable goods available for use as a factor of production, such as steam shovels (equipment) and office buildings (structures).",
+    "partOfSpeech": "noun"
+  },
+  "capped": {
+    "gloss": "to cover or seal with a cap",
+    "definition": "To cover or seal with a cap.",
+    "partOfSpeech": "verb"
+  },
+  "carat": {
+    "gloss": "unit of weight for precious stones and pearls",
+    "definition": "A unit of weight for precious stones and pearls, equivalent to 200 milligrams.",
+    "partOfSpeech": "noun"
+  },
+  "carol": {
+    "gloss": "small closet or enclosure built against a window on the inner side",
+    "definition": "A small closet or enclosure built against a window on the inner side, to sit in for study.",
+    "partOfSpeech": "noun"
+  },
+  "carrel": {
+    "gloss": "small closet or enclosure built against a window on the inner side",
+    "definition": "A small closet or enclosure built against a window on the inner side, to sit in for study.",
+    "partOfSpeech": "noun"
+  },
+  "carrot": {
+    "gloss": "vegetable with a nutritious",
+    "definition": "A vegetable with a nutritious, juicy, sweet root that is often orange in colour, Daucus carota, especially the subspecies sativus in the family Apiaceae.",
+    "partOfSpeech": "noun"
+  },
+  "cash": {
+    "gloss": "money in the form of notes bills and coins",
+    "definition": "Money in the form of notes/bills and coins, as opposed to cheques/checks or electronic transactions.",
+    "partOfSpeech": "noun"
+  },
+  "caster": {
+    "gloss": "someone or something that casts",
+    "definition": "Someone or something that casts",
+    "partOfSpeech": "noun"
+  },
+  "castor": {
+    "gloss": "hat made from the fur of the beaver",
+    "definition": "A hat made from the fur of the beaver.",
+    "partOfSpeech": "noun"
+  },
+  "caucus": {
+    "gloss": "usually preliminary meeting of party members to nominate candidates for public office or delegates to be sent a nominating convention",
+    "definition": "A usually preliminary meeting of party members to nominate candidates for public office or delegates to be sent a nominating convention, or to confer regarding policy.",
+    "partOfSpeech": "noun"
+  },
+  "caudal": {
+    "gloss": "caudal vertebra",
+    "definition": "A caudal vertebra.",
+    "partOfSpeech": "noun"
+  },
+  "caught": {
+    "gloss": "to capture",
+    "definition": "(heading) To capture, overtake.",
+    "partOfSpeech": "verb"
+  },
+  "caulk": {
+    "gloss": "pointed projection on a horseshoe to prevent it slipping",
+    "definition": "A pointed projection on a horseshoe to prevent it slipping.",
+    "partOfSpeech": "noun"
+  },
+  "cay": {
+    "gloss": "small",
+    "definition": "A small, low island largely made of sand or coral.",
+    "partOfSpeech": "noun"
+  },
+  "cedar": {
+    "gloss": "coniferous tree of the genus cedrus in the family pinaceae",
+    "definition": "A coniferous tree of the genus Cedrus in the family Pinaceae.",
+    "partOfSpeech": "noun"
+  },
+  "cede": {
+    "gloss": "to give up",
+    "definition": "To give up; yield to another.",
+    "partOfSpeech": "verb"
+  },
+  "cell": {
+    "gloss": "single room dwelling for a hermit",
+    "definition": "A single-room dwelling for a hermit.",
+    "partOfSpeech": "noun"
+  },
+  "censer": {
+    "gloss": "ornamental container for burning incense",
+    "definition": "An ornamental container for burning incense, especially during religious ceremonies.",
+    "partOfSpeech": "noun"
+  },
+  "censor": {
+    "gloss": "one of the two magistrates who originally administered the census of citizens",
+    "definition": "One of the two magistrates who originally administered the census of citizens, and by Classical times (between the 8th century B.C.E. and the 6th century C.E.) was a high judge of public behaviour and morality.",
+    "partOfSpeech": "noun"
+  },
+  "cent": {
+    "gloss": "subunit of currency equal to one hundredth of the main unit of currency in many countries symbol",
+    "definition": "(money) A subunit of currency equal to one-hundredth of the main unit of currency in many countries. Symbol: ¢.",
+    "partOfSpeech": "noun"
+  },
+  "cereal": {
+    "gloss": "type of grass cultivated for its edible grains",
+    "definition": "A type of grass (such as wheat, rice or oats) cultivated for its edible grains.",
+    "partOfSpeech": "noun"
+  },
+  "chalk": {
+    "gloss": "soft",
+    "definition": "A soft, white, powdery limestone.",
+    "partOfSpeech": "noun"
+  },
+  "chard": {
+    "gloss": "edible leafy vegetable",
+    "definition": "An edible leafy vegetable, Beta vulgaris subsp. cicla, with a slightly bitter taste.",
+    "partOfSpeech": "noun"
+  },
+  "charred": {
+    "gloss": "to burn something to charcoal",
+    "definition": "To burn something to charcoal.",
+    "partOfSpeech": "verb"
+  },
+  "chic": {
+    "gloss": "good form",
+    "definition": "Good form; style.",
+    "partOfSpeech": "noun"
+  },
+  "chock": {
+    "gloss": "any object used as a wedge or filler",
+    "definition": "Any object used as a wedge or filler, especially when placed behind a wheel to prevent it from rolling.",
+    "partOfSpeech": "noun"
+  },
+  "choral": {
+    "gloss": "of",
+    "definition": "Of, relating to, written for, or performed by a choir or a chorus.",
+    "partOfSpeech": "adjective"
+  },
+  "chorale": {
+    "gloss": "form of lutheran or protestant hymn tune",
+    "definition": "A form of Lutheran or Protestant hymn tune.",
+    "partOfSpeech": "noun"
+  },
+  "chord": {
+    "gloss": "harmonic set of three or more notes that is heard as if sounding simultaneously",
+    "definition": "A harmonic set of three or more notes that is heard as if sounding simultaneously.",
+    "partOfSpeech": "noun"
+  },
+  "chow": {
+    "gloss": "food",
+    "definition": "Food, especially snacks.",
+    "partOfSpeech": "noun"
+  },
+  "churchman": {
+    "gloss": "churchwarden",
+    "definition": "A churchwarden.",
+    "partOfSpeech": "noun"
+  },
+  "churchmen": {
+    "gloss": "churchwarden",
+    "definition": "A churchwarden.",
+    "partOfSpeech": "noun"
+  },
+  "chute": {
+    "gloss": "framework",
+    "definition": "A framework, trough or tube, upon or through which objects are made to slide from a higher to a lower level, or through which water passes to a wheel.",
+    "partOfSpeech": "noun"
+  },
+  "ciao": {
+    "gloss": "greeting or farewell using the word ciao",
+    "definition": "A greeting or farewell using the word \"ciao\".",
+    "partOfSpeech": "noun"
+  },
+  "cite": {
+    "gloss": "to quote",
+    "definition": "To quote; to repeat, as a passage from a book, or the words of another.",
+    "partOfSpeech": "verb"
+  },
+  "coal": {
+    "gloss": "black rock formed from prehistoric plant remains",
+    "definition": "A black rock formed from prehistoric plant remains, composed largely of carbon and burned as a fuel.",
+    "partOfSpeech": "noun"
+  },
+  "coarse": {
+    "gloss": "composed of large parts or particles",
+    "definition": "Composed of large parts or particles; of inferior quality or appearance; not fine in material or close in texture.",
+    "partOfSpeech": "adjective"
+  },
+  "coat": {
+    "gloss": "outer garment covering the upper torso and arms wp",
+    "definition": "An outer garment covering the upper torso and arms.Wp",
+    "partOfSpeech": "noun"
+  },
+  "coccus": {
+    "gloss": "any approximately spherical bacterium",
+    "definition": "Any approximately spherical bacterium.",
+    "partOfSpeech": "noun"
+  },
+  "cock": {
+    "gloss": "male bird",
+    "definition": "A male bird, especially:",
+    "partOfSpeech": "noun"
+  },
+  "cocky": {
+    "gloss": "overly confident",
+    "definition": "Overly confident; arrogant and boastful.",
+    "partOfSpeech": "adjective"
+  },
+  "coco": {
+    "gloss": "coconut palm",
+    "definition": "Coconut palm.",
+    "partOfSpeech": "noun"
+  },
+  "cocoa": {
+    "gloss": "dried and partially fermented fatty seeds of the cacao tree from which chocolate is made",
+    "definition": "The dried and partially fermented fatty seeds of the cacao tree from which chocolate is made.",
+    "partOfSpeech": "noun"
+  },
+  "coddle": {
+    "gloss": "irish dish comprising layers of roughly sliced pork sausages and bacon rashers with sliced potatoes and onions",
+    "definition": "An Irish dish comprising layers of roughly sliced pork sausages and bacon rashers with sliced potatoes and onions.",
+    "partOfSpeech": "noun"
+  },
+  "code": {
+    "gloss": "short symbol",
+    "definition": "A short symbol, often with little relation to the item it represents.",
+    "partOfSpeech": "noun"
+  },
+  "coed": {
+    "gloss": "young woman who attends college",
+    "definition": "A young woman who attends college.",
+    "partOfSpeech": "noun"
+  },
+  "coif": {
+    "gloss": "hairdo",
+    "definition": "A hairdo.",
+    "partOfSpeech": "noun"
+  },
+  "colonel": {
+    "gloss": "commissioned officer in an armed military organization",
+    "definition": "A commissioned officer in an armed military organization, typically the highest rank before flag officer ranks (generals). It is generally found in armies, air forces or naval infantry (marines).",
+    "partOfSpeech": "noun"
+  },
+  "come": {
+    "gloss": "coming",
+    "definition": "Coming, arrival; approach.",
+    "partOfSpeech": "noun"
+  },
+  "coming": {
+    "gloss": "to move from further away to nearer to",
+    "definition": "To move from further away to nearer to.",
+    "partOfSpeech": "verb"
+  },
+  "complacent": {
+    "gloss": "uncritically satisfied with oneself or one s achievements",
+    "definition": "Uncritically satisfied with oneself or one's achievements; smug.",
+    "partOfSpeech": "adjective"
+  },
+  "complaisant": {
+    "gloss": "compliant",
+    "definition": "Compliant.",
+    "partOfSpeech": "adjective"
+  },
+  "con": {
+    "gloss": "to study or examine carefully",
+    "definition": "To study or examine carefully, especially in order to gain knowledge of; to learn, or learn by heart.",
+    "partOfSpeech": "verb"
+  },
+  "conch": {
+    "gloss": "marine gastropod of the family strombidae which lives in its own spiral shell",
+    "definition": "A marine gastropod of the family Strombidae which lives in its own spiral shell.",
+    "partOfSpeech": "noun"
+  },
+  "conk": {
+    "gloss": "marine gastropod of the family strombidae which lives in its own spiral shell",
+    "definition": "A marine gastropod of the family Strombidae which lives in its own spiral shell.",
+    "partOfSpeech": "noun"
+  },
+  "coo": {
+    "gloss": "murmuring sound made by a dove or pigeon",
+    "definition": "The murmuring sound made by a dove or pigeon.",
+    "partOfSpeech": "noun"
+  },
+  "coop": {
+    "gloss": "basket",
+    "definition": "A basket, pen or enclosure for birds or small animals.",
+    "partOfSpeech": "noun"
+  },
+  "cor": {
+    "gloss": "expression of surprise",
+    "definition": "Expression of surprise.",
+    "partOfSpeech": "interjection"
+  },
+  "coral": {
+    "gloss": "hard substance made of the limestone skeletons of marine polyps",
+    "definition": "A hard substance made of the limestone skeletons of marine polyps.",
+    "partOfSpeech": "noun"
+  },
+  "cord": {
+    "gloss": "harmonic set of three or more notes that is heard as if sounding simultaneously",
+    "definition": "A harmonic set of three or more notes that is heard as if sounding simultaneously.",
+    "partOfSpeech": "noun"
+  },
+  "corespondent": {
+    "gloss": "one of two or more persons against whom a lawsuit is made",
+    "definition": "One of two or more persons against whom a lawsuit is made; but especially a person charged with committing adultery with the defendant in a divorce proceeding.",
+    "partOfSpeech": "noun"
+  },
+  "corps": {
+    "gloss": "battlefield formation composed of two or more divisions",
+    "definition": "A battlefield formation composed of two or more divisions.",
+    "partOfSpeech": "noun"
+  },
+  "corral": {
+    "gloss": "enclosure for livestock",
+    "definition": "An enclosure for livestock, especially a circular one.",
+    "partOfSpeech": "noun"
+  },
+  "correspondent": {
+    "gloss": "someone who or something which corresponds",
+    "definition": "Someone who or something which corresponds.",
+    "partOfSpeech": "noun"
+  },
+  "cot": {
+    "gloss": "simple bed",
+    "definition": "A simple bed, especially one for portable or temporary purposes.",
+    "partOfSpeech": "noun"
+  },
+  "cote": {
+    "gloss": "cottage or hut",
+    "definition": "A cottage or hut.",
+    "partOfSpeech": "noun"
+  },
+  "council": {
+    "gloss": "committee that leads or governs",
+    "definition": "A committee that leads or governs (e.g. city council, student council).",
+    "partOfSpeech": "noun"
+  },
+  "counsel": {
+    "gloss": "exchange of opinions and advice especially in legal issues",
+    "definition": "The exchange of opinions and advice especially in legal issues; consultation.",
+    "partOfSpeech": "noun"
+  },
+  "coup": {
+    "gloss": "quick",
+    "definition": "A quick, brilliant, and highly successful act.",
+    "partOfSpeech": "noun"
+  },
+  "coupe": {
+    "gloss": "ice cream dessert",
+    "definition": "An ice cream dessert; the glass it is served in.",
+    "partOfSpeech": "noun"
+  },
+  "course": {
+    "gloss": "sequence of events",
+    "definition": "A sequence of events.",
+    "partOfSpeech": "noun"
+  },
+  "crappie": {
+    "gloss": "member of either of two species of north american sunfish of the genus pomoxis both are silvery white with black speckles",
+    "definition": "A member of either of two species of North American sunfish of the genus Pomoxis. Both are silvery-white with black speckles, and prized as gamefish.",
+    "partOfSpeech": "noun"
+  },
+  "crappy": {
+    "gloss": "of very poor quality",
+    "definition": "(mildly) Of very poor quality; unpleasant; distasteful.",
+    "partOfSpeech": "adjective"
+  },
+  "creak": {
+    "gloss": "sound produced by anything that creaks",
+    "definition": "The sound produced by anything that creaks; a creaking.",
+    "partOfSpeech": "noun"
+  },
+  "cream": {
+    "gloss": "butterfat milkfat part of milk which rises to the top",
+    "definition": "The butterfat/milkfat part of milk which rises to the top; this part when separated from the remainder.",
+    "partOfSpeech": "noun"
+  },
+  "creek": {
+    "gloss": "small inlet or bay",
+    "definition": "A small inlet or bay, often saltwater, narrower and extending farther into the land than a cove; a recess in the shore of the sea, or of a river; the inner part of a port that is used as a dock for small boats.",
+    "partOfSpeech": "noun"
+  },
+  "creme": {
+    "gloss": "very sugary",
+    "definition": "A very sugary, fluffy white cream derivative.",
+    "partOfSpeech": "noun"
+  },
+  "crewel": {
+    "gloss": "worsted yarn",
+    "definition": "Worsted yarn, slackly twisted, used for embroidery.",
+    "partOfSpeech": "noun"
+  },
+  "cruel": {
+    "gloss": "to spoil or ruin",
+    "definition": "To spoil or ruin (one's chance of success)",
+    "partOfSpeech": "verb"
+  },
+  "cruise": {
+    "gloss": "sea or lake voyage",
+    "definition": "A sea or lake voyage, especially one taken for pleasure.",
+    "partOfSpeech": "noun"
+  },
+  "cruse": {
+    "gloss": "small jar used to hold liquid",
+    "definition": "A small jar used to hold liquid, such as oil or water.",
+    "partOfSpeech": "noun"
+  },
+  "cum": {
+    "gloss": "used in indicating a thing with two roles",
+    "definition": "Used in indicating a thing with two roles, functions, or natures, or a thing that has changed from one to another.",
+    "partOfSpeech": "preposition"
+  },
+  "cumming": {
+    "gloss": "to have an orgasm",
+    "definition": "To have an orgasm, to feel the sensation of an orgasm.",
+    "partOfSpeech": "verb"
+  },
+  "curb": {
+    "gloss": "concrete margin along the edge of a road",
+    "definition": "A concrete margin along the edge of a road; a kerb (UK, Australia, New Zealand)",
+    "partOfSpeech": "noun"
+  },
+  "cymbal": {
+    "gloss": "concave plate of brass or bronze that produces a sharp",
+    "definition": "A concave plate of brass or bronze that produces a sharp, ringing sound when struck: played either in pairs, by striking them together, or singly by striking with a drumstick or the like.",
+    "partOfSpeech": "noun"
+  },
+  "dais": {
+    "gloss": "raised platform in a room for a high table",
+    "definition": "A raised platform in a room for a high table, a seat of honour, a throne, or other dignified occupancy; a similar platform supporting a lectern, pulpit, etc., which may be used to speak from.",
+    "partOfSpeech": "noun"
+  },
+  "dam": {
+    "gloss": "structure placed across a flowing body of water to stop the flow or part of the flow",
+    "definition": "A structure placed across a flowing body of water to stop the flow or part of the flow, generally for purposes such as retaining or diverting some of the water or retarding the release of accumulated water to avoid abrupt flooding.",
+    "partOfSpeech": "noun"
+  },
+  "dammed": {
+    "gloss": "to block the flow of water",
+    "definition": "To block the flow of water.",
+    "partOfSpeech": "verb"
+  },
+  "damn": {
+    "gloss": "use of damn as a curse",
+    "definition": "The use of \"damn\" as a curse.",
+    "partOfSpeech": "noun"
+  },
+  "damned": {
+    "gloss": "to condemn to hell",
+    "definition": "To condemn to hell.",
+    "partOfSpeech": "verb"
+  },
+  "daze": {
+    "gloss": "state of being dazed",
+    "definition": "The state of being dazed",
+    "partOfSpeech": "noun"
+  },
+  "dear": {
+    "gloss": "very kind",
+    "definition": "A very kind, loving person.",
+    "partOfSpeech": "noun"
+  },
+  "deer": {
+    "gloss": "ruminant mammal with antlers and hooves of the family cervidae",
+    "definition": "A ruminant mammal with antlers and hooves of the family Cervidae, or one of several similar animals from related families of the order Artiodactyla",
+    "partOfSpeech": "noun"
+  },
+  "demur": {
+    "gloss": "stop",
+    "definition": "Stop; pause; hesitation as to proceeding; suspense of decision or action; scruple.",
+    "partOfSpeech": "noun"
+  },
+  "desert": {
+    "gloss": "that which is deserved or merited",
+    "definition": "(usually in the plural) That which is deserved or merited; a just punishment or reward",
+    "partOfSpeech": "noun"
+  },
+  "dessert": {
+    "gloss": "sweet confection served as the last course of a meal",
+    "definition": "A sweet confection served as the last course of a meal",
+    "partOfSpeech": "noun"
+  },
+  "dew": {
+    "gloss": "any moisture from the atmosphere condensed by cool bodies upon their surfaces",
+    "definition": "Any moisture from the atmosphere condensed by cool bodies upon their surfaces.",
+    "partOfSpeech": "noun"
+  },
+  "die": {
+    "gloss": "to stop living",
+    "definition": "To stop living; to become dead; to undergo death.",
+    "partOfSpeech": "verb"
+  },
+  "dike": {
+    "gloss": "alternative form of dyke to dig a ditch",
+    "definition": "Alternative form of dyke: to dig a ditch; to raise an earthwork; etc.",
+    "partOfSpeech": "verb"
+  },
+  "dimmer": {
+    "gloss": "not bright or colorful",
+    "definition": "Not bright or colorful.",
+    "partOfSpeech": "adjective"
+  },
+  "dire": {
+    "gloss": "warning of bad consequences ill boding",
+    "definition": "Warning of bad consequences: ill-boding; portentous.",
+    "partOfSpeech": "adjective"
+  },
+  "discreet": {
+    "gloss": "respectful of privacy or secrecy",
+    "definition": "Respectful of privacy or secrecy; exercising caution in order to avoid causing embarrassment; quiet; diplomatic.",
+    "partOfSpeech": "adjective"
+  },
+  "discrete": {
+    "gloss": "separate",
+    "definition": "Separate; distinct; individual; non-continuous.",
+    "partOfSpeech": "adjective"
+  },
+  "doc": {
+    "gloss": "doctor",
+    "definition": "A doctor.",
+    "partOfSpeech": "noun"
+  },
+  "dock": {
+    "gloss": "any of the genus rumex of coarse weedy plants with small green flowers related to buckwheat",
+    "definition": "Any of the genus Rumex of coarse weedy plants with small green flowers related to buckwheat, especially common dock, and used as potherbs and in folk medicine, especially in curing nettle rash.",
+    "partOfSpeech": "noun"
+  },
+  "doe": {
+    "gloss": "female deer",
+    "definition": "A female deer; also used of similar animals such as antelope, (less commonly goat as nanny is also used).",
+    "partOfSpeech": "noun"
+  },
+  "does": {
+    "gloss": "syntactic marker",
+    "definition": "(auxiliary) A syntactic marker.",
+    "partOfSpeech": "verb"
+  },
+  "done": {
+    "gloss": "syntactic marker",
+    "definition": "(auxiliary) A syntactic marker.",
+    "partOfSpeech": "verb"
+  },
+  "dough": {
+    "gloss": "thick",
+    "definition": "A thick, malleable substance made by mixing flour with other ingredients such as water, eggs, and/or butter, that is made into a particular form and then baked.",
+    "partOfSpeech": "noun"
+  },
+  "dour": {
+    "gloss": "stern",
+    "definition": "Stern, harsh and forbidding.",
+    "partOfSpeech": "adjective"
+  },
+  "douse": {
+    "gloss": "sudden plunging into water",
+    "definition": "A sudden plunging into water.",
+    "partOfSpeech": "noun"
+  },
+  "dower": {
+    "gloss": "part of or interest in a deceased husband s property provided to his widow",
+    "definition": "The part of or interest in a deceased husband's property provided to his widow, usually in the form of a life estate.",
+    "partOfSpeech": "noun"
+  },
+  "dowse": {
+    "gloss": "to plunge suddenly into water",
+    "definition": "To plunge suddenly into water; to duck; to immerse.",
+    "partOfSpeech": "verb"
+  },
+  "doze": {
+    "gloss": "light",
+    "definition": "A light, short sleep or nap.",
+    "partOfSpeech": "noun"
+  },
+  "drier": {
+    "gloss": "one who",
+    "definition": "One who, or that which, dries; a desiccative.",
+    "partOfSpeech": "noun"
+  },
+  "droop": {
+    "gloss": "something which is limp or sagging",
+    "definition": "Something which is limp or sagging",
+    "partOfSpeech": "noun"
+  },
+  "drupe": {
+    "gloss": "stone fruit",
+    "definition": "A stone fruit.",
+    "partOfSpeech": "noun"
+  },
+  "dryer": {
+    "gloss": "one who",
+    "definition": "One who, or that which, dries; a desiccative.",
+    "partOfSpeech": "noun"
+  },
+  "dual": {
+    "gloss": "of an item that is one of a pair",
+    "definition": "Of an item that is one of a pair, the other item in the pair.",
+    "partOfSpeech": "noun"
+  },
+  "due": {
+    "gloss": "deserved acknowledgment",
+    "definition": "Deserved acknowledgment.",
+    "partOfSpeech": "noun"
+  },
+  "duel": {
+    "gloss": "arranged",
+    "definition": "Arranged, regular combat between two private persons, often over a matter of honor.",
+    "partOfSpeech": "noun"
+  },
+  "dun": {
+    "gloss": "brownish grey colour",
+    "definition": "A brownish grey colour.",
+    "partOfSpeech": "noun"
+  },
+  "dye": {
+    "gloss": "colourant",
+    "definition": "A colourant, especially one that has an affinity to the substrate to which it is applied.",
+    "partOfSpeech": "noun"
+  },
+  "dyeing": {
+    "gloss": "to colour with dye",
+    "definition": "To colour with dye, or as if with dye.",
+    "partOfSpeech": "verb"
+  },
+  "dyer": {
+    "gloss": "one who dyes",
+    "definition": "One who dyes, especially one who dyes cloth etc. as an occupation.",
+    "partOfSpeech": "noun"
+  },
+  "dying": {
+    "gloss": "to stop living",
+    "definition": "To stop living; to become dead; to undergo death.",
+    "partOfSpeech": "verb"
+  },
+  "dyke": {
+    "gloss": "lesbian",
+    "definition": "(usually derogatory) A lesbian, particularly one with masculine or butch traits or behavior.",
+    "partOfSpeech": "noun"
+  },
+  "earn": {
+    "gloss": "to gain through applied effort or work",
+    "definition": "To gain (success, reward, recognition) through applied effort or work.",
+    "partOfSpeech": "verb"
+  },
+  "edition": {
+    "gloss": "written work edited and published",
+    "definition": "A written work edited and published, as by a certain editor or in a certain manner.",
+    "partOfSpeech": "noun"
+  },
+  "effect": {
+    "gloss": "result or outcome of a cause",
+    "definition": "The result or outcome of a cause.",
+    "partOfSpeech": "noun"
+  },
+  "eight": {
+    "gloss": "digit figure 8",
+    "definition": "The digit/figure 8.",
+    "partOfSpeech": "noun"
+  },
+  "ensure": {
+    "gloss": "to make a pledge to",
+    "definition": "To make a pledge to (someone); to promise, guarantee (someone of something); to assure.",
+    "partOfSpeech": "verb"
+  },
+  "ere": {
+    "gloss": "at an earlier time",
+    "definition": "At an earlier time.",
+    "partOfSpeech": "adverb"
+  },
+  "err": {
+    "gloss": "to make a mistake",
+    "definition": "To make a mistake.",
+    "partOfSpeech": "verb"
+  },
+  "ewe": {
+    "gloss": "female sheep",
+    "definition": "A female sheep, as opposed to a ram.",
+    "partOfSpeech": "noun"
+  },
+  "eye": {
+    "gloss": "organ through which animals see",
+    "definition": "An organ through which animals see (perceive surroundings via light).",
+    "partOfSpeech": "noun"
+  },
+  "fain": {
+    "gloss": "well pleased",
+    "definition": "Well-pleased, glad.",
+    "partOfSpeech": "adjective"
+  },
+  "faint": {
+    "gloss": "act of fainting",
+    "definition": "The act of fainting, syncope.",
+    "partOfSpeech": "noun"
+  },
+  "fair": {
+    "gloss": "something which is fair",
+    "definition": "Something which is fair (in various senses of the adjective).",
+    "partOfSpeech": "noun"
+  },
+  "fairy": {
+    "gloss": "realm of faerie",
+    "definition": "The realm of faerie; enchantment, illusion.",
+    "partOfSpeech": "noun"
+  },
+  "fare": {
+    "gloss": "going",
+    "definition": "A going; journey; travel; voyage; course; passage.",
+    "partOfSpeech": "noun"
+  },
+  "faro": {
+    "gloss": "game of chance played by betting on the order in which certain cards will appear when taken singly from the top of the pack",
+    "definition": "A game of chance played by betting on the order in which certain cards will appear when taken singly from the top of the pack.",
+    "partOfSpeech": "noun"
+  },
+  "farrow": {
+    "gloss": "litter of piglets",
+    "definition": "A litter of piglets.",
+    "partOfSpeech": "noun"
+  },
+  "fate": {
+    "gloss": "presumed cause",
+    "definition": "The presumed cause, force, principle, or divine will that predetermines events.",
+    "partOfSpeech": "noun"
+  },
+  "fay": {
+    "gloss": "to fit",
+    "definition": "To fit.",
+    "partOfSpeech": "verb"
+  },
+  "faze": {
+    "gloss": "to frighten or cause hesitation",
+    "definition": "To frighten or cause hesitation; to daunt, put off (usually used in the negative); to disconcert, to perturb.",
+    "partOfSpeech": "verb"
+  },
+  "feat": {
+    "gloss": "relatively rare or difficult accomplishment",
+    "definition": "A relatively rare or difficult accomplishment.",
+    "partOfSpeech": "noun"
+  },
+  "fee": {
+    "gloss": "right to the use of a superior s land",
+    "definition": "(feudal law) A right to the use of a superior's land, as a stipend for services to be performed; also, the land so held; a fief.",
+    "partOfSpeech": "noun"
+  },
+  "feet": {
+    "gloss": "biological structure found in many animals that is used for locomotion and that is frequently a separate organ at the terminal part of the leg",
+    "definition": "A biological structure found in many animals that is used for locomotion and that is frequently a separate organ at the terminal part of the leg.",
+    "partOfSpeech": "noun"
+  },
+  "feign": {
+    "gloss": "to make a false show or pretence of",
+    "definition": "To make a false show or pretence of; to counterfeit or simulate.",
+    "partOfSpeech": "verb"
+  },
+  "feint": {
+    "gloss": "movement made to confuse the opponent",
+    "definition": "A movement made to confuse the opponent; a dummy.",
+    "partOfSpeech": "noun"
+  },
+  "fennel": {
+    "gloss": "plant",
+    "definition": "A plant, Foeniculum vulgare, of the parsley family, which has a sweet, anise-like flavor.",
+    "partOfSpeech": "noun"
+  },
+  "ferry": {
+    "gloss": "ship used to transport people",
+    "definition": "A ship used to transport people, smaller vehicles and goods from one port to another, usually on a regular schedule.",
+    "partOfSpeech": "noun"
+  },
+  "fete": {
+    "gloss": "festival open to the public",
+    "definition": "A festival open to the public, the proceeds from which are often given to charity.",
+    "partOfSpeech": "noun"
+  },
+  "few": {
+    "gloss": "few people",
+    "definition": "Few people, few things.",
+    "partOfSpeech": "pronoun"
+  },
+  "fey": {
+    "gloss": "about to die",
+    "definition": "About to die; doomed; on the verge of sudden or violent death.",
+    "partOfSpeech": "adjective"
+  },
+  "fie": {
+    "gloss": "often followed by on or upon used to express distaste",
+    "definition": "Often followed by on or upon: used to express distaste, disgust, or outrage.",
+    "partOfSpeech": "interjection"
+  },
+  "fir": {
+    "gloss": "conifer of the genus abies",
+    "definition": "A conifer of the genus Abies.",
+    "partOfSpeech": "noun"
+  },
+  "fireman": {
+    "gloss": "someone who is skilled in the work of fighting fire",
+    "definition": "Someone (especially one who is male) who is skilled in the work of fighting fire.",
+    "partOfSpeech": "noun"
+  },
+  "firemen": {
+    "gloss": "someone who is skilled in the work of fighting fire",
+    "definition": "Someone (especially one who is male) who is skilled in the work of fighting fire.",
+    "partOfSpeech": "noun"
+  },
+  "fish": {
+    "gloss": "cold blooded vertebrate animal that lives in water",
+    "definition": "A cold-blooded vertebrate animal that lives in water, moving with the help of fins and breathing with gills.",
+    "partOfSpeech": "noun"
+  },
+  "fisher": {
+    "gloss": "person who catches fish",
+    "definition": "A person who catches fish, especially for a living or for sport.",
+    "partOfSpeech": "noun"
+  },
+  "fissure": {
+    "gloss": "crack or opening",
+    "definition": "A crack or opening, as in a rock.",
+    "partOfSpeech": "noun"
+  },
+  "flack": {
+    "gloss": "to flutter",
+    "definition": "To flutter; palpitate.",
+    "partOfSpeech": "verb"
+  },
+  "flair": {
+    "gloss": "natural or innate talent or aptitude",
+    "definition": "A natural or innate talent or aptitude.",
+    "partOfSpeech": "noun"
+  },
+  "flak": {
+    "gloss": "ground based anti aircraft guns firing explosive shells",
+    "definition": "Ground-based anti-aircraft guns firing explosive shells.",
+    "partOfSpeech": "noun"
+  },
+  "flare": {
+    "gloss": "sudden bright light",
+    "definition": "A sudden bright light.",
+    "partOfSpeech": "noun"
+  },
+  "flea": {
+    "gloss": "small",
+    "definition": "A small, wingless, parasitic insect of the order Siphonaptera, renowned for its bloodsucking habits and jumping abilities.",
+    "partOfSpeech": "noun"
+  },
+  "flee": {
+    "gloss": "to run away",
+    "definition": "To run away; to escape.",
+    "partOfSpeech": "verb"
+  },
+  "flew": {
+    "gloss": "thick",
+    "definition": "(chiefly plural) The thick, dangling upper lip of certain breeds of dog, or the canine equivalent of the upper lip.",
+    "partOfSpeech": "noun"
+  },
+  "floe": {
+    "gloss": "low",
+    "definition": "A low, flat mass of floating ice.",
+    "partOfSpeech": "noun"
+  },
+  "flour": {
+    "gloss": "powder obtained by grinding or milling cereal grains",
+    "definition": "Powder obtained by grinding or milling cereal grains, especially wheat, or other foodstuffs such as soybeans and potatoes, and used to bake bread, cakes, and pastry.",
+    "partOfSpeech": "noun"
+  },
+  "flow": {
+    "gloss": "movement in people or things with a particular way in large numbers or amounts",
+    "definition": "A movement in people or things with a particular way in large numbers or amounts",
+    "partOfSpeech": "noun"
+  },
+  "flower": {
+    "gloss": "colorful",
+    "definition": "A colorful, conspicuous structure associated with angiosperms, frequently scented and attracting various insects, and which may or may not be used for sexual reproduction.",
+    "partOfSpeech": "noun"
+  },
+  "flu": {
+    "gloss": "influenza",
+    "definition": "Influenza.",
+    "partOfSpeech": "noun"
+  },
+  "force": {
+    "gloss": "strength or energy of body or mind",
+    "definition": "Strength or energy of body or mind; active power; vigour; might; capacity of exercising an influence or producing an effect.",
+    "partOfSpeech": "noun"
+  },
+  "forego": {
+    "gloss": "to precede",
+    "definition": "To precede, to go before.",
+    "partOfSpeech": "verb"
+  },
+  "foreigner": {
+    "gloss": "person from a foreign country",
+    "definition": "A person from a foreign country.",
+    "partOfSpeech": "noun"
+  },
+  "foreman": {
+    "gloss": "leader of a work crew",
+    "definition": "The leader of a work crew.",
+    "partOfSpeech": "noun"
+  },
+  "foremen": {
+    "gloss": "leader of a work crew",
+    "definition": "The leader of a work crew.",
+    "partOfSpeech": "noun"
+  },
+  "forerunner": {
+    "gloss": "runner at the front or ahead",
+    "definition": "A runner at the front or ahead.",
+    "partOfSpeech": "noun"
+  },
+  "foreword": {
+    "gloss": "introductory section preceding the main text of a book or other document",
+    "definition": "An introductory section preceding the main text of a book or other document; a preface or introduction.",
+    "partOfSpeech": "noun"
+  },
+  "forgo": {
+    "gloss": "to let pass",
+    "definition": "To let pass, to leave alone, to let go.",
+    "partOfSpeech": "verb"
+  },
+  "forward": {
+    "gloss": "one of the eight players whose primary task is to gain and maintain possession of the ball",
+    "definition": "One of the eight players (comprising two props, one hooker, two locks, two flankers and one number eight, collectively known as the pack) whose primary task is to gain and maintain possession of the ball (compare back).",
+    "partOfSpeech": "noun"
+  },
+  "foul": {
+    "gloss": "covered with",
+    "definition": "Covered with, or containing unclean matter; dirty.",
+    "partOfSpeech": "adjective"
+  },
+  "fourths": {
+    "gloss": "person or thing in the fourth position",
+    "definition": "(not used in the plural) The person or thing in the fourth position.",
+    "partOfSpeech": "noun"
+  },
+  "fowl": {
+    "gloss": "bird",
+    "definition": "A bird.",
+    "partOfSpeech": "noun"
+  },
+  "franc": {
+    "gloss": "former unit of currency of france",
+    "definition": "A former unit of currency of France, Belgium and Luxembourg, replaced by the euro.",
+    "partOfSpeech": "noun"
+  },
+  "frank": {
+    "gloss": "free postage",
+    "definition": "Free postage, a right exercised by governments (usually with definite article).",
+    "partOfSpeech": "noun"
+  },
+  "freeze": {
+    "gloss": "especially of a liquid",
+    "definition": "Especially of a liquid, to become solid due to low temperature.",
+    "partOfSpeech": "verb"
+  },
+  "friar": {
+    "gloss": "member of a mendicant christian order such as the augustinians",
+    "definition": "A member of a mendicant Christian order such as the Augustinians, Carmelites (white friars), Franciscans (grey friars) or the Dominicans (black friars).",
+    "partOfSpeech": "noun"
+  },
+  "frieze": {
+    "gloss": "kind of coarse woolen cloth or stuff with a shaggy or tufted nap on one side",
+    "definition": "A kind of coarse woolen cloth or stuff with a shaggy or tufted (friezed) nap on one side.",
+    "partOfSpeech": "noun"
+  },
+  "fryer": {
+    "gloss": "container for frying food",
+    "definition": "A container for frying food.",
+    "partOfSpeech": "noun"
+  },
+  "fur": {
+    "gloss": "hairy coat of various mammal species",
+    "definition": "The hairy coat of various mammal species, especially when fine, soft and thick.",
+    "partOfSpeech": "noun"
+  },
+  "gaff": {
+    "gloss": "tool consisting of a large metal hook with a handle or pole",
+    "definition": "A tool consisting of a large metal hook with a handle or pole, especially the one used to pull large fish aboard a boat.",
+    "partOfSpeech": "noun"
+  },
+  "gaffe": {
+    "gloss": "foolish and embarrassing error",
+    "definition": "A foolish and embarrassing error, especially one made in public.",
+    "partOfSpeech": "noun"
+  },
+  "gait": {
+    "gloss": "manner of walking or stepping",
+    "definition": "Manner of walking or stepping; bearing or carriage while moving.",
+    "partOfSpeech": "noun"
+  },
+  "gaiter": {
+    "gloss": "covering of cloth or leather for the ankle and instep",
+    "definition": "A covering of cloth or leather for the ankle and instep.",
+    "partOfSpeech": "noun"
+  },
+  "gate": {
+    "gloss": "doorlike structure outside a house",
+    "definition": "A doorlike structure outside a house.",
+    "partOfSpeech": "noun"
+  },
+  "gator": {
+    "gloss": "alligator",
+    "definition": "Alligator.",
+    "partOfSpeech": "noun"
+  },
+  "gauntlet": {
+    "gloss": "protective armor for the hands",
+    "definition": "Protective armor for the hands, formerly thrown down as a challenge to combat.",
+    "partOfSpeech": "noun"
+  },
+  "gel": {
+    "gloss": "semi solid to almost solid colloid of a solid and a liquid",
+    "definition": "A semi-solid to almost solid colloid of a solid and a liquid, such as jelly, cheese or opal.",
+    "partOfSpeech": "noun"
+  },
+  "get": {
+    "gloss": "offspring",
+    "definition": "Offspring.",
+    "partOfSpeech": "noun"
+  },
+  "gild": {
+    "gloss": "to cover with a thin layer of gold",
+    "definition": "To cover with a thin layer of gold; to cover with gold leaf.",
+    "partOfSpeech": "verb"
+  },
+  "gilt": {
+    "gloss": "to cover with a thin layer of gold",
+    "definition": "To cover with a thin layer of gold; to cover with gold leaf.",
+    "partOfSpeech": "verb"
+  },
+  "gist": {
+    "gloss": "most essential part",
+    "definition": "The most essential part; the main idea or substance (of a longer or more complicated matter); the crux of a matter; the pith.",
+    "partOfSpeech": "noun"
+  },
+  "git": {
+    "gloss": "silly",
+    "definition": "A silly, incompetent, stupid, annoying or childish person (usually a man).",
+    "partOfSpeech": "noun"
+  },
+  "gnu": {
+    "gloss": "large antelope of the genus connochaetes",
+    "definition": "A large antelope of the genus Connochaetes, native to Africa, having curved horns.",
+    "partOfSpeech": "noun"
+  },
+  "gorilla": {
+    "gloss": "largest of the apes",
+    "definition": "The largest of the apes, native to the forests of central Africa, and known for their trait of knuckle-walking.",
+    "partOfSpeech": "noun"
+  },
+  "graham": {
+    "gloss": "flour made by grinding wheat berries including the bran",
+    "definition": "Flour made by grinding wheat berries including the bran.",
+    "partOfSpeech": "noun"
+  },
+  "gram": {
+    "gloss": "unit of mass equal to one thousandth of a kilogram symbol g",
+    "definition": "A unit of mass equal to one-thousandth of a kilogram. Symbol: g",
+    "partOfSpeech": "noun"
+  },
+  "grate": {
+    "gloss": "horizontal metal grill through which water",
+    "definition": "A horizontal metal grill through which water, ash, or small objects can fall, while larger objects cannot",
+    "partOfSpeech": "noun"
+  },
+  "great": {
+    "gloss": "person of major significance",
+    "definition": "A person of major significance, accomplishment or acclaim.",
+    "partOfSpeech": "noun"
+  },
+  "grew": {
+    "gloss": "to become larger",
+    "definition": "To become larger, to increase in magnitude.",
+    "partOfSpeech": "verb"
+  },
+  "grill": {
+    "gloss": "grating",
+    "definition": "A grating; a grid of wire or a sheet of material with a pattern of holes or slots, usually used to protect something while allowing the passage of air and liquids. Typical uses: to allow air through a fan while preventing fingers or objects from passing; to allow people to talk to somebody, while preventing attack.",
+    "partOfSpeech": "noun"
+  },
+  "grille": {
+    "gloss": "grating",
+    "definition": "A grating; a grid of wire or a sheet of material with a pattern of holes or slots, usually used to protect something while allowing the passage of air and liquids. Typical uses: to allow air through a fan while preventing fingers or objects from passing; to allow people to talk to somebody, while preventing attack.",
+    "partOfSpeech": "noun"
+  },
+  "grisly": {
+    "gloss": "horrifyingly repellent",
+    "definition": "Horrifyingly repellent; gruesome, terrifying.",
+    "partOfSpeech": "adjective"
+  },
+  "grizzly": {
+    "gloss": "grizzly bear",
+    "definition": "A grizzly bear.",
+    "partOfSpeech": "noun"
+  },
+  "groan": {
+    "gloss": "low",
+    "definition": "A low, mournful sound uttered in pain or grief.",
+    "partOfSpeech": "noun"
+  },
+  "grown": {
+    "gloss": "to become larger",
+    "definition": "To become larger, to increase in magnitude.",
+    "partOfSpeech": "verb"
+  },
+  "guerrilla": {
+    "gloss": "soldier in a small independent group",
+    "definition": "A soldier in a small independent group, fighting against the government or regular forces by surprise raids.",
+    "partOfSpeech": "noun"
+  },
+  "guild": {
+    "gloss": "group or association mainly of tradespeople made up of merchants",
+    "definition": "A group or association mainly of tradespeople made up of merchants, craftspeople, or artisans for mutual aid, particularly in the Middle Ages.",
+    "partOfSpeech": "noun"
+  },
+  "guilder": {
+    "gloss": "former currency unit in the netherlands",
+    "definition": "The former currency unit in the Netherlands, divided into 100 cents.",
+    "partOfSpeech": "noun"
+  },
+  "guilt": {
+    "gloss": "responsibility for wrongdoing",
+    "definition": "Responsibility for wrongdoing.",
+    "partOfSpeech": "noun"
+  },
+  "hail": {
+    "gloss": "balls or pieces of ice falling as precipitation",
+    "definition": "Balls or pieces of ice falling as precipitation, often in connection with a thunderstorm.",
+    "partOfSpeech": "noun"
+  },
+  "hair": {
+    "gloss": "pigmented filament of keratin which grows from a follicle on the skin of humans and other mammals",
+    "definition": "A pigmented filament of keratin which grows from a follicle on the skin of humans and other mammals.",
+    "partOfSpeech": "noun"
+  },
+  "hale": {
+    "gloss": "health",
+    "definition": "Health, welfare.",
+    "partOfSpeech": "noun"
+  },
+  "hall": {
+    "gloss": "corridor",
+    "definition": "A corridor; a hallway.",
+    "partOfSpeech": "noun"
+  },
+  "halve": {
+    "gloss": "to reduce to half the original amount",
+    "definition": "To reduce to half the original amount.",
+    "partOfSpeech": "verb"
+  },
+  "handsome": {
+    "gloss": "to render handsome",
+    "definition": "To render handsome.",
+    "partOfSpeech": "verb"
+  },
+  "hangar": {
+    "gloss": "large garage like structure where aircraft are kept",
+    "definition": "A large garage-like structure where aircraft are kept.",
+    "partOfSpeech": "noun"
+  },
+  "hanger": {
+    "gloss": "one who hangs",
+    "definition": "One who hangs, or causes to be hanged; a hangman, paper hanger, etc.",
+    "partOfSpeech": "noun"
+  },
+  "hansom": {
+    "gloss": "hansom cab",
+    "definition": "A Hansom cab; a carriage",
+    "partOfSpeech": "noun"
+  },
+  "hare": {
+    "gloss": "any of several plant eating animals of the family leporidae",
+    "definition": "Any of several plant-eating animals of the family Leporidae, especially of the genus Lepus, similar to a rabbit, but larger and with longer ears.",
+    "partOfSpeech": "noun"
+  },
+  "hart": {
+    "gloss": "male deer",
+    "definition": "A male deer, especially the male of the red deer after his fifth year.",
+    "partOfSpeech": "noun"
+  },
+  "haul": {
+    "gloss": "act of hauling or pulling",
+    "definition": "An act of hauling or pulling, particularly with force; a (violent) pull or tug.",
+    "partOfSpeech": "noun"
+  },
+  "have": {
+    "gloss": "wealthy or privileged person",
+    "definition": "A wealthy or privileged person.",
+    "partOfSpeech": "noun"
+  },
+  "hay": {
+    "gloss": "grass cut and dried for use as animal fodder",
+    "definition": "Grass cut and dried for use as animal fodder.",
+    "partOfSpeech": "noun"
+  },
+  "heal": {
+    "gloss": "spell or ability that restores hit points or removes a status ailment",
+    "definition": "A spell or ability that restores hit points or removes a status ailment.",
+    "partOfSpeech": "noun"
+  },
+  "hear": {
+    "gloss": "to perceive sounds through the ear",
+    "definition": "(stative) To perceive sounds through the ear.",
+    "partOfSpeech": "verb"
+  },
+  "heard": {
+    "gloss": "to perceive sounds through the ear",
+    "definition": "(stative) To perceive sounds through the ear.",
+    "partOfSpeech": "verb"
+  },
+  "heart": {
+    "gloss": "muscular organ that pumps blood through the body",
+    "definition": "A muscular organ that pumps blood through the body, traditionally thought to be the seat of emotion.",
+    "partOfSpeech": "noun"
+  },
+  "heel": {
+    "gloss": "rear part of the foot",
+    "definition": "The rear part of the foot, where it joins the leg.",
+    "partOfSpeech": "noun"
+  },
+  "heir": {
+    "gloss": "someone who inherits",
+    "definition": "Someone who inherits, or is designated to inherit, the property of another.",
+    "partOfSpeech": "noun"
+  },
+  "henchman": {
+    "gloss": "loyal and trusted follower or subordinate",
+    "definition": "A loyal and trusted follower or subordinate.",
+    "partOfSpeech": "noun"
+  },
+  "henchmen": {
+    "gloss": "loyal and trusted follower or subordinate",
+    "definition": "A loyal and trusted follower or subordinate.",
+    "partOfSpeech": "noun"
+  },
+  "herd": {
+    "gloss": "number of domestic animals assembled together under the watch or ownership of a keeper",
+    "definition": "A number of domestic animals assembled together under the watch or ownership of a keeper.",
+    "partOfSpeech": "noun"
+  },
+  "here": {
+    "gloss": "this place",
+    "definition": "(abstract) This place; this location.",
+    "partOfSpeech": "noun"
+  },
+  "hew": {
+    "gloss": "to chop away at",
+    "definition": "To chop away at; to whittle down; to mow down.",
+    "partOfSpeech": "verb"
+  },
+  "hey": {
+    "gloss": "exclamation to get attention",
+    "definition": "An exclamation to get attention.",
+    "partOfSpeech": "interjection"
+  },
+  "him": {
+    "gloss": "honorific alternative letter case form of him",
+    "definition": "Honorific alternative letter-case form of him, sometimes used when referring to God or another important figure who is understood from context.",
+    "partOfSpeech": "pronoun"
+  },
+  "hoard": {
+    "gloss": "hidden supply or fund",
+    "definition": "A hidden supply or fund.",
+    "partOfSpeech": "noun"
+  },
+  "hoarse": {
+    "gloss": "having a dry",
+    "definition": "Having a dry, harsh tone to the voice, as a result of a sore throat, age, emotion, etc.",
+    "partOfSpeech": "adjective"
+  },
+  "hock": {
+    "gloss": "rhenish wine",
+    "definition": "A Rhenish wine, of a light yellow color, either sparkling or still, from the Hochheim region; often applied to all Rhenish wines.",
+    "partOfSpeech": "noun"
+  },
+  "hoe": {
+    "gloss": "agricultural tool consisting of a long handle with a flat blade fixed perpendicular to it at the end",
+    "definition": "An agricultural tool consisting of a long handle with a flat blade fixed perpendicular to it at the end, used for digging rows.",
+    "partOfSpeech": "noun"
+  },
+  "hole": {
+    "gloss": "hollow place or cavity",
+    "definition": "A hollow place or cavity; an excavation; a pit; an opening in or through a solid body, a fabric, etc.; a perforation; a rent; a fissure.",
+    "partOfSpeech": "noun"
+  },
+  "holy": {
+    "gloss": "thing that is extremely holy",
+    "definition": "A thing that is extremely holy; used almost exclusively in Holy of Holies.",
+    "partOfSpeech": "noun"
+  },
+  "horde": {
+    "gloss": "wandering troop or gang",
+    "definition": "A wandering troop or gang; especially, a clan or tribe of a nomadic people (originally Tatars) migrating from place to place for the sake of pasturage, plunder, etc.; a predatory multitude.",
+    "partOfSpeech": "noun"
+  },
+  "horse": {
+    "gloss": "any of several animals related to equus ferus caballus",
+    "definition": "Any of several animals related to Equus ferus caballus.",
+    "partOfSpeech": "noun"
+  },
+  "horseman": {
+    "gloss": "man who rides a horse",
+    "definition": "A man who rides a horse.",
+    "partOfSpeech": "noun"
+  },
+  "horsemen": {
+    "gloss": "man who rides a horse",
+    "definition": "A man who rides a horse.",
+    "partOfSpeech": "noun"
+  },
+  "hostel": {
+    "gloss": "commercial overnight lodging place",
+    "definition": "A commercial overnight lodging place, with dormitory accommodation and shared facilities, especially a youth hostel",
+    "partOfSpeech": "noun"
+  },
+  "hostile": {
+    "gloss": "enemy",
+    "definition": "(chiefly in the plural) An enemy.",
+    "partOfSpeech": "noun"
+  },
+  "hour": {
+    "gloss": "time period of sixty minutes",
+    "definition": "A time period of sixty minutes; one twenty-fourth of a day.",
+    "partOfSpeech": "noun"
+  },
+  "hue": {
+    "gloss": "color",
+    "definition": "A color, or shade of color; tint; dye.",
+    "partOfSpeech": "noun"
+  },
+  "humerus": {
+    "gloss": "bone of the upper arm",
+    "definition": "The bone of the upper arm.",
+    "partOfSpeech": "noun"
+  },
+  "humorous": {
+    "gloss": "full of humor or arousing laughter",
+    "definition": "Full of humor or arousing laughter; funny.",
+    "partOfSpeech": "adjective"
+  },
+  "hymn": {
+    "gloss": "song of praise or worship",
+    "definition": "A song of praise or worship.",
+    "partOfSpeech": "noun"
+  },
+  "idle": {
+    "gloss": "idle animation",
+    "definition": "An idle animation.",
+    "partOfSpeech": "noun"
+  },
+  "idol": {
+    "gloss": "graven image or representation of anything that is revered",
+    "definition": "A graven image or representation of anything that is revered, or believed to convey spiritual power.",
+    "partOfSpeech": "noun"
+  },
+  "idyll": {
+    "gloss": "any poem or short written piece composed in the style of theocritus short pastoral poems",
+    "definition": "Any poem or short written piece composed in the style of Theocritus' short pastoral poems, the Idylls.",
+    "partOfSpeech": "noun"
+  },
+  "ill": {
+    "gloss": "trouble",
+    "definition": "(often pluralized) Trouble; distress; misfortune; adversity.",
+    "partOfSpeech": "noun"
+  },
+  "immanent": {
+    "gloss": "naturally part of something",
+    "definition": "Naturally part of something; existing throughout and within something; intrinsic.",
+    "partOfSpeech": "adjective"
+  },
+  "imminence": {
+    "gloss": "state or condition of being about to happen",
+    "definition": "The state or condition of being about to happen; imminent quality.",
+    "partOfSpeech": "noun"
+  },
+  "imminent": {
+    "gloss": "about to happen",
+    "definition": "About to happen, occur, or take place very soon, especially of something which won't last long.",
+    "partOfSpeech": "adjective"
+  },
+  "inc": {
+    "gloss": "incorporated",
+    "definition": "Incorporated, corporation, an adjective describing a type of (business) company that carries certain legal obligations.",
+    "partOfSpeech": "adjective"
+  },
+  "indict": {
+    "gloss": "to accuse of wrongdoing",
+    "definition": "To accuse of wrongdoing; charge.",
+    "partOfSpeech": "verb"
+  },
+  "indite": {
+    "gloss": "to physically make letters and words on a writing surface",
+    "definition": "To physically make letters and words on a writing surface; to inscribe.",
+    "partOfSpeech": "verb"
+  },
+  "infantryman": {
+    "gloss": "soldier employed in an infantry role",
+    "definition": "A soldier employed in an infantry role",
+    "partOfSpeech": "noun"
+  },
+  "infantrymen": {
+    "gloss": "soldier employed in an infantry role",
+    "definition": "A soldier employed in an infantry role",
+    "partOfSpeech": "noun"
+  },
+  "ink": {
+    "gloss": "pigment based fluid used for writing",
+    "definition": "A pigment (or dye)-based fluid used for writing, printing etc.",
+    "partOfSpeech": "noun"
+  },
+  "insure": {
+    "gloss": "to make a pledge to",
+    "definition": "To make a pledge to (someone); to promise, guarantee (someone of something); to assure.",
+    "partOfSpeech": "verb"
+  },
+  "isle": {
+    "gloss": "wing of a building",
+    "definition": "A wing of a building, notably in a church separated from the nave proper by piers.",
+    "partOfSpeech": "noun"
+  },
+  "jamb": {
+    "gloss": "either of the vertical components that form the side of an opening in a wall",
+    "definition": "(interior decorating) Either of the vertical components that form the side of an opening in a wall, such as that of a door frame, window frame, or fireplace.",
+    "partOfSpeech": "noun"
+  },
+  "jell": {
+    "gloss": "jelly or gel",
+    "definition": "A jelly or gel",
+    "partOfSpeech": "noun"
+  },
+  "just": {
+    "gloss": "factually right",
+    "definition": "Factually right, correct; factual.",
+    "partOfSpeech": "adjective"
+  },
+  "karat": {
+    "gloss": "unit of fineness or concentration of gold equalling 1 24 part of gold in an alloy",
+    "definition": "A unit of fineness or concentration of gold equalling 1/24 part of gold in an alloy.",
+    "partOfSpeech": "noun"
+  },
+  "kept": {
+    "gloss": "to continue in",
+    "definition": "To continue in (a course or mode of action); not to intermit or fall from; to uphold or maintain.",
+    "partOfSpeech": "verb"
+  },
+  "kerb": {
+    "gloss": "edge between the pavement and the roadway",
+    "definition": "The edge between the pavement and the roadway, consisting of a line of kerbstones.",
+    "partOfSpeech": "noun"
+  },
+  "kernel": {
+    "gloss": "core",
+    "definition": "The core, center, or essence of an object or system.",
+    "partOfSpeech": "noun"
+  },
+  "key": {
+    "gloss": "object designed to open and close a lock",
+    "definition": "An object designed to open and close a lock.",
+    "partOfSpeech": "noun"
+  },
+  "khaki": {
+    "gloss": "dull",
+    "definition": "A dull, yellowish-brown colour, the colour of dust.",
+    "partOfSpeech": "noun"
+  },
+  "khan": {
+    "gloss": "ruler over various turkish",
+    "definition": "A ruler over various Turkish, Tatar and Mongol peoples in the Middle Ages.",
+    "partOfSpeech": "noun"
+  },
+  "knave": {
+    "gloss": "boy",
+    "definition": "A boy; especially, a boy servant.",
+    "partOfSpeech": "noun"
+  },
+  "knead": {
+    "gloss": "act of kneading something",
+    "definition": "The act of kneading something.",
+    "partOfSpeech": "noun"
+  },
+  "knee": {
+    "gloss": "in humans",
+    "definition": "In humans, the joint or the region of the joint in the middle part of the leg between the thigh and the shank.",
+    "partOfSpeech": "noun"
+  },
+  "knew": {
+    "gloss": "to perceive the truth or factuality of",
+    "definition": "To perceive the truth or factuality of; to be certain of or that.",
+    "partOfSpeech": "verb"
+  },
+  "knight": {
+    "gloss": "young servant or follower",
+    "definition": "A young servant or follower; a trained military attendant in service of a lord.",
+    "partOfSpeech": "noun"
+  },
+  "knit": {
+    "gloss": "knitted garment",
+    "definition": "A knitted garment.",
+    "partOfSpeech": "noun"
+  },
+  "knot": {
+    "gloss": "looping of a piece of string or of any other long",
+    "definition": "A looping of a piece of string or of any other long, flexible material that cannot be untangled without passing one or both ends of the material through its loops.",
+    "partOfSpeech": "noun"
+  },
+  "kohl": {
+    "gloss": "dark powder used as eye makeup",
+    "definition": "A dark powder (usually powdered antimony) used as eye makeup, especially in Eastern countries; stibnite.",
+    "partOfSpeech": "noun"
+  },
+  "krona": {
+    "gloss": "official currency of sweden",
+    "definition": "The official currency of Sweden.",
+    "partOfSpeech": "noun"
+  },
+  "krone": {
+    "gloss": "currency of iceland",
+    "definition": "The currency of Iceland, Denmark (including Greenland and the Faroe Islands) and Norway, divided into 100 øre, except in Iceland where 1 króna = 100 aurar.",
+    "partOfSpeech": "noun"
+  },
+  "lac": {
+    "gloss": "resinous substance produced mainly on the banyan tree by the female of kerria lacca",
+    "definition": "A resinous substance produced mainly on the banyan tree by the female of Kerria lacca, a scale insect.",
+    "partOfSpeech": "noun"
+  },
+  "lack": {
+    "gloss": "defect or failing",
+    "definition": "A defect or failing; moral or spiritual degeneracy.",
+    "partOfSpeech": "noun"
+  },
+  "lade": {
+    "gloss": "load",
+    "definition": "A load.",
+    "partOfSpeech": "noun"
+  },
+  "lager": {
+    "gloss": "type of beer",
+    "definition": "A type of beer, brewed using a bottom-fermenting yeast.",
+    "partOfSpeech": "noun"
+  },
+  "laid": {
+    "gloss": "marked with parallel lines",
+    "definition": "(of paper) Marked with parallel lines, as if ribbed, from wires in the mould.",
+    "partOfSpeech": "adjective"
+  },
+  "lain": {
+    "gloss": "to rest in a horizontal position on a surface",
+    "definition": "To rest in a horizontal position on a surface.",
+    "partOfSpeech": "verb"
+  },
+  "lam": {
+    "gloss": "to beat or thrash",
+    "definition": "To beat or thrash.",
+    "partOfSpeech": "verb"
+  },
+  "lama": {
+    "gloss": "master of tibetan buddhism",
+    "definition": "A master of Tibetan Buddhism.",
+    "partOfSpeech": "noun"
+  },
+  "lamb": {
+    "gloss": "young sheep",
+    "definition": "A young sheep.",
+    "partOfSpeech": "noun"
+  },
+  "lane": {
+    "gloss": "road",
+    "definition": "(used in street names) A road, street, or similar thoroughfare.",
+    "partOfSpeech": "noun"
+  },
+  "lass": {
+    "gloss": "young woman or girl",
+    "definition": "A young woman or girl.",
+    "partOfSpeech": "noun"
+  },
+  "last": {
+    "gloss": "final",
+    "definition": "Final, ultimate, coming after all others of its kind.",
+    "partOfSpeech": "adjective"
+  },
+  "lat": {
+    "gloss": "staff",
+    "definition": "A staff, particularly one of an Indian kind.",
+    "partOfSpeech": "noun"
+  },
+  "lay": {
+    "gloss": "arrangement or relationship",
+    "definition": "Arrangement or relationship; layout.",
+    "partOfSpeech": "noun"
+  },
+  "layman": {
+    "gloss": "layperson",
+    "definition": "Layperson, someone who is not an ordained cleric or member of the clergy.",
+    "partOfSpeech": "noun"
+  },
+  "laymen": {
+    "gloss": "layperson",
+    "definition": "Layperson, someone who is not an ordained cleric or member of the clergy.",
+    "partOfSpeech": "noun"
+  },
+  "lea": {
+    "gloss": "open field",
+    "definition": "An open field, meadow.",
+    "partOfSpeech": "noun"
+  },
+  "leach": {
+    "gloss": "quantity of wood ashes",
+    "definition": "A quantity of wood ashes, through which water passes, and thus imbibes the alkali.",
+    "partOfSpeech": "noun"
+  },
+  "leaf": {
+    "gloss": "usually green and flat organ that represents the most prominent feature of most vegetative plants",
+    "definition": "The usually green and flat organ that represents the most prominent feature of most vegetative plants.",
+    "partOfSpeech": "noun"
+  },
+  "leak": {
+    "gloss": "crack",
+    "definition": "A crack, crevice, fissure, or hole which admits water or other fluid, or lets it escape.",
+    "partOfSpeech": "noun"
+  },
+  "lean": {
+    "gloss": "inclination away from the vertical",
+    "definition": "(of an object taller than its width and depth) An inclination away from the vertical.",
+    "partOfSpeech": "noun"
+  },
+  "leaver": {
+    "gloss": "someone who supports brexit",
+    "definition": "(UK politics) Someone who supports Brexit, the United Kingdom's exit from the European Union.",
+    "partOfSpeech": "noun"
+  },
+  "lee": {
+    "gloss": "protected cove or harbor",
+    "definition": "A protected cove or harbor, out of the wind.",
+    "partOfSpeech": "noun"
+  },
+  "lemma": {
+    "gloss": "proposition proved or accepted for immediate use in the proof of some other proposition",
+    "definition": "A proposition proved or accepted for immediate use in the proof of some other proposition.",
+    "partOfSpeech": "noun"
+  },
+  "lessen": {
+    "gloss": "to make less",
+    "definition": "To make less; to diminish; to reduce.",
+    "partOfSpeech": "verb"
+  },
+  "lesson": {
+    "gloss": "section of learning or teaching into which a wider learning content is divided",
+    "definition": "A section of learning or teaching into which a wider learning content is divided.",
+    "partOfSpeech": "noun"
+  },
+  "levee": {
+    "gloss": "embankment to prevent inundation",
+    "definition": "An embankment to prevent inundation; as, the levees along the Mississippi.",
+    "partOfSpeech": "noun"
+  },
+  "lever": {
+    "gloss": "crowbar",
+    "definition": "(except in generalized senses below) A crowbar.",
+    "partOfSpeech": "noun"
+  },
+  "levy": {
+    "gloss": "act of levying",
+    "definition": "The act of levying.",
+    "partOfSpeech": "noun"
+  },
+  "licence": {
+    "gloss": "legal document giving official permission to do something",
+    "definition": "A legal document giving official permission to do something; a permit.",
+    "partOfSpeech": "noun"
+  },
+  "license": {
+    "gloss": "legal document giving official permission to do something",
+    "definition": "A legal document giving official permission to do something; a permit.",
+    "partOfSpeech": "noun"
+  },
+  "lichen": {
+    "gloss": "any of many symbiotic organisms",
+    "definition": "Any of many symbiotic organisms, being associations of algae and fungi, often found as white or yellow patches on old walls, etc.",
+    "partOfSpeech": "noun"
+  },
+  "lie": {
+    "gloss": "terrain and conditions surrounding the ball before it is struck",
+    "definition": "The terrain and conditions surrounding the ball before it is struck.",
+    "partOfSpeech": "noun"
+  },
+  "lief": {
+    "gloss": "beloved",
+    "definition": "Beloved, dear, agreeable.",
+    "partOfSpeech": "adjective"
+  },
+  "lien": {
+    "gloss": "tendon",
+    "definition": "A tendon.",
+    "partOfSpeech": "noun"
+  },
+  "lieu": {
+    "gloss": "place",
+    "definition": "Place, stead; See in lieu or in lieu of",
+    "partOfSpeech": "noun"
+  },
+  "light": {
+    "gloss": "visible electromagnetic radiation the human eye can typically detect radiation in the wavelength range of about 400 to 750 nanometers nearby shorter and longer wavelength ranges",
+    "definition": "Visible electromagnetic radiation. The human eye can typically detect radiation (light) in the wavelength range of about 400 to 750 nanometers. Nearby shorter and longer wavelength ranges, although not visible, are commonly called ultraviolet and infrared light.",
+    "partOfSpeech": "noun"
+  },
+  "liken": {
+    "gloss": "to compare",
+    "definition": "(followed by to or unto) To compare; to state that (something) is like (something else).",
+    "partOfSpeech": "verb"
+  },
+  "limb": {
+    "gloss": "major appendage of human or animal",
+    "definition": "A major appendage of human or animal, used for locomotion (such as an arm, leg or wing).",
+    "partOfSpeech": "noun"
+  },
+  "limn": {
+    "gloss": "to draw or paint",
+    "definition": "To draw or paint; to delineate.",
+    "partOfSpeech": "verb"
+  },
+  "lineman": {
+    "gloss": "person who installs and repairs overhead cables",
+    "definition": "A person who installs and repairs overhead cables (either power or telephone); a linesman",
+    "partOfSpeech": "noun"
+  },
+  "linemen": {
+    "gloss": "person who installs and repairs overhead cables",
+    "definition": "A person who installs and repairs overhead cables (either power or telephone); a linesman",
+    "partOfSpeech": "noun"
+  },
+  "liqueur": {
+    "gloss": "flavoured alcoholic beverage that is usually very sweet and contains a high percentage of alcohol cordials are a type of liqueur manufactured using the infusion process as opposed to the essence and distillation processes",
+    "definition": "A flavoured alcoholic beverage that is usually very sweet and contains a high percentage of alcohol. Cordials are a type of liqueur manufactured using the infusion process as opposed to the essence and distillation processes.",
+    "partOfSpeech": "noun"
+  },
+  "liquor": {
+    "gloss": "liquid",
+    "definition": "A liquid, a fluid.",
+    "partOfSpeech": "noun"
+  },
+  "lira": {
+    "gloss": "former currency of israel",
+    "definition": "The former currency of Israel, superseded by the sheqel.",
+    "partOfSpeech": "noun"
+  },
+  "lire": {
+    "gloss": "flesh",
+    "definition": "Flesh, brawn, or muscle; the fleshy part of a person or animal in contradistinction to the bone and skin.",
+    "partOfSpeech": "noun"
+  },
+  "lite": {
+    "gloss": "visible electromagnetic radiation the human eye can typically detect radiation in the wavelength range of about 400 to 750 nanometers nearby shorter and longer wavelength ranges",
+    "definition": "Visible electromagnetic radiation. The human eye can typically detect radiation (light) in the wavelength range of about 400 to 750 nanometers. Nearby shorter and longer wavelength ranges, although not visible, are commonly called ultraviolet and infrared light.",
+    "partOfSpeech": "noun"
+  },
+  "literal": {
+    "gloss": "misprint that affects a letter",
+    "definition": "(epigraphy) A misprint (or occasionally a scribal error) that affects a letter.",
+    "partOfSpeech": "noun"
+  },
+  "littoral": {
+    "gloss": "shore",
+    "definition": "A shore.",
+    "partOfSpeech": "noun"
+  },
+  "llama": {
+    "gloss": "south american mammal of the camel family",
+    "definition": "A South American mammal of the camel family, Lama glama, used as a domestic beast of burden and a source of wool and meat.",
+    "partOfSpeech": "noun"
+  },
+  "load": {
+    "gloss": "burden",
+    "definition": "A burden; a weight to be carried.",
+    "partOfSpeech": "noun"
+  },
+  "loan": {
+    "gloss": "act or instance of lending",
+    "definition": "An act or instance of lending, an act or instance of granting something for temporary use.",
+    "partOfSpeech": "noun"
+  },
+  "lode": {
+    "gloss": "way or path",
+    "definition": "A way or path; a road.",
+    "partOfSpeech": "noun"
+  },
+  "logger": {
+    "gloss": "worker whose occupation is to harvest trees",
+    "definition": "A worker whose occupation is to harvest trees.",
+    "partOfSpeech": "noun"
+  },
+  "lone": {
+    "gloss": "solitary",
+    "definition": "Solitary; having no companion.",
+    "partOfSpeech": "adjective"
+  },
+  "loo": {
+    "gloss": "to urge on with cries of loo or by other shouting or outcry",
+    "definition": "(used with at, upon or infinitive) To urge on with cries of loo or by other shouting or outcry.",
+    "partOfSpeech": "verb"
+  },
+  "loos": {
+    "gloss": "half mask",
+    "definition": "A half-mask, particularly those velvet half-masks fashionable in the 17th century as a means of protecting women's complexion from the sun.",
+    "partOfSpeech": "noun"
+  },
+  "loot": {
+    "gloss": "kind of scoop or ladle",
+    "definition": "A kind of scoop or ladle, chiefly used to remove the scum from brine-pans in saltworks.",
+    "partOfSpeech": "noun"
+  },
+  "lose": {
+    "gloss": "to cause to cease to be in one s possession or capability due to unfortunate or unknown circumstances",
+    "definition": "To cause (something) to cease to be in one's possession or capability due to unfortunate or unknown circumstances, events or reasons.",
+    "partOfSpeech": "verb"
+  },
+  "lot": {
+    "gloss": "large quantity or number",
+    "definition": "A large quantity or number; a great deal.",
+    "partOfSpeech": "noun"
+  },
+  "lox": {
+    "gloss": "salmon cured in brine and then smoked in low temperature so that the flesh remains uncooked",
+    "definition": "Salmon cured in brine and then smoked in low temperature so that the flesh remains uncooked.",
+    "partOfSpeech": "noun"
+  },
+  "lute": {
+    "gloss": "fretted stringed instrument of european origin",
+    "definition": "A fretted stringed instrument of European origin, similar to the guitar, having a bowl-shaped body or soundbox; any of a wide variety of chordophones with a pear-shaped body and a neck whose upper surface is in the same plane as the soundboard, with strings along the neck and parallel to the soundboard.",
+    "partOfSpeech": "noun"
+  },
+  "lux": {
+    "gloss": "in the international system of units",
+    "definition": "In the International System of Units, the derived unit of illuminance or illumination; one lumen per square metre. Symbol: lx",
+    "partOfSpeech": "noun"
+  },
+  "lye": {
+    "gloss": "alkaline liquid made by leaching ashes",
+    "definition": "An alkaline liquid made by leaching ashes (usually wood ashes).",
+    "partOfSpeech": "noun"
+  },
+  "made": {
+    "gloss": "grub or maggot",
+    "definition": "A grub or maggot.",
+    "partOfSpeech": "noun"
+  },
+  "magnate": {
+    "gloss": "powerful industrialist",
+    "definition": "Powerful industrialist; captain of industry.",
+    "partOfSpeech": "noun"
+  },
+  "magnet": {
+    "gloss": "piece of material that attracts some metals by magnetism",
+    "definition": "A piece of material that attracts some metals by magnetism.",
+    "partOfSpeech": "noun"
+  },
+  "maid": {
+    "gloss": "girl or an unmarried young woman",
+    "definition": "A girl or an unmarried young woman; maiden.",
+    "partOfSpeech": "noun"
+  },
+  "mail": {
+    "gloss": "bag or wallet",
+    "definition": "A bag or wallet.",
+    "partOfSpeech": "noun"
+  },
+  "main": {
+    "gloss": "short for mainline",
+    "definition": "Short for mainline.",
+    "partOfSpeech": "verb"
+  },
+  "maize": {
+    "gloss": "corn",
+    "definition": "Corn; a type of grain of the species Zea mays.",
+    "partOfSpeech": "noun"
+  },
+  "male": {
+    "gloss": "one of the male sex or gender",
+    "definition": "One of the male (masculine) sex or gender.",
+    "partOfSpeech": "noun"
+  },
+  "mall": {
+    "gloss": "pedestrianised street",
+    "definition": "A pedestrianised street, especially a shopping precinct.",
+    "partOfSpeech": "noun"
+  },
+  "mama": {
+    "gloss": "mother",
+    "definition": "(hypocoristic, usually childish) Mother, female parent.",
+    "partOfSpeech": "noun"
+  },
+  "mamma": {
+    "gloss": "milk secreting organ of female humans and other mammals which includes the mammary gland and the nipple or teat",
+    "definition": "The milk-secreting organ of female humans and other mammals which includes the mammary gland and the nipple or teat; a breast; an udder. (plural: mammae)",
+    "partOfSpeech": "noun"
+  },
+  "mane": {
+    "gloss": "longer hair growth on back of neck of an animal",
+    "definition": "Longer hair growth on back of neck of an animal, especially a horse or lion",
+    "partOfSpeech": "noun"
+  },
+  "manner": {
+    "gloss": "mode of action",
+    "definition": "Mode of action; way of performing or doing anything",
+    "partOfSpeech": "noun"
+  },
+  "manor": {
+    "gloss": "landed estate",
+    "definition": "A landed estate.",
+    "partOfSpeech": "noun"
+  },
+  "mantel": {
+    "gloss": "shelf above a fireplace which may be also a structural support for the masonry of the chimney",
+    "definition": "The shelf above a fireplace which may be also a structural support for the masonry of the chimney.",
+    "partOfSpeech": "noun"
+  },
+  "mantle": {
+    "gloss": "shelf above a fireplace which may be also a structural support for the masonry of the chimney",
+    "definition": "The shelf above a fireplace which may be also a structural support for the masonry of the chimney.",
+    "partOfSpeech": "noun"
+  },
+  "marquee": {
+    "gloss": "large tent with open sides",
+    "definition": "A large tent with open sides, used for outdoors entertainment.",
+    "partOfSpeech": "noun"
+  },
+  "marquis": {
+    "gloss": "nobleman in england",
+    "definition": "A nobleman in England, France, and Germany, of a rank next below that of duke, but above a count. Originally, the marquis was an officer whose duty was to guard the marches or frontiers of the kingdom. The office has ceased, and the name is now a mere title conferred by letters patent or letters close.",
+    "partOfSpeech": "noun"
+  },
+  "marry": {
+    "gloss": "to enter into the conjugal or connubial state",
+    "definition": "To enter into the conjugal or connubial state; to take a husband or a wife.",
+    "partOfSpeech": "verb"
+  },
+  "marshal": {
+    "gloss": "high ranking officer in the household of a medieval prince or lord",
+    "definition": "A high-ranking officer in the household of a medieval prince or lord, who was originally in charge of the cavalry and later the military forces in general.",
+    "partOfSpeech": "noun"
+  },
+  "marten": {
+    "gloss": "any carnivorous mammal of the genus martes in the family mustelidae",
+    "definition": "Any carnivorous mammal of the genus Martes in the family Mustelidae.",
+    "partOfSpeech": "noun"
+  },
+  "martial": {
+    "gloss": "person under the astrological influence of the planet mars",
+    "definition": "A person under the astrological influence of the planet Mars.",
+    "partOfSpeech": "noun"
+  },
+  "martin": {
+    "gloss": "any of various passerine birds of the family hirundinidae",
+    "definition": "Any of various passerine birds of the family Hirundinidae, which also includes swallows, that catch insects whilst flying.",
+    "partOfSpeech": "noun"
+  },
+  "mat": {
+    "gloss": "flat piece of coarse material used for wiping one s feet",
+    "definition": "A flat piece of coarse material used for wiping one’s feet, or as a decorative or protective floor covering.",
+    "partOfSpeech": "noun"
+  },
+  "matt": {
+    "gloss": "alloy of copper",
+    "definition": "(coppersmithing) An alloy of copper, tin, iron, etc.; white metal.",
+    "partOfSpeech": "noun"
+  },
+  "matte": {
+    "gloss": "decorative border around a picture used to inset and center the contents of a frame",
+    "definition": "A decorative border around a picture used to inset and center the contents of a frame.",
+    "partOfSpeech": "noun"
+  },
+  "maul": {
+    "gloss": "heavy long handled hammer",
+    "definition": "A heavy long-handled hammer, used for splitting logs by driving a wedge into them, or in combat.",
+    "partOfSpeech": "noun"
+  },
+  "maze": {
+    "gloss": "labyrinth",
+    "definition": "A labyrinth; a puzzle consisting of a complicated network of paths or passages, the aim of which is to find one's way.",
+    "partOfSpeech": "noun"
+  },
+  "mean": {
+    "gloss": "to lament",
+    "definition": "To lament.",
+    "partOfSpeech": "verb"
+  },
+  "meat": {
+    "gloss": "flesh of an animal used as food",
+    "definition": "The flesh (muscle tissue) of an animal used as food.",
+    "partOfSpeech": "noun"
+  },
+  "medal": {
+    "gloss": "stamped metal disc used as a personal ornament",
+    "definition": "A stamped metal disc used as a personal ornament, a charm, or a religious object.",
+    "partOfSpeech": "noun"
+  },
+  "meddle": {
+    "gloss": "to interfere in or with",
+    "definition": "To interfere in or with; to concern oneself with unduly.",
+    "partOfSpeech": "verb"
+  },
+  "meet": {
+    "gloss": "sports competition",
+    "definition": "A sports competition, especially for track and field (a track meet) or swimming (a swim meet).",
+    "partOfSpeech": "noun"
+  },
+  "merry": {
+    "gloss": "jolly and full of high spirits",
+    "definition": "Jolly and full of high spirits.",
+    "partOfSpeech": "adjective"
+  },
+  "metal": {
+    "gloss": "chemical elements or alloys",
+    "definition": "(heading) Chemical elements or alloys, and the mines where their ores come from.",
+    "partOfSpeech": "noun"
+  },
+  "mete": {
+    "gloss": "to measure",
+    "definition": "To measure.",
+    "partOfSpeech": "verb"
+  },
+  "mettle": {
+    "gloss": "quality of endurance and courage",
+    "definition": "A quality of endurance and courage.",
+    "partOfSpeech": "noun"
+  },
+  "mic": {
+    "gloss": "alternative form of mike",
+    "definition": "Alternative form of mike",
+    "partOfSpeech": "noun"
+  },
+  "mick": {
+    "gloss": "irishman",
+    "definition": "An Irishman",
+    "partOfSpeech": "noun"
+  },
+  "midst": {
+    "gloss": "place in the middle of something",
+    "definition": "A place in the middle of something; may be used of a literal or metaphorical location.",
+    "partOfSpeech": "noun"
+  },
+  "mien": {
+    "gloss": "demeanor",
+    "definition": "Demeanor; facial expression or attitude, especially one which is intended by its bearer.",
+    "partOfSpeech": "noun"
+  },
+  "mill": {
+    "gloss": "grinding apparatus for substances such as grains",
+    "definition": "A grinding apparatus for substances such as grains, seeds, etc.",
+    "partOfSpeech": "noun"
+  },
+  "miner": {
+    "gloss": "person who works in a mine",
+    "definition": "A person who works in a mine.",
+    "partOfSpeech": "noun"
+  },
+  "minor": {
+    "gloss": "person who is below the age of majority",
+    "definition": "A person who is below the age of majority, consent, criminal responsibility or other adult responsibilities and accountabilities.",
+    "partOfSpeech": "noun"
+  },
+  "missal": {
+    "gloss": "prayer book",
+    "definition": "A prayer book",
+    "partOfSpeech": "noun"
+  },
+  "missed": {
+    "gloss": "to fail to hit",
+    "definition": "To fail to hit.",
+    "partOfSpeech": "verb"
+  },
+  "missile": {
+    "gloss": "any object used as a weapon by being thrown or fired through the air",
+    "definition": "Any object used as a weapon by being thrown or fired through the air, such as stone, arrow or bullet.",
+    "partOfSpeech": "noun"
+  },
+  "mist": {
+    "gloss": "water or other liquid finely suspended in air",
+    "definition": "Water or other liquid finely suspended in air.",
+    "partOfSpeech": "noun"
+  },
+  "mite": {
+    "gloss": "any of many minute arachnids which",
+    "definition": "Any of many minute arachnids which, along with the ticks, comprise subclass Acarina (aka Acari).",
+    "partOfSpeech": "noun"
+  },
+  "moat": {
+    "gloss": "deep",
+    "definition": "A deep, wide defensive ditch, normally filled with water, surrounding a fortified habitation.",
+    "partOfSpeech": "noun"
+  },
+  "mock": {
+    "gloss": "imitation",
+    "definition": "An imitation, usually of lesser quality.",
+    "partOfSpeech": "noun"
+  },
+  "moo": {
+    "gloss": "characteristic lowing sound made by cattle",
+    "definition": "The characteristic lowing sound made by cattle.",
+    "partOfSpeech": "noun"
+  },
+  "moose": {
+    "gloss": "largest member of the deer family",
+    "definition": "The largest member of the deer family (Alces americanus, sometimes included in Alces alces), of which the male has very large, palmate antlers.",
+    "partOfSpeech": "noun"
+  },
+  "morn": {
+    "gloss": "morning",
+    "definition": "Morning.",
+    "partOfSpeech": "noun"
+  },
+  "morning": {
+    "gloss": "part of the day from dawn to noon",
+    "definition": "The part of the day from dawn to noon.",
+    "partOfSpeech": "noun"
+  },
+  "mote": {
+    "gloss": "small particle",
+    "definition": "A small particle; a speck.",
+    "partOfSpeech": "noun"
+  },
+  "moue": {
+    "gloss": "pout",
+    "definition": "A pout, especially as expressing mock-annoyance or flirtatiousness.",
+    "partOfSpeech": "noun"
+  },
+  "mourn": {
+    "gloss": "sorrow",
+    "definition": "Sorrow, grief.",
+    "partOfSpeech": "noun"
+  },
+  "mourning": {
+    "gloss": "to express sadness or sorrow for",
+    "definition": "To express sadness or sorrow for; to grieve over (especially a death).",
+    "partOfSpeech": "verb"
+  },
+  "mousse": {
+    "gloss": "airy pudding served chilled",
+    "definition": "An airy pudding served chilled, particularly chocolate mousse.",
+    "partOfSpeech": "noun"
+  },
+  "mucous": {
+    "gloss": "pertaining to mucus",
+    "definition": "Pertaining to mucus",
+    "partOfSpeech": "adjective"
+  },
+  "mucus": {
+    "gloss": "slippery secretion from the lining of the mucous membranes",
+    "definition": "A slippery secretion from the lining of the mucous membranes.",
+    "partOfSpeech": "noun"
+  },
+  "muscle": {
+    "gloss": "contractile form of tissue which animals use to effect movement",
+    "definition": "A contractile form of tissue which animals use to effect movement.",
+    "partOfSpeech": "noun"
+  },
+  "musky": {
+    "gloss": "having the scent of musk",
+    "definition": "Having the scent of musk",
+    "partOfSpeech": "adjective"
+  },
+  "mussel": {
+    "gloss": "any of several groups of bivalve shellfish with elongated",
+    "definition": "Any of several groups of bivalve shellfish with elongated, asymmetrical shells",
+    "partOfSpeech": "noun"
+  },
+  "naan": {
+    "gloss": "type of round",
+    "definition": "A type of round, flat bread baked in a tandoor popular in South and Central Asian cuisine.",
+    "partOfSpeech": "noun"
+  },
+  "naval": {
+    "gloss": "of or relating to a navy",
+    "definition": "Of or relating to a navy.",
+    "partOfSpeech": "adjective"
+  },
+  "nave": {
+    "gloss": "middle or body of a church",
+    "definition": "The middle or body of a church, extending from the transepts to the principal entrances.",
+    "partOfSpeech": "noun"
+  },
+  "navel": {
+    "gloss": "indentation or bump remaining in the abdomen of mammals where the umbilical cord was attached before birth",
+    "definition": "The indentation or bump remaining in the abdomen of mammals where the umbilical cord was attached before birth.",
+    "partOfSpeech": "noun"
+  },
+  "nay": {
+    "gloss": "vote against",
+    "definition": "A vote against.",
+    "partOfSpeech": "noun"
+  },
+  "nee": {
+    "gloss": "used when giving the maiden name of a woman",
+    "definition": "Used when giving the maiden name of a woman.",
+    "partOfSpeech": "adjective"
+  },
+  "need": {
+    "gloss": "requirement for something",
+    "definition": "A requirement for something; something needed.",
+    "partOfSpeech": "noun"
+  },
+  "neigh": {
+    "gloss": "cry of a horse",
+    "definition": "The cry of a horse.",
+    "partOfSpeech": "noun"
+  },
+  "new": {
+    "gloss": "things that are new",
+    "definition": "Things that are new.",
+    "partOfSpeech": "noun"
+  },
+  "nickel": {
+    "gloss": "silvery elemental metal with an atomic number of 28 and symbol ni",
+    "definition": "A silvery elemental metal with an atomic number of 28 and symbol Ni.",
+    "partOfSpeech": "noun"
+  },
+  "night": {
+    "gloss": "period between sunset and sunrise",
+    "definition": "The period between sunset and sunrise, when a location faces far away from the sun, thus when the sky is dark.",
+    "partOfSpeech": "noun"
+  },
+  "nit": {
+    "gloss": "egg of a louse",
+    "definition": "The egg of a louse.",
+    "partOfSpeech": "noun"
+  },
+  "non": {
+    "gloss": "to no extent",
+    "definition": "To no extent, in no way.",
+    "partOfSpeech": "adverb"
+  },
+  "none": {
+    "gloss": "person without religious affiliation",
+    "definition": "A person without religious affiliation.",
+    "partOfSpeech": "noun"
+  },
+  "noose": {
+    "gloss": "adjustable loop of rope",
+    "definition": "An adjustable loop of rope, such as the one placed around the neck in hangings, or the one at the end of a lasso.",
+    "partOfSpeech": "noun"
+  },
+  "not": {
+    "gloss": "unary operation on logical values that changes true to false",
+    "definition": "A unary operation on logical values that changes true to false, and false to true.",
+    "partOfSpeech": "noun"
+  },
+  "nous": {
+    "gloss": "mind or intellect",
+    "definition": "The mind or intellect, reason, both rational and emotional",
+    "partOfSpeech": "noun"
+  },
+  "nun": {
+    "gloss": "member of a christian religious community of women who live by certain vows and usually wear a habit",
+    "definition": "A member of a Christian religious community of women who live by certain vows and usually wear a habit, (specifically) those living together in a cloister.",
+    "partOfSpeech": "noun"
+  },
+  "oar": {
+    "gloss": "type of lever used to propel a boat",
+    "definition": "A type of lever used to propel a boat, having a flat blade at one end and a handle at the other, and pivoted in a rowlock atop the gunwale, whereby a rower seated in the boat and pulling the handle can pass the blade through the water by repeated strokes against the water's resistance, thus moving the boat .",
+    "partOfSpeech": "noun"
+  },
+  "one": {
+    "gloss": "digit or figure 1",
+    "definition": "The digit or figure 1.",
+    "partOfSpeech": "noun"
+  },
+  "oohs": {
+    "gloss": "to exclaim ooh",
+    "definition": "To exclaim ooh.",
+    "partOfSpeech": "verb"
+  },
+  "ooze": {
+    "gloss": "tanning liquor",
+    "definition": "Tanning liquor, an aqueous extract of vegetable matter (tanbark, sumac, etc.) in a tanning vat used to tan leather.",
+    "partOfSpeech": "noun"
+  },
+  "oral": {
+    "gloss": "spoken test or examination",
+    "definition": "A spoken test or examination, particularly in a language class.",
+    "partOfSpeech": "noun"
+  },
+  "ore": {
+    "gloss": "rock or other material that contains valuable or utilitarian materials",
+    "definition": "Rock or other material that contains valuable or utilitarian materials; primarily a rock containing metals or gems for which it is typically mined and processed.",
+    "partOfSpeech": "noun"
+  },
+  "ought": {
+    "gloss": "property",
+    "definition": "Property; possession",
+    "partOfSpeech": "noun"
+  },
+  "overdo": {
+    "gloss": "to do too much",
+    "definition": "To do too much; to exceed what is proper or true in doing; to carry too far.",
+    "partOfSpeech": "verb"
+  },
+  "overdue": {
+    "gloss": "late",
+    "definition": "Late; especially, past a deadline or too late to fulfill a need.",
+    "partOfSpeech": "adjective"
+  },
+  "oversea": {
+    "gloss": "abroad",
+    "definition": "Abroad.",
+    "partOfSpeech": "adjective"
+  },
+  "oversee": {
+    "gloss": "to survey",
+    "definition": "To survey, look at something in a wide angle.",
+    "partOfSpeech": "verb"
+  },
+  "paean": {
+    "gloss": "chant or song",
+    "definition": "A chant or song, especially a hymn of thanksgiving for deliverance or victory, to Apollo or sometimes another god or goddess; hence any song sung to solicit victory in battle.",
+    "partOfSpeech": "noun"
+  },
+  "pail": {
+    "gloss": "vessel of wood",
+    "definition": "A vessel of wood, tin, plastic, etc., usually cylindrical and having a handle -- used especially for carrying liquids, for example water or milk; a bucket (sometimes with a cover).",
+    "partOfSpeech": "noun"
+  },
+  "pain": {
+    "gloss": "ache or bodily suffering",
+    "definition": "An ache or bodily suffering, or an instance of this; an unpleasant sensation, resulting from a derangement of functions, disease, or injury by violence; hurt.",
+    "partOfSpeech": "noun"
+  },
+  "pair": {
+    "gloss": "two similar or identical things taken together",
+    "definition": "Two similar or identical things taken together; often followed by of.",
+    "partOfSpeech": "noun"
+  },
+  "pairing": {
+    "gloss": "to group into one or more sets of two",
+    "definition": "To group into one or more sets of two.",
+    "partOfSpeech": "verb"
+  },
+  "palate": {
+    "gloss": "roof of the mouth",
+    "definition": "The roof of the mouth; the uraniscus.",
+    "partOfSpeech": "noun"
+  },
+  "pale": {
+    "gloss": "paleness",
+    "definition": "Paleness; pallor.",
+    "partOfSpeech": "noun"
+  },
+  "palette": {
+    "gloss": "thin board on which a painter lays and mixes colours",
+    "definition": "A thin board on which a painter lays and mixes colours.",
+    "partOfSpeech": "noun"
+  },
+  "pall": {
+    "gloss": "senses relating to cloth",
+    "definition": "Senses relating to cloth.",
+    "partOfSpeech": "noun"
+  },
+  "pallet": {
+    "gloss": "portable platform",
+    "definition": "A portable platform, usually designed to be easily moved by a forklift, on which goods can be stacked, for transport or storage.",
+    "partOfSpeech": "noun"
+  },
+  "pane": {
+    "gloss": "individual sheet of glass in a window",
+    "definition": "An individual sheet of glass in a window, door, etc.",
+    "partOfSpeech": "noun"
+  },
+  "papa": {
+    "gloss": "dad",
+    "definition": "Dad, daddy, father; a familiar or old-fashioned term of address to one’s father.",
+    "partOfSpeech": "noun"
+  },
+  "pare": {
+    "gloss": "to remove the outer covering or skin of something with a cutting device",
+    "definition": "To remove the outer covering or skin of something with a cutting device, typically a knife",
+    "partOfSpeech": "verb"
+  },
+  "paring": {
+    "gloss": "to remove the outer covering or skin of something with a cutting device",
+    "definition": "To remove the outer covering or skin of something with a cutting device, typically a knife",
+    "partOfSpeech": "verb"
+  },
+  "pea": {
+    "gloss": "plant",
+    "definition": "A plant, Pisum sativum, member of the legume (Fabaceae) family.",
+    "partOfSpeech": "noun"
+  },
+  "peace": {
+    "gloss": "state of tranquility",
+    "definition": "A state of tranquility, quiet, and harmony; absence of violence. For instance, a state free from civil disturbance.",
+    "partOfSpeech": "noun"
+  },
+  "peak": {
+    "gloss": "point",
+    "definition": "A point; the sharp end or top of anything that terminates in a point; as, the peak, or front, of a cap.",
+    "partOfSpeech": "noun"
+  },
+  "peal": {
+    "gloss": "loud sound",
+    "definition": "A loud sound, or a succession of loud sounds, as of bells, thunder, cannon, shouts, laughter, of a multitude, etc.",
+    "partOfSpeech": "noun"
+  },
+  "pear": {
+    "gloss": "edible fruit produced by the pear tree",
+    "definition": "An edible fruit produced by the pear tree, similar to an apple but elongated towards the stem.",
+    "partOfSpeech": "noun"
+  },
+  "pedal": {
+    "gloss": "lever operated by one s foot that is used to control or power a machine or mechanism",
+    "definition": "A lever operated by one's foot that is used to control or power a machine or mechanism, such as a bicycle or piano",
+    "partOfSpeech": "noun"
+  },
+  "peddle": {
+    "gloss": "to sell things",
+    "definition": "To sell things, especially door to door or in insignificant quantities.",
+    "partOfSpeech": "verb"
+  },
+  "pee": {
+    "gloss": "urine",
+    "definition": "Urine.",
+    "partOfSpeech": "noun"
+  },
+  "peek": {
+    "gloss": "to look slyly",
+    "definition": "To look slyly, or with the eyes half closed, or through a crevice; to peep.",
+    "partOfSpeech": "verb"
+  },
+  "peel": {
+    "gloss": "skin or outer layer of a fruit",
+    "definition": "(usually uncountable) The skin or outer layer of a fruit, vegetable, etc.",
+    "partOfSpeech": "noun"
+  },
+  "peer": {
+    "gloss": "look",
+    "definition": "A look; a glance.",
+    "partOfSpeech": "noun"
+  },
+  "peon": {
+    "gloss": "lowly person",
+    "definition": "A lowly person; a peasant or serf; a labourer who is obliged to do menial work.",
+    "partOfSpeech": "noun"
+  },
+  "pharaoh": {
+    "gloss": "supreme ruler of ancient egypt",
+    "definition": "The supreme ruler of Ancient Egypt; a formal address for the sovereign seat of power as personified by the 'king' in an institutional role of Horus son of Osiris; often used by metonymy for Ancient Egyptian sovereignty",
+    "partOfSpeech": "noun"
+  },
+  "phenol": {
+    "gloss": "caustic",
+    "definition": "A caustic, poisonous, white crystalline compound, C6H5OH, derived from benzene and used in resins, plastics, and pharmaceuticals and in dilute form as a disinfectant and antiseptic; once called carbolic acid.",
+    "partOfSpeech": "noun"
+  },
+  "phew": {
+    "gloss": "used to express relief of tension",
+    "definition": "Used to express relief of tension, fatigue, or surprise.",
+    "partOfSpeech": "interjection"
+  },
+  "phosphorous": {
+    "gloss": "of or pertaining to phosphorus",
+    "definition": "Of or pertaining to phosphorus.",
+    "partOfSpeech": "adjective"
+  },
+  "phosphorus": {
+    "gloss": "chemical element with an atomic number of 15",
+    "definition": "A chemical element (symbol P) with an atomic number of 15, that exists in several allotropic forms.",
+    "partOfSpeech": "noun"
+  },
+  "pic": {
+    "gloss": "picture",
+    "definition": "A picture, especially a photographic image.",
+    "partOfSpeech": "noun"
+  },
+  "pick": {
+    "gloss": "tool used for digging",
+    "definition": "A tool used for digging; a pickaxe.",
+    "partOfSpeech": "noun"
+  },
+  "piece": {
+    "gloss": "part of a larger whole",
+    "definition": "A part of a larger whole, usually in such a form that it is able to be separated from other parts.",
+    "partOfSpeech": "noun"
+  },
+  "pier": {
+    "gloss": "raised platform built from the shore out over water",
+    "definition": "A raised platform built from the shore out over water, supported on piles; used to secure, or provide access to shipping; a jetty.",
+    "partOfSpeech": "noun"
+  },
+  "pique": {
+    "gloss": "feeling of enmity",
+    "definition": "A feeling of enmity; ill-feeling, animosity; a transient feeling of wounded pride.",
+    "partOfSpeech": "noun"
+  },
+  "pistil": {
+    "gloss": "discrete organ in the center of a flower capable of receiving pollen and producing a fruit",
+    "definition": "A discrete organ in the center of a flower capable of receiving pollen and producing a fruit, it is divided into an ovary, style and stigma.",
+    "partOfSpeech": "noun"
+  },
+  "pistol": {
+    "gloss": "handgun",
+    "definition": "A handgun, typically with a chamber integrated in the barrel, a semi-automatic action and a box magazine.",
+    "partOfSpeech": "noun"
+  },
+  "plain": {
+    "gloss": "flat",
+    "definition": "Flat, level.",
+    "partOfSpeech": "adjective"
+  },
+  "plait": {
+    "gloss": "flat fold",
+    "definition": "A flat fold; a doubling, as of cloth; a pleat.",
+    "partOfSpeech": "noun"
+  },
+  "planar": {
+    "gloss": "of or pertaining to a plane",
+    "definition": "Of or pertaining to a plane.",
+    "partOfSpeech": "adjective"
+  },
+  "plane": {
+    "gloss": "level or flat surface",
+    "definition": "A level or flat surface.",
+    "partOfSpeech": "noun"
+  },
+  "planer": {
+    "gloss": "of a surface flat or level",
+    "definition": "Of a surface: flat or level.",
+    "partOfSpeech": "adjective"
+  },
+  "plate": {
+    "gloss": "slightly curved but almost flat dish from which food is served or eaten",
+    "definition": "A slightly curved but almost flat dish from which food is served or eaten.",
+    "partOfSpeech": "noun"
+  },
+  "plum": {
+    "gloss": "fruit and its tree",
+    "definition": "The fruit and its tree.",
+    "partOfSpeech": "noun"
+  },
+  "plumb": {
+    "gloss": "little mass of lead",
+    "definition": "A little mass of lead, or the like, attached to a line, and used by builders, etc., to indicate a vertical direction.",
+    "partOfSpeech": "noun"
+  },
+  "pokey": {
+    "gloss": "prison",
+    "definition": "(with \"the\") prison.",
+    "partOfSpeech": "noun"
+  },
+  "poky": {
+    "gloss": "gambling device based on the card game poker",
+    "definition": "A gambling device based on the card game poker.",
+    "partOfSpeech": "noun"
+  },
+  "pol": {
+    "gloss": "politician",
+    "definition": "A politician.",
+    "partOfSpeech": "noun"
+  },
+  "pole": {
+    "gloss": "originally",
+    "definition": "Originally, a stick; now specifically, a long and slender piece of metal or (especially) wood, used for various construction or support purposes.",
+    "partOfSpeech": "noun"
+  },
+  "poll": {
+    "gloss": "survey of people",
+    "definition": "A survey of people, usually statistically analyzed to gauge wider public opinion.",
+    "partOfSpeech": "noun"
+  },
+  "poo": {
+    "gloss": "feces",
+    "definition": "Feces.",
+    "partOfSpeech": "noun"
+  },
+  "pooh": {
+    "gloss": "feces",
+    "definition": "Feces.",
+    "partOfSpeech": "noun"
+  },
+  "poppa": {
+    "gloss": "father",
+    "definition": "(sometimes childish) father, papa.",
+    "partOfSpeech": "noun"
+  },
+  "populace": {
+    "gloss": "common people of a nation",
+    "definition": "The common people of a nation.",
+    "partOfSpeech": "noun"
+  },
+  "populous": {
+    "gloss": "having a large population",
+    "definition": "Having a large population.",
+    "partOfSpeech": "adjective"
+  },
+  "pore": {
+    "gloss": "tiny opening in the skin",
+    "definition": "A tiny opening in the skin.",
+    "partOfSpeech": "noun"
+  },
+  "poser": {
+    "gloss": "particularly difficult question or puzzle",
+    "definition": "A particularly difficult question or puzzle.",
+    "partOfSpeech": "noun"
+  },
+  "poseur": {
+    "gloss": "one who affects some behaviour",
+    "definition": "One who affects some behaviour, style, attitude or other condition, often to impress or influence others.",
+    "partOfSpeech": "noun"
+  },
+  "pour": {
+    "gloss": "act of pouring",
+    "definition": "The act of pouring.",
+    "partOfSpeech": "noun"
+  },
+  "practice": {
+    "gloss": "repetition of an activity to improve a skill",
+    "definition": "Repetition of an activity to improve a skill.",
+    "partOfSpeech": "noun"
+  },
+  "practise": {
+    "gloss": "to repeat as a way of improving one s skill in that activity",
+    "definition": "To repeat (an activity) as a way of improving one's skill in that activity.",
+    "partOfSpeech": "verb"
+  },
+  "pray": {
+    "gloss": "to direct words and or thoughts to god or any higher being",
+    "definition": "To direct words and/or thoughts to God or any higher being, for the sake of adoration, thanks, petition for help, etc.",
+    "partOfSpeech": "verb"
+  },
+  "prey": {
+    "gloss": "anything",
+    "definition": "Anything, as goods, etc., taken or got by violence; anything taken by force from an enemy in war",
+    "partOfSpeech": "noun"
+  },
+  "principal": {
+    "gloss": "money originally invested or loaned",
+    "definition": "The money originally invested or loaned, on which basis interest and returns are calculated.",
+    "partOfSpeech": "noun"
+  },
+  "principle": {
+    "gloss": "fundamental assumption or guiding belief",
+    "definition": "A fundamental assumption or guiding belief.",
+    "partOfSpeech": "noun"
+  },
+  "prior": {
+    "gloss": "high ranking member of a monastery",
+    "definition": "A high-ranking member of a monastery, usually lower in rank than an abbot.",
+    "partOfSpeech": "noun"
+  },
+  "prof": {
+    "gloss": "most senior rank for an academic at a university or similar institution",
+    "definition": "The most senior rank for an academic at a university or similar institution, informally also known as \"full professor.\" Abbreviated Prof.",
+    "partOfSpeech": "noun"
+  },
+  "professor": {
+    "gloss": "most senior rank for an academic at a university or similar institution",
+    "definition": "The most senior rank for an academic at a university or similar institution, informally also known as \"full professor.\" Abbreviated Prof.",
+    "partOfSpeech": "noun"
+  },
+  "profit": {
+    "gloss": "total income or cash flow minus expenditures the money or other benefit a non governmental organization or individual receives in exchange for products and services sold at an advertised price",
+    "definition": "Total income or cash flow minus expenditures. The money or other benefit a non-governmental organization or individual receives in exchange for products and services sold at an advertised price.",
+    "partOfSpeech": "noun"
+  },
+  "program": {
+    "gloss": "set of structured activities",
+    "definition": "A set of structured activities.",
+    "partOfSpeech": "noun"
+  },
+  "programme": {
+    "gloss": "set of structured activities",
+    "definition": "A set of structured activities.",
+    "partOfSpeech": "noun"
+  },
+  "prophet": {
+    "gloss": "someone who speaks by divine inspiration",
+    "definition": "Someone who speaks by divine inspiration.",
+    "partOfSpeech": "noun"
+  },
+  "psi": {
+    "gloss": "twenty third letter of classical and modern greek and the twenty fifth letter of old and ancient greek",
+    "definition": "The twenty-third letter of Classical and Modern Greek and the twenty-fifth letter of Old and Ancient Greek.",
+    "partOfSpeech": "noun"
+  },
+  "pus": {
+    "gloss": "whitish yellow or yellow substance composed primarily of dead white blood cells and dead pyogenic bacteria",
+    "definition": "A whitish-yellow or yellow substance composed primarily of dead white blood cells and dead pyogenic bacteria; normally found in regions of bacterial infection.",
+    "partOfSpeech": "noun"
+  },
+  "puss": {
+    "gloss": "cat",
+    "definition": "(often as a term of address) A cat.",
+    "partOfSpeech": "noun"
+  },
+  "quaff": {
+    "gloss": "act of quaffing",
+    "definition": "The act of quaffing; a deep draught.",
+    "partOfSpeech": "noun"
+  },
+  "quay": {
+    "gloss": "stone or concrete structure on navigable water used for loading and unloading vessels",
+    "definition": "A stone or concrete structure on navigable water used for loading and unloading vessels; a wharf.",
+    "partOfSpeech": "noun"
+  },
+  "queue": {
+    "gloss": "animal s tail",
+    "definition": "An animal's tail.",
+    "partOfSpeech": "noun"
+  },
+  "rack": {
+    "gloss": "series of one or more shelves",
+    "definition": "A series of one or more shelves, stacked one above the other",
+    "partOfSpeech": "noun"
+  },
+  "rah": {
+    "gloss": "person with a posh accent who looks down on those who are common",
+    "definition": "A person (especially a student) with a posh accent who looks down on those who are \"common\".",
+    "partOfSpeech": "noun"
+  },
+  "rain": {
+    "gloss": "condensed water falling from a cloud",
+    "definition": "Condensed water falling from a cloud.",
+    "partOfSpeech": "noun"
+  },
+  "raise": {
+    "gloss": "increase in wages or salary",
+    "definition": "An increase in wages or salary; a rise (UK).",
+    "partOfSpeech": "noun"
+  },
+  "raiser": {
+    "gloss": "person or thing that raises",
+    "definition": "A person or thing that raises.",
+    "partOfSpeech": "noun"
+  },
+  "rap": {
+    "gloss": "sharp blow with something hard",
+    "definition": "A sharp blow with something hard.",
+    "partOfSpeech": "noun"
+  },
+  "rapped": {
+    "gloss": "to strike something sharply with one s knuckles",
+    "definition": "To strike something sharply with one's knuckles; knock.",
+    "partOfSpeech": "verb"
+  },
+  "rappelling": {
+    "gloss": "to abseil",
+    "definition": "To abseil.",
+    "partOfSpeech": "verb"
+  },
+  "rapper": {
+    "gloss": "one who",
+    "definition": "One who, or that which, raps or knocks.",
+    "partOfSpeech": "noun"
+  },
+  "rapping": {
+    "gloss": "to strike something sharply with one s knuckles",
+    "definition": "To strike something sharply with one's knuckles; knock.",
+    "partOfSpeech": "verb"
+  },
+  "rapt": {
+    "gloss": "ecstasy",
+    "definition": "An ecstasy; a trance.",
+    "partOfSpeech": "noun"
+  },
+  "raw": {
+    "gloss": "unprocessed sugar",
+    "definition": "(sugar refining, sugar trade) An unprocessed sugar; a batch of such.",
+    "partOfSpeech": "noun"
+  },
+  "raze": {
+    "gloss": "to demolish",
+    "definition": "To demolish; to level to the ground.",
+    "partOfSpeech": "verb"
+  },
+  "razor": {
+    "gloss": "keen edged knife of peculiar shape",
+    "definition": "A keen-edged knife of peculiar shape, used in shaving the hair from the face or other parts of the body.",
+    "partOfSpeech": "noun"
+  },
+  "read": {
+    "gloss": "reading or an act of reading",
+    "definition": "A reading or an act of reading, especially an actor's part of a play.",
+    "partOfSpeech": "noun"
+  },
+  "readout": {
+    "gloss": "display that presents numerical data",
+    "definition": "A display that presents numerical data.",
+    "partOfSpeech": "noun"
+  },
+  "real": {
+    "gloss": "commodity",
+    "definition": "A commodity; see realty.",
+    "partOfSpeech": "noun"
+  },
+  "rec": {
+    "gloss": "recommendation or suggestion",
+    "definition": "A recommendation or suggestion.",
+    "partOfSpeech": "noun"
+  },
+  "red": {
+    "gloss": "any of a range of colours having the longest wavelengths",
+    "definition": "Any of a range of colours having the longest wavelengths, 670 nm, of the visible spectrum; a primary additive colour for transmitted light: the colour obtained by subtracting green and blue from white light using magenta and yellow filters; the colour of blood, ripe strawberries, etc.",
+    "partOfSpeech": "noun"
+  },
+  "redoubt": {
+    "gloss": "small",
+    "definition": "A small, temporary, military fortification.",
+    "partOfSpeech": "noun"
+  },
+  "reek": {
+    "gloss": "strong unpleasant smell",
+    "definition": "A strong unpleasant smell.",
+    "partOfSpeech": "noun"
+  },
+  "reel": {
+    "gloss": "shaky or unsteady gait",
+    "definition": "A shaky or unsteady gait.",
+    "partOfSpeech": "noun"
+  },
+  "reign": {
+    "gloss": "exercise of sovereign power",
+    "definition": "The exercise of sovereign power.",
+    "partOfSpeech": "noun"
+  },
+  "rein": {
+    "gloss": "strap or rope attached to a bridle or bit",
+    "definition": "A strap or rope attached to a bridle or bit, used to control a horse, animal or young child.",
+    "partOfSpeech": "noun"
+  },
+  "repelling": {
+    "gloss": "to turn away from a privilege",
+    "definition": "To turn (someone) away from a privilege, right, job, etc.",
+    "partOfSpeech": "verb"
+  },
+  "rest": {
+    "gloss": "relief from work or activity by sleeping",
+    "definition": "(of a person or animal) Relief from work or activity by sleeping; sleep.",
+    "partOfSpeech": "noun"
+  },
+  "rho": {
+    "gloss": "seventeenth letter of the modern greek and classical alphabets and the nineteenth letter of old and ancient",
+    "definition": "The seventeenth letter of the Modern Greek and Classical alphabets and the nineteenth letter of Old and Ancient.",
+    "partOfSpeech": "noun"
+  },
+  "rhyme": {
+    "gloss": "rhyming verse",
+    "definition": "Rhyming verse (poetic form)",
+    "partOfSpeech": "noun"
+  },
+  "right": {
+    "gloss": "straight",
+    "definition": "Straight, not bent.",
+    "partOfSpeech": "adjective"
+  },
+  "rime": {
+    "gloss": "ice formed by the rapid freezing of cold water droplets of fog on to a cold surface",
+    "definition": "Ice formed by the rapid freezing of cold water droplets of fog on to a cold surface.",
+    "partOfSpeech": "noun"
+  },
+  "ring": {
+    "gloss": "solid object in the shape of a circle",
+    "definition": "(physical) A solid object in the shape of a circle.",
+    "partOfSpeech": "noun"
+  },
+  "ringer": {
+    "gloss": "someone who rings",
+    "definition": "Someone who rings, especially a bell ringer.",
+    "partOfSpeech": "noun"
+  },
+  "rite": {
+    "gloss": "religious custom",
+    "definition": "A religious custom.",
+    "partOfSpeech": "noun"
+  },
+  "road": {
+    "gloss": "way used for travelling between places",
+    "definition": "A way used for travelling between places, originally one wide enough to allow foot passengers and horses to travel, now (US) usually one surfaced with asphalt or concrete and designed to accommodate many vehicles travelling in both directions. In the UK both senses are heard: a country road is the same as a country lane.",
+    "partOfSpeech": "noun"
+  },
+  "rode": {
+    "gloss": "to transport oneself by sitting on and directing a horse",
+    "definition": "To transport oneself by sitting on and directing a horse, later also a bicycle etc.",
+    "partOfSpeech": "verb"
+  },
+  "roe": {
+    "gloss": "eggs of fish",
+    "definition": "The eggs of fish.",
+    "partOfSpeech": "noun"
+  },
+  "role": {
+    "gloss": "character or part played by a performer or actor",
+    "definition": "A character or part played by a performer or actor.",
+    "partOfSpeech": "noun"
+  },
+  "roll": {
+    "gloss": "act or result of rolling",
+    "definition": "The act or result of rolling, or state of being rolled.",
+    "partOfSpeech": "noun"
+  },
+  "rood": {
+    "gloss": "crucifix",
+    "definition": "A crucifix, cross, especially in a church.",
+    "partOfSpeech": "noun"
+  },
+  "root": {
+    "gloss": "part of a plant",
+    "definition": "The part of a plant, generally underground, that anchors and supports the plant body, absorbs and stores water and nutrients, and in some plants is able to perform vegetative reproduction.",
+    "partOfSpeech": "noun"
+  },
+  "rooter": {
+    "gloss": "one who",
+    "definition": "One who, or that which, roots; one that tears up by the roots.",
+    "partOfSpeech": "noun"
+  },
+  "rote": {
+    "gloss": "mechanical routine",
+    "definition": "Mechanical routine; a fixed, habitual, repetitive, or mechanical course of procedure.",
+    "partOfSpeech": "noun"
+  },
+  "rough": {
+    "gloss": "unmowed part of a golf course",
+    "definition": "The unmowed part of a golf course.",
+    "partOfSpeech": "noun"
+  },
+  "route": {
+    "gloss": "course or way which is traveled or passed",
+    "definition": "A course or way which is traveled or passed.",
+    "partOfSpeech": "noun"
+  },
+  "router": {
+    "gloss": "someone who routes or directs items from one location to another",
+    "definition": "Someone who routes or directs items from one location to another.",
+    "partOfSpeech": "noun"
+  },
+  "roux": {
+    "gloss": "mixture of fat and flour used to thicken sauces and stews",
+    "definition": "A mixture of fat (usually butter) and flour used to thicken sauces and stews.",
+    "partOfSpeech": "noun"
+  },
+  "row": {
+    "gloss": "line of objects",
+    "definition": "A line of objects, often regularly spaced, such as seats in a theatre, vegetable plants in a garden etc.",
+    "partOfSpeech": "noun"
+  },
+  "rude": {
+    "gloss": "bad mannered",
+    "definition": "Bad-mannered.",
+    "partOfSpeech": "adjective"
+  },
+  "rue": {
+    "gloss": "sorrow",
+    "definition": "Sorrow; repentance; regret.",
+    "partOfSpeech": "noun"
+  },
+  "ruff": {
+    "gloss": "circular frill or ruffle on a garment",
+    "definition": "A circular frill or ruffle on a garment, especially a starched, fluted frill at the neck in Elizabethan and Jacobean England (1560s–1620s).",
+    "partOfSpeech": "noun"
+  },
+  "rung": {
+    "gloss": "crosspiece forming a step of a ladder",
+    "definition": "A crosspiece forming a step of a ladder; a round.",
+    "partOfSpeech": "noun"
+  },
+  "rye": {
+    "gloss": "grain used extensively in europe for making bread",
+    "definition": "A grain used extensively in Europe for making bread, beer, and (now generally) for animal fodder.",
+    "partOfSpeech": "noun"
+  },
+  "sac": {
+    "gloss": "bag or pouch inside a plant or animal that typically contains a fluid",
+    "definition": "A bag or pouch inside a plant or animal that typically contains a fluid.",
+    "partOfSpeech": "noun"
+  },
+  "sack": {
+    "gloss": "bag",
+    "definition": "A bag; especially a large bag of strong, coarse material for storage and handling of various commodities, such as potatoes, coal, coffee; or, a bag with handles used at a supermarket, a grocery sack; or, a small bag for small items, a satchel.",
+    "partOfSpeech": "noun"
+  },
+  "sail": {
+    "gloss": "piece of fabric attached to a boat and arranged such that it causes the wind to drive the boat along the sail may be attached to the boat via a combination of mast",
+    "definition": "A piece of fabric attached to a boat and arranged such that it causes the wind to drive the boat along. The sail may be attached to the boat via a combination of mast, spars and ropes.",
+    "partOfSpeech": "noun"
+  },
+  "sale": {
+    "gloss": "hall",
+    "definition": "A hall.",
+    "partOfSpeech": "noun"
+  },
+  "sane": {
+    "gloss": "being in a healthy condition",
+    "definition": "Being in a healthy condition; not deranged; thinking rationally.",
+    "partOfSpeech": "adjective"
+  },
+  "sari": {
+    "gloss": "traditional dress of women in the indian subcontinent",
+    "definition": "The traditional dress of women in the Indian Subcontinent; an outer garment consisting of a single length of cotton or silk, most often with one end wrapped around the waist to form a skirt, the other draped over the shoulder or head.",
+    "partOfSpeech": "noun"
+  },
+  "scene": {
+    "gloss": "location of an event that attracts attention",
+    "definition": "The location of an event that attracts attention.",
+    "partOfSpeech": "noun"
+  },
+  "scent": {
+    "gloss": "distinctive odour or smell",
+    "definition": "A distinctive odour or smell.",
+    "partOfSpeech": "noun"
+  },
+  "schilling": {
+    "gloss": "old currency of austria",
+    "definition": "The old currency of Austria, divided into 100 groschen",
+    "partOfSpeech": "noun"
+  },
+  "scull": {
+    "gloss": "single oar mounted at the stern of a boat and moved from side to side to propel the boat forward",
+    "definition": "A single oar mounted at the stern of a boat and moved from side to side to propel the boat forward.",
+    "partOfSpeech": "noun"
+  },
+  "sea": {
+    "gloss": "large body of salt water",
+    "definition": "A large body of salt water.",
+    "partOfSpeech": "noun"
+  },
+  "seam": {
+    "gloss": "folded back and stitched piece of fabric",
+    "definition": "A folded-back and stitched piece of fabric; especially, the stitching that joins two or more pieces of fabric.",
+    "partOfSpeech": "noun"
+  },
+  "seaman": {
+    "gloss": "mariner or sailor",
+    "definition": "A mariner or sailor, one who mans a ship. Opposed to landman or landsman.",
+    "partOfSpeech": "noun"
+  },
+  "sear": {
+    "gloss": "dry",
+    "definition": "Dry; withered, especially of vegetation.",
+    "partOfSpeech": "adjective"
+  },
+  "see": {
+    "gloss": "to perceive or detect with the eyes",
+    "definition": "(stative) To perceive or detect with the eyes, or as if by sight.",
+    "partOfSpeech": "verb"
+  },
+  "seed": {
+    "gloss": "fertilized and ripened ovule",
+    "definition": "A fertilized and ripened ovule, containing an embryonic plant.",
+    "partOfSpeech": "noun"
+  },
+  "seem": {
+    "gloss": "to appear",
+    "definition": "To appear; to look outwardly; to be perceived as.",
+    "partOfSpeech": "verb"
+  },
+  "seen": {
+    "gloss": "to perceive or detect with the eyes",
+    "definition": "(stative) To perceive or detect with the eyes, or as if by sight.",
+    "partOfSpeech": "verb"
+  },
+  "seine": {
+    "gloss": "long net having floats attached at the top and sinkers at the bottom",
+    "definition": "A long net having floats attached at the top and sinkers (weights) at the bottom, used in shallow water for catching fish.",
+    "partOfSpeech": "noun"
+  },
+  "sell": {
+    "gloss": "act of selling",
+    "definition": "An act of selling.",
+    "partOfSpeech": "noun"
+  },
+  "semen": {
+    "gloss": "sticky",
+    "definition": "A sticky, milky fluid produced in male reproductive organs that contains the reproductive cells.",
+    "partOfSpeech": "noun"
+  },
+  "senor": {
+    "gloss": "spanish term of address equivalent to sir or mr",
+    "definition": "A Spanish term of address equivalent to sir or Mr., used alone or capitalized and prefixed to the name of a married or an older man.",
+    "partOfSpeech": "noun"
+  },
+  "sensor": {
+    "gloss": "device or organ that detects certain external stimuli and responds in a distinctive manner",
+    "definition": "A device or organ that detects certain external stimuli and responds in a distinctive manner.",
+    "partOfSpeech": "noun"
+  },
+  "sent": {
+    "gloss": "subdivision of currency",
+    "definition": "A subdivision of currency, equal to one hundredth of an Estonian kroon.",
+    "partOfSpeech": "noun"
+  },
+  "sere": {
+    "gloss": "without moisture",
+    "definition": "Without moisture; dry.",
+    "partOfSpeech": "adjective"
+  },
+  "serf": {
+    "gloss": "partially free peasant of a low hereditary class",
+    "definition": "A partially free peasant of a low hereditary class, attached like a slave to the land owned by a feudal lord and required to perform labour, enjoying minimal legal or customary rights",
+    "partOfSpeech": "noun"
+  },
+  "serge": {
+    "gloss": "type of worsted cloth",
+    "definition": "A type of worsted cloth.",
+    "partOfSpeech": "noun"
+  },
+  "serial": {
+    "gloss": "work",
+    "definition": "A work, such as a work of fiction, published in installments, often numbered and without a specified end.",
+    "partOfSpeech": "noun"
+  },
+  "sew": {
+    "gloss": "to use a needle to pass thread repeatedly through in order to join them together",
+    "definition": "To use a needle to pass thread repeatedly through (pieces of fabric) in order to join them together.",
+    "partOfSpeech": "verb"
+  },
+  "sewn": {
+    "gloss": "to use a needle to pass thread repeatedly through in order to join them together",
+    "definition": "To use a needle to pass thread repeatedly through (pieces of fabric) in order to join them together.",
+    "partOfSpeech": "verb"
+  },
+  "shear": {
+    "gloss": "cutting tool similar to scissors",
+    "definition": "A cutting tool similar to scissors, but often larger.",
+    "partOfSpeech": "noun"
+  },
+  "sheer": {
+    "gloss": "sheer curtain or fabric",
+    "definition": "A sheer curtain or fabric.",
+    "partOfSpeech": "noun"
+  },
+  "sheikh": {
+    "gloss": "leader of an arab village",
+    "definition": "The leader of an Arab village, family or small tribe.",
+    "partOfSpeech": "noun"
+  },
+  "shew": {
+    "gloss": "play",
+    "definition": "A play, dance, or other entertainment.",
+    "partOfSpeech": "noun"
+  },
+  "shilling": {
+    "gloss": "coin formerly used in the united kingdom",
+    "definition": "A coin formerly used in the United Kingdom, Ireland, Malta, Australia, New Zealand and many other Commonwealth countries.",
+    "partOfSpeech": "noun"
+  },
+  "shoe": {
+    "gloss": "protective covering for the foot",
+    "definition": "A protective covering for the foot, with a bottom part composed of thick leather or plastic sole and often a thicker heel, and a softer upper part made of leather or synthetic material. Shoes generally do not extend above the ankle, as opposed to boots, which do.",
+    "partOfSpeech": "noun"
+  },
+  "shone": {
+    "gloss": "to emit light",
+    "definition": "To emit light.",
+    "partOfSpeech": "verb"
+  },
+  "shoo": {
+    "gloss": "to induce someone or something to leave",
+    "definition": "To induce someone or something to leave.",
+    "partOfSpeech": "verb"
+  },
+  "shoot": {
+    "gloss": "emerging stem and embryonic leaves of a new plant",
+    "definition": "The emerging stem and embryonic leaves of a new plant.",
+    "partOfSpeech": "noun"
+  },
+  "shop": {
+    "gloss": "establishment that sells goods or services to the public",
+    "definition": "An establishment that sells goods or services to the public; originally only a physical location, but now a virtual establishment as well.",
+    "partOfSpeech": "noun"
+  },
+  "shoppe": {
+    "gloss": "fanciful spelling of shop",
+    "definition": "(sometimes capitalized) A fanciful spelling of shop, chiefly used in the names of businesses to give an air of old-fashionedness.",
+    "partOfSpeech": "noun"
+  },
+  "shown": {
+    "gloss": "to display",
+    "definition": "To display, to have somebody see (something).",
+    "partOfSpeech": "verb"
+  },
+  "sic": {
+    "gloss": "to mark with a bracketed sic",
+    "definition": "To mark with a bracketed sic.",
+    "partOfSpeech": "verb"
+  },
+  "sick": {
+    "gloss": "sick people in general as a group",
+    "definition": "Sick people in general as a group.",
+    "partOfSpeech": "noun"
+  },
+  "sigh": {
+    "gloss": "deep",
+    "definition": "A deep, prolonged audible inhale and exhale of breath; as when fatigued, frustrated, grieved, or relieved; the act of sighing.",
+    "partOfSpeech": "noun"
+  },
+  "sighs": {
+    "gloss": "deep",
+    "definition": "A deep, prolonged audible inhale and exhale of breath; as when fatigued, frustrated, grieved, or relieved; the act of sighing.",
+    "partOfSpeech": "noun"
+  },
+  "sight": {
+    "gloss": "ability to see",
+    "definition": "(in the singular) The ability to see.",
+    "partOfSpeech": "noun"
+  },
+  "sign": {
+    "gloss": "visible indication",
+    "definition": "(sometimes also used uncountably) A visible indication.",
+    "partOfSpeech": "noun"
+  },
+  "signor": {
+    "gloss": "courtesy title for a man of italian origin",
+    "definition": "A courtesy title for a man of Italian origin.",
+    "partOfSpeech": "noun"
+  },
+  "sin": {
+    "gloss": "violation of god s will or religious law",
+    "definition": "A violation of God's will or religious law.",
+    "partOfSpeech": "noun"
+  },
+  "sine": {
+    "gloss": "in a right triangle",
+    "definition": "In a right triangle, the ratio of the length of the side opposite an angle to the length of the hypotenuse.",
+    "partOfSpeech": "noun"
+  },
+  "sink": {
+    "gloss": "basin used for holding water for washing",
+    "definition": "A basin used for holding water for washing.",
+    "partOfSpeech": "noun"
+  },
+  "site": {
+    "gloss": "sorrow",
+    "definition": "Sorrow, grief.",
+    "partOfSpeech": "noun"
+  },
+  "size": {
+    "gloss": "assize",
+    "definition": "(obsolete outside dialectal) An assize.",
+    "partOfSpeech": "noun"
+  },
+  "skull": {
+    "gloss": "main bones of the head considered as a unit",
+    "definition": "The main bones of the head considered as a unit; including the cranium, facial bones, and mandible.",
+    "partOfSpeech": "noun"
+  },
+  "slay": {
+    "gloss": "to kill",
+    "definition": "To kill, murder.",
+    "partOfSpeech": "verb"
+  },
+  "sleigh": {
+    "gloss": "vehicle",
+    "definition": "A vehicle, generally pulled by an animal, which moves over snow or ice on runners, used for transporting persons or goods. (contrast \"sled\", which is smaller)",
+    "partOfSpeech": "noun"
+  },
+  "sleight": {
+    "gloss": "cunning",
+    "definition": "Cunning; craft; artful practice.",
+    "partOfSpeech": "noun"
+  },
+  "slight": {
+    "gloss": "act of slighting",
+    "definition": "The act of slighting; a deliberate act of neglect or discourtesy.",
+    "partOfSpeech": "noun"
+  },
+  "sloe": {
+    "gloss": "small",
+    "definition": "The small, bitter, wild fruit of the blackthorn (Prunus spinosa).",
+    "partOfSpeech": "noun"
+  },
+  "slow": {
+    "gloss": "someone who is slow",
+    "definition": "Someone who is slow; a sluggard.",
+    "partOfSpeech": "noun"
+  },
+  "smokey": {
+    "gloss": "state trooper",
+    "definition": "A state trooper.",
+    "partOfSpeech": "noun"
+  },
+  "smoky": {
+    "gloss": "filled with smoke",
+    "definition": "Filled with smoke.",
+    "partOfSpeech": "adjective"
+  },
+  "soar": {
+    "gloss": "act of soaring",
+    "definition": "The act of soaring.",
+    "partOfSpeech": "noun"
+  },
+  "sol": {
+    "gloss": "fifth step in the solf ge scale of c",
+    "definition": "The fifth step in the solfège scale of C (Ut), preceded by fa and followed by la.",
+    "partOfSpeech": "noun"
+  },
+  "some": {
+    "gloss": "of a measurement approximately",
+    "definition": "Of a measurement: approximately, roughly.",
+    "partOfSpeech": "adverb"
+  },
+  "son": {
+    "gloss": "one s male offspring",
+    "definition": "One's male offspring.",
+    "partOfSpeech": "noun"
+  },
+  "sonny": {
+    "gloss": "familiar form of address for a boy",
+    "definition": "A familiar form of address for a boy",
+    "partOfSpeech": "noun"
+  },
+  "sore": {
+    "gloss": "injured",
+    "definition": "An injured, infected, inflamed or diseased patch of skin.",
+    "partOfSpeech": "noun"
+  },
+  "sorry": {
+    "gloss": "act of saying sorry",
+    "definition": "The act of saying sorry; an apology.",
+    "partOfSpeech": "noun"
+  },
+  "sot": {
+    "gloss": "stupid person",
+    "definition": "Stupid person; fool",
+    "partOfSpeech": "noun"
+  },
+  "sough": {
+    "gloss": "murmuring sound",
+    "definition": "A murmuring sound; rushing, rustling, or whistling sound.",
+    "partOfSpeech": "noun"
+  },
+  "sought": {
+    "gloss": "to try to find",
+    "definition": "To try to find; to look for; to search for.",
+    "partOfSpeech": "verb"
+  },
+  "soul": {
+    "gloss": "spirit or essence of a person usually thought to consist of one s thoughts and personality often believed to live on after the person s death",
+    "definition": "The spirit or essence of a person usually thought to consist of one's thoughts and personality. Often believed to live on after the person's death.",
+    "partOfSpeech": "noun"
+  },
+  "sow": {
+    "gloss": "female pig",
+    "definition": "A female pig.",
+    "partOfSpeech": "noun"
+  },
+  "sown": {
+    "gloss": "to scatter",
+    "definition": "To scatter, disperse, or plant (seeds).",
+    "partOfSpeech": "verb"
+  },
+  "spacial": {
+    "gloss": "pertaining to space",
+    "definition": "Pertaining to (the dimension of) space.",
+    "partOfSpeech": "adjective"
+  },
+  "spatial": {
+    "gloss": "pertaining to space",
+    "definition": "Pertaining to (the dimension of) space.",
+    "partOfSpeech": "adjective"
+  },
+  "spec": {
+    "gloss": "special place",
+    "definition": "A special place (for hiding or viewing)",
+    "partOfSpeech": "noun"
+  },
+  "speck": {
+    "gloss": "tiny spot",
+    "definition": "A tiny spot, especially of dirt etc.",
+    "partOfSpeech": "noun"
+  },
+  "spring": {
+    "gloss": "to weaken",
+    "definition": "To weaken, as a joint, ligament, or muscle, by sudden and excessive exertion, as by wrenching; to overstrain, or stretch injuriously, but without luxation",
+    "partOfSpeech": "verb"
+  },
+  "spurring": {
+    "gloss": "to ask",
+    "definition": "To ask, to inquire",
+    "partOfSpeech": "verb"
+  },
+  "staff": {
+    "gloss": "long",
+    "definition": "(plural staffs or staves) A long, straight, thick wooden rod or stick, especially one used to assist in walking.",
+    "partOfSpeech": "noun"
+  },
+  "stair": {
+    "gloss": "single step in a staircase",
+    "definition": "A single step in a staircase.",
+    "partOfSpeech": "noun"
+  },
+  "stake": {
+    "gloss": "piece of wood or other material",
+    "definition": "A piece of wood or other material, usually long and slender, pointed at one end so as to be easily driven into the ground as a marker or a support or stay.",
+    "partOfSpeech": "noun"
+  },
+  "staph": {
+    "gloss": "staphylococcus bacteria and the infection it causes",
+    "definition": "Staphylococcus bacteria and the infection it causes.",
+    "partOfSpeech": "noun"
+  },
+  "stare": {
+    "gloss": "persistent gaze",
+    "definition": "A persistent gaze.",
+    "partOfSpeech": "noun"
+  },
+  "stationary": {
+    "gloss": "one who",
+    "definition": "One who, or that which, is stationary, such as a planet when apparently it has neither progressive nor retrograde motion.",
+    "partOfSpeech": "noun"
+  },
+  "stationery": {
+    "gloss": "writing materials",
+    "definition": "Writing materials, envelopes, office materials",
+    "partOfSpeech": "noun"
+  },
+  "steak": {
+    "gloss": "beefsteak",
+    "definition": "Beefsteak, a slice of beef, broiled or cut for broiling.",
+    "partOfSpeech": "noun"
+  },
+  "steal": {
+    "gloss": "act of stealing",
+    "definition": "The act of stealing.",
+    "partOfSpeech": "noun"
+  },
+  "steel": {
+    "gloss": "artificial metal produced from iron",
+    "definition": "An artificial metal produced from iron, harder and more elastic than elemental iron; used figuratively as a symbol of hardness.",
+    "partOfSpeech": "noun"
+  },
+  "step": {
+    "gloss": "advance or movement made from one foot to the other",
+    "definition": "An advance or movement made from one foot to the other; a pace.",
+    "partOfSpeech": "noun"
+  },
+  "steppe": {
+    "gloss": "grasslands of eastern europe and asia similar to prairie and savanna",
+    "definition": "The grasslands of Eastern Europe and Asia. Similar to (North American) prairie and (African) savanna.",
+    "partOfSpeech": "noun"
+  },
+  "stile": {
+    "gloss": "set of one or more steps surmounting a fence or wall",
+    "definition": "A set of one or more steps surmounting a fence or wall, or a narrow gate or contrived passage through a fence or wall, which in either case allows people but not livestock to pass.",
+    "partOfSpeech": "noun"
+  },
+  "stoop": {
+    "gloss": "staircase and landing or porch leading to the entrance of a residence",
+    "definition": "The staircase and landing or porch leading to the entrance of a residence.",
+    "partOfSpeech": "noun"
+  },
+  "storey": {
+    "gloss": "building",
+    "definition": "A building; an edifice.",
+    "partOfSpeech": "noun"
+  },
+  "story": {
+    "gloss": "sequence of real or fictional events",
+    "definition": "A sequence of real or fictional events; or, an account of such a sequence.",
+    "partOfSpeech": "noun"
+  },
+  "stoup": {
+    "gloss": "bucket",
+    "definition": "A bucket.",
+    "partOfSpeech": "noun"
+  },
+  "straight": {
+    "gloss": "something that is not crooked or bent such as a part of a road or track",
+    "definition": "Something that is not crooked or bent such as a part of a road or track.",
+    "partOfSpeech": "noun"
+  },
+  "strait": {
+    "gloss": "narrow channel of water connecting two larger bodies of water",
+    "definition": "A narrow channel of water connecting two larger bodies of water.",
+    "partOfSpeech": "noun"
+  },
+  "style": {
+    "gloss": "senses relating to a thin",
+    "definition": "Senses relating to a thin, pointed object.",
+    "partOfSpeech": "noun"
+  },
+  "suede": {
+    "gloss": "type of soft leather",
+    "definition": "A type of soft leather, made from calfskin, with a brushed texture to resemble fabric, often used to make boots, clothing and fashion accessories.",
+    "partOfSpeech": "noun"
+  },
+  "suite": {
+    "gloss": "retinue or company of attendants",
+    "definition": "A retinue or company of attendants, as of a distinguished personage",
+    "partOfSpeech": "noun"
+  },
+  "sum": {
+    "gloss": "quantity obtained by addition or aggregation",
+    "definition": "A quantity obtained by addition or aggregation.",
+    "partOfSpeech": "noun"
+  },
+  "sun": {
+    "gloss": "star",
+    "definition": "A star, especially when seen as the centre of any single solar system.",
+    "partOfSpeech": "noun"
+  },
+  "sunny": {
+    "gloss": "sunfish",
+    "definition": "A sunfish.",
+    "partOfSpeech": "noun"
+  },
+  "surf": {
+    "gloss": "waves that break on an ocean shoreline",
+    "definition": "Waves that break on an ocean shoreline.",
+    "partOfSpeech": "noun"
+  },
+  "surge": {
+    "gloss": "sudden transient rush",
+    "definition": "A sudden transient rush, flood or increase.",
+    "partOfSpeech": "noun"
+  },
+  "swayed": {
+    "gloss": "to move or swing from side to side",
+    "definition": "To move or swing from side to side; or backward and forward; to rock.",
+    "partOfSpeech": "verb"
+  },
+  "sweet": {
+    "gloss": "basic taste sensation induced by sugar",
+    "definition": "The basic taste sensation induced by sugar.",
+    "partOfSpeech": "noun"
+  },
+  "symbol": {
+    "gloss": "character or glyph representing an idea",
+    "definition": "A character or glyph representing an idea, concept or object.",
+    "partOfSpeech": "noun"
+  },
+  "syn": {
+    "gloss": "that has a torsion angle between 0 and 90",
+    "definition": "That has a torsion angle between 0° and 90°.",
+    "partOfSpeech": "adjective"
+  },
+  "sync": {
+    "gloss": "harmony",
+    "definition": "Harmony.",
+    "partOfSpeech": "noun"
+  },
+  "tail": {
+    "gloss": "caudal appendage of an animal that is attached to its posterior and near the anus",
+    "definition": "The caudal appendage of an animal that is attached to its posterior and near the anus.",
+    "partOfSpeech": "noun"
+  },
+  "tale": {
+    "gloss": "account of an asserted fact or circumstance",
+    "definition": "An account of an asserted fact or circumstance; a rumour; a report, especially an idle or malicious story; a piece of gossip or slander; a lie.",
+    "partOfSpeech": "noun"
+  },
+  "talkie": {
+    "gloss": "movie with sound",
+    "definition": "A movie with sound, as opposed to a silent film.",
+    "partOfSpeech": "noun"
+  },
+  "talky": {
+    "gloss": "talkative or loquacious",
+    "definition": "(of a person) Talkative or loquacious",
+    "partOfSpeech": "adjective"
+  },
+  "tarry": {
+    "gloss": "sojourn",
+    "definition": "A sojourn.",
+    "partOfSpeech": "noun"
+  },
+  "taught": {
+    "gloss": "to show the way",
+    "definition": "To show (someone) the way; to guide, conduct; to point, indicate.",
+    "partOfSpeech": "verb"
+  },
+  "taut": {
+    "gloss": "to make taut",
+    "definition": "To make taut; to tauten, to tighten.",
+    "partOfSpeech": "verb"
+  },
+  "tea": {
+    "gloss": "drug smoked or ingested for euphoric effect",
+    "definition": "A drug smoked or ingested for euphoric effect, cannabis.",
+    "partOfSpeech": "noun"
+  },
+  "team": {
+    "gloss": "set of draught animals",
+    "definition": "A set of draught animals, such as two horses in front of a carriage.",
+    "partOfSpeech": "noun"
+  },
+  "tee": {
+    "gloss": "name of the latin script letter t",
+    "definition": "The name of the Latin-script letter T.",
+    "partOfSpeech": "noun"
+  },
+  "teem": {
+    "gloss": "to be stocked to overflowing",
+    "definition": "To be stocked to overflowing.",
+    "partOfSpeech": "verb"
+  },
+  "tenner": {
+    "gloss": "monetary note whose face value is ten basic units of currency originally",
+    "definition": "A monetary note (bill) whose face value is ten basic units of currency. Originally, a ten-shilling (half pound) note.",
+    "partOfSpeech": "noun"
+  },
+  "tenor": {
+    "gloss": "musical range or section higher than bass and lower than alto",
+    "definition": "A musical range or section higher than bass and lower than alto.",
+    "partOfSpeech": "noun"
+  },
+  "terry": {
+    "gloss": "type of coarse cotton fabric covered in many small raised loops that is used to make towels",
+    "definition": "A type of coarse cotton fabric covered in many small raised loops that is used to make towels, bathrobes and some types of nappy/diaper.",
+    "partOfSpeech": "noun"
+  },
+  "testes": {
+    "gloss": "witness",
+    "definition": "A witness.",
+    "partOfSpeech": "noun"
+  },
+  "tests": {
+    "gloss": "challenge",
+    "definition": "A challenge, trial.",
+    "partOfSpeech": "noun"
+  },
+  "the": {
+    "gloss": "with a comparative or with more and a verb phrase",
+    "definition": "With a comparative or with more and a verb phrase, establishes a correlation with one or more other such comparatives.",
+    "partOfSpeech": "adverb"
+  },
+  "thee": {
+    "gloss": "to address using the pronoun thee",
+    "definition": "To address (a person) using the pronoun thee.",
+    "partOfSpeech": "verb"
+  },
+  "there": {
+    "gloss": "that place",
+    "definition": "That place.",
+    "partOfSpeech": "noun"
+  },
+  "tho": {
+    "gloss": "those",
+    "definition": "Those; they.",
+    "partOfSpeech": "pronoun"
+  },
+  "though": {
+    "gloss": "despite that",
+    "definition": "Despite that; however.",
+    "partOfSpeech": "adverb"
+  },
+  "threw": {
+    "gloss": "to change place",
+    "definition": "To change place.",
+    "partOfSpeech": "verb"
+  },
+  "throne": {
+    "gloss": "impressive seat used by a monarch",
+    "definition": "An impressive seat used by a monarch, often on a raised dais in a throne room and reserved for formal occasions.",
+    "partOfSpeech": "noun"
+  },
+  "through": {
+    "gloss": "large slab of stone laid in a dry stone wall from one side to the other",
+    "definition": "A large slab of stone laid in a dry-stone wall from one side to the other; a perpend.",
+    "partOfSpeech": "noun"
+  },
+  "thrown": {
+    "gloss": "to change place",
+    "definition": "To change place.",
+    "partOfSpeech": "verb"
+  },
+  "thyme": {
+    "gloss": "any plant of the labiate genus thymus",
+    "definition": "Any plant of the labiate genus Thymus, such as the garden thyme, Thymus vulgaris, a warm, pungent aromatic, that is much used to give a relish to seasoning and soups.",
+    "partOfSpeech": "noun"
+  },
+  "tic": {
+    "gloss": "sudden",
+    "definition": "A sudden, nonrhythmic motor movement or vocalization.",
+    "partOfSpeech": "noun"
+  },
+  "tick": {
+    "gloss": "tiny woodland arachnid of the suborder ixodida",
+    "definition": "A tiny woodland arachnid of the suborder Ixodida.",
+    "partOfSpeech": "noun"
+  },
+  "tighten": {
+    "gloss": "to make tighter",
+    "definition": "To make tighter.",
+    "partOfSpeech": "verb"
+  },
+  "til": {
+    "gloss": "until"
+  },
+  "till": {
+    "gloss": "until"
+  },
+  "time": {
+    "gloss": "inevitable progression into the future with the passing of present and past events",
+    "definition": "The inevitable progression into the future with the passing of present and past events.",
+    "partOfSpeech": "noun"
+  },
+  "titan": {
+    "gloss": "something or someone of very large stature",
+    "definition": "Something or someone of very large stature, greatness, or godliness.",
+    "partOfSpeech": "noun"
+  },
+  "toe": {
+    "gloss": "each of the five digits on the end of the foot",
+    "definition": "Each of the five digits on the end of the foot.",
+    "partOfSpeech": "noun"
+  },
+  "tole": {
+    "gloss": "decorative metalware having a lacquered or enamelled surface that is painted or gilded",
+    "definition": "A decorative metalware having a lacquered or enamelled surface that is painted or gilded",
+    "partOfSpeech": "noun"
+  },
+  "toll": {
+    "gloss": "loss or damage incurred through a disaster",
+    "definition": "Loss or damage incurred through a disaster.",
+    "partOfSpeech": "noun"
+  },
+  "ton": {
+    "gloss": "unit of weight equal to 2240 pounds or 2000 pounds or 1000 kilograms",
+    "definition": "A unit of weight (mass) equal to 2240 pounds (a long ton) or 2000 pounds (a short ton) or 1000 kilograms (a metric ton).",
+    "partOfSpeech": "noun"
+  },
+  "tonne": {
+    "gloss": "metric unit of mass equal to 1000 kilograms symbol t",
+    "definition": "A metric unit of mass equal to 1000 kilograms. Symbol: t",
+    "partOfSpeech": "noun"
+  },
+  "too": {
+    "gloss": "likewise",
+    "definition": "(focus) Likewise.",
+    "partOfSpeech": "adverb"
+  },
+  "topography": {
+    "gloss": "precise description of a place",
+    "definition": "A precise description of a place.",
+    "partOfSpeech": "noun"
+  },
+  "tray": {
+    "gloss": "small",
+    "definition": "A small, typically rectangular or round, flat, and rigid object upon which things are carried.",
+    "partOfSpeech": "noun"
+  },
+  "trey": {
+    "gloss": "playing card or die with the rank of three",
+    "definition": "A playing card or die with the rank of three.",
+    "partOfSpeech": "noun"
+  },
+  "troop": {
+    "gloss": "collection of people",
+    "definition": "(collective) A collection of people; a number; a multitude (in general).",
+    "partOfSpeech": "noun"
+  },
+  "troupe": {
+    "gloss": "company of",
+    "definition": "A company of, often touring, actors, singers or dancers.",
+    "partOfSpeech": "noun"
+  },
+  "trustee": {
+    "gloss": "person to whom property is legally committed in trust",
+    "definition": "A person to whom property is legally committed in trust, to be applied either for the benefit of specified individuals, or for public uses; one who is intrusted with property for the benefit of another.",
+    "partOfSpeech": "noun"
+  },
+  "trusty": {
+    "gloss": "trusted person",
+    "definition": "A trusted person, especially a prisoner who has been granted special privileges.",
+    "partOfSpeech": "noun"
+  },
+  "turbo": {
+    "gloss": "turbocharger",
+    "definition": "Turbocharger.",
+    "partOfSpeech": "noun"
+  },
+  "turbot": {
+    "gloss": "species of flatfish native to europe",
+    "definition": "A species of flatfish native to Europe (Scophthalmus maximus, earlier Psetta maxima).",
+    "partOfSpeech": "noun"
+  },
+  "two": {
+    "gloss": "digit figure 2",
+    "definition": "The digit/figure 2.",
+    "partOfSpeech": "noun"
+  },
+  "typography": {
+    "gloss": "art or practice of setting and arranging type",
+    "definition": "The art or practice of setting and arranging type; typesetting.",
+    "partOfSpeech": "noun"
+  },
+  "undo": {
+    "gloss": "operation that reverses a previous action",
+    "definition": "An operation that reverses a previous action.",
+    "partOfSpeech": "noun"
+  },
+  "undue": {
+    "gloss": "excessive",
+    "definition": "Excessive; going beyond that what is natural or sufficient.",
+    "partOfSpeech": "adjective"
+  },
+  "urn": {
+    "gloss": "vase with a footed base",
+    "definition": "A vase with a footed base.",
+    "partOfSpeech": "noun"
+  },
+  "vain": {
+    "gloss": "overly proud of oneself",
+    "definition": "Overly proud of oneself, especially concerning appearance; having a high opinion of one's own accomplishments with slight reason.",
+    "partOfSpeech": "adjective"
+  },
+  "vale": {
+    "gloss": "valley",
+    "definition": "A valley.",
+    "partOfSpeech": "noun"
+  },
+  "vane": {
+    "gloss": "weather vane",
+    "definition": "A weather vane",
+    "partOfSpeech": "noun"
+  },
+  "vary": {
+    "gloss": "alteration",
+    "definition": "Alteration; change.",
+    "partOfSpeech": "noun"
+  },
+  "veil": {
+    "gloss": "something hung up or spread out to hide or protect the face",
+    "definition": "Something hung up or spread out to hide or protect the face, or hide an object from view; usually of gauze, crepe, or similar diaphanous material.",
+    "partOfSpeech": "noun"
+  },
+  "vein": {
+    "gloss": "blood vessel that transports blood from the capillaries back to the heart",
+    "definition": "A blood vessel that transports blood from the capillaries back to the heart.",
+    "partOfSpeech": "noun"
+  },
+  "very": {
+    "gloss": "true",
+    "definition": "True, real, actual.",
+    "partOfSpeech": "adjective"
+  },
+  "vice": {
+    "gloss": "bad habit",
+    "definition": "A bad habit.",
+    "partOfSpeech": "noun"
+  },
+  "vise": {
+    "gloss": "instrument consisting of two jaws",
+    "definition": "An instrument consisting of two jaws, closing by a screw, lever, cam, or the like, for holding work, as in filing.",
+    "partOfSpeech": "noun"
+  },
+  "wack": {
+    "gloss": "eccentric",
+    "definition": "An eccentric; an oddball; a weirdo.",
+    "partOfSpeech": "noun"
+  },
+  "wail": {
+    "gloss": "prolonged cry",
+    "definition": "A prolonged cry, usually high-pitched, especially as of grief or anguish.",
+    "partOfSpeech": "noun"
+  },
+  "wailing": {
+    "gloss": "to cry out",
+    "definition": "To cry out, as in sorrow or anguish.",
+    "partOfSpeech": "verb"
+  },
+  "wain": {
+    "gloss": "wagon",
+    "definition": "A wagon; a four-wheeled cart for hauling loads, usually pulled by horses or oxen.",
+    "partOfSpeech": "noun"
+  },
+  "waist": {
+    "gloss": "part of the body between the pelvis and the stomach",
+    "definition": "The part of the body between the pelvis and the stomach.",
+    "partOfSpeech": "noun"
+  },
+  "wait": {
+    "gloss": "delay",
+    "definition": "A delay.",
+    "partOfSpeech": "noun"
+  },
+  "waive": {
+    "gloss": "to relinquish",
+    "definition": "To relinquish (a right etc.); to give up claim to; to forego.",
+    "partOfSpeech": "verb"
+  },
+  "waiver": {
+    "gloss": "act of waiving",
+    "definition": "The act of waiving, or not insisting on, some right, claim, or privilege.",
+    "partOfSpeech": "noun"
+  },
+  "wale": {
+    "gloss": "ridge or low barrier",
+    "definition": "A ridge or low barrier.",
+    "partOfSpeech": "noun"
+  },
+  "walk": {
+    "gloss": "to move on the feet by alternately setting each foot forward",
+    "definition": "To move on the feet by alternately setting each foot (or pair or group of feet, in the case of animals with four or more feet) forward, with at least one foot on the ground at all times. Compare run.",
+    "partOfSpeech": "verb"
+  },
+  "wan": {
+    "gloss": "quality of being wan",
+    "definition": "The quality of being wan; wanness.",
+    "partOfSpeech": "noun"
+  },
+  "wane": {
+    "gloss": "gradual diminution in power",
+    "definition": "A gradual diminution in power, value, intensity etc.",
+    "partOfSpeech": "noun"
+  },
+  "war": {
+    "gloss": "organized",
+    "definition": "Organized, large-scale, armed conflict between countries or between national, ethnic, or other sizeable groups, usually involving the engagement of military forces.",
+    "partOfSpeech": "noun"
+  },
+  "ware": {
+    "gloss": "state of being aware",
+    "definition": "The state of being aware; heed.",
+    "partOfSpeech": "noun"
+  },
+  "warily": {
+    "gloss": "in a wary manner",
+    "definition": "In a wary manner:",
+    "partOfSpeech": "adverb"
+  },
+  "warn": {
+    "gloss": "to make aware of",
+    "definition": "To make (someone) aware of (something impending); especially:",
+    "partOfSpeech": "verb"
+  },
+  "wary": {
+    "gloss": "cautious of danger",
+    "definition": "Cautious of danger; carefully watching and guarding against deception, trickery, and dangers; suspiciously prudent",
+    "partOfSpeech": "adjective"
+  },
+  "waste": {
+    "gloss": "excess of material",
+    "definition": "Excess of material, useless by-products or damaged, unsaleable products; garbage; rubbish.",
+    "partOfSpeech": "noun"
+  },
+  "wave": {
+    "gloss": "to move back and forth repeatedly and somewhat loosely",
+    "definition": "To move back and forth repeatedly and somewhat loosely.",
+    "partOfSpeech": "verb"
+  },
+  "waver": {
+    "gloss": "act of wavering",
+    "definition": "An act of wavering, vacillating, etc.",
+    "partOfSpeech": "noun"
+  },
+  "way": {
+    "gloss": "to do with a place or places",
+    "definition": "(heading) To do with a place or places.",
+    "partOfSpeech": "noun"
+  },
+  "weak": {
+    "gloss": "lacking in force or ability",
+    "definition": "Lacking in force (usually strength) or ability.",
+    "partOfSpeech": "adjective"
+  },
+  "wear": {
+    "gloss": "clothing",
+    "definition": "(in combination) clothing",
+    "partOfSpeech": "noun"
+  },
+  "wearily": {
+    "gloss": "in a weary manner",
+    "definition": "In a weary manner",
+    "partOfSpeech": "adverb"
+  },
+  "weary": {
+    "gloss": "to make or to become weary",
+    "definition": "To make or to become weary.",
+    "partOfSpeech": "verb"
+  },
+  "weather": {
+    "gloss": "short term state of the atmosphere at a specific time and place",
+    "definition": "The short term state of the atmosphere at a specific time and place, including the temperature, relative humidity, cloud cover, precipitation, wind, etc.",
+    "partOfSpeech": "noun"
+  },
+  "wed": {
+    "gloss": "to perform the marriage ceremony for",
+    "definition": "To perform the marriage ceremony for; to join in matrimony.",
+    "partOfSpeech": "verb"
+  },
+  "weed": {
+    "gloss": "any plant regarded as unwanted at the place where",
+    "definition": "Any plant regarded as unwanted at the place where, and at the time when it is growing.",
+    "partOfSpeech": "noun"
+  },
+  "week": {
+    "gloss": "any period of seven consecutive days",
+    "definition": "Any period of seven consecutive days.",
+    "partOfSpeech": "noun"
+  },
+  "weigh": {
+    "gloss": "to determine the weight of an object",
+    "definition": "To determine the weight of an object.",
+    "partOfSpeech": "verb"
+  },
+  "weight": {
+    "gloss": "matter",
+    "definition": "(physical) Matter, material.",
+    "partOfSpeech": "noun"
+  },
+  "weir": {
+    "gloss": "adjustable dam placed across a river to regulate the flow of water downstream",
+    "definition": "An adjustable dam placed across a river to regulate the flow of water downstream.",
+    "partOfSpeech": "noun"
+  },
+  "well": {
+    "gloss": "in good health",
+    "definition": "In good health.",
+    "partOfSpeech": "adjective"
+  },
+  "wen": {
+    "gloss": "cyst on the skin",
+    "definition": "A cyst on the skin.",
+    "partOfSpeech": "noun"
+  },
+  "were": {
+    "gloss": "man",
+    "definition": "A man, a husband",
+    "partOfSpeech": "noun"
+  },
+  "wet": {
+    "gloss": "liquid or moisture",
+    "definition": "Liquid or moisture.",
+    "partOfSpeech": "noun"
+  },
+  "whack": {
+    "gloss": "egregious",
+    "definition": "Egregious.",
+    "partOfSpeech": "adjective"
+  },
+  "whale": {
+    "gloss": "any of several species of large sea mammals of the infraorder cetacea",
+    "definition": "Any of several species of large sea mammals of the infraorder Cetacea.",
+    "partOfSpeech": "noun"
+  },
+  "whaling": {
+    "gloss": "to hunt for whales",
+    "definition": "To hunt for whales.",
+    "partOfSpeech": "verb"
+  },
+  "wheel": {
+    "gloss": "circular device capable of rotating on its axis",
+    "definition": "A circular device capable of rotating on its axis, facilitating movement or transportation or performing labour in machines.",
+    "partOfSpeech": "noun"
+  },
+  "when": {
+    "gloss": "time at which something happens",
+    "definition": "The time at which something happens.",
+    "partOfSpeech": "noun"
+  },
+  "where": {
+    "gloss": "place in which something happens",
+    "definition": "The place in which something happens.",
+    "partOfSpeech": "noun"
+  },
+  "wherry": {
+    "gloss": "light ship used to navigate inland waterways",
+    "definition": "A light ship used to navigate inland waterways.",
+    "partOfSpeech": "noun"
+  },
+  "whet": {
+    "gloss": "act of whetting something",
+    "definition": "The act of whetting something.",
+    "partOfSpeech": "noun"
+  },
+  "whether": {
+    "gloss": "which of two",
+    "definition": "Which of two.",
+    "partOfSpeech": "pronoun"
+  },
+  "whew": {
+    "gloss": "to whistle with a shrill pipe",
+    "definition": "To whistle with a shrill pipe, like a plover.",
+    "partOfSpeech": "verb"
+  },
+  "whey": {
+    "gloss": "liquid remaining after milk has been curdled and strained in the process of making cheese",
+    "definition": "The liquid remaining after milk has been curdled and strained in the process of making cheese.",
+    "partOfSpeech": "noun"
+  },
+  "which": {
+    "gloss": "what one or ones",
+    "definition": "(interrogative) What one or ones (of those mentioned or implied).",
+    "partOfSpeech": "pronoun"
+  },
+  "while": {
+    "gloss": "uncertain duration of time",
+    "definition": "An uncertain duration of time, a period of time.",
+    "partOfSpeech": "noun"
+  },
+  "whine": {
+    "gloss": "long drawn",
+    "definition": "A long-drawn, high-pitched complaining cry or sound",
+    "partOfSpeech": "noun"
+  },
+  "whirl": {
+    "gloss": "act of whirling",
+    "definition": "An act of whirling.",
+    "partOfSpeech": "noun"
+  },
+  "whit": {
+    "gloss": "smallest part or particle imaginable",
+    "definition": "The smallest part or particle imaginable; an iota.",
+    "partOfSpeech": "noun"
+  },
+  "white": {
+    "gloss": "color colour of snow or milk",
+    "definition": "The color/colour of snow or milk; the colour of light containing equal amounts of all visible wavelengths.",
+    "partOfSpeech": "noun"
+  },
+  "whither": {
+    "gloss": "to wuther",
+    "definition": "To wuther.",
+    "partOfSpeech": "verb"
+  },
+  "whoa": {
+    "gloss": "to attempt to slow by crying whoa",
+    "definition": "To attempt to slow (an animal) by crying \"whoa\".",
+    "partOfSpeech": "verb"
+  },
+  "whole": {
+    "gloss": "something complete",
+    "definition": "Something complete, without any parts missing.",
+    "partOfSpeech": "noun"
+  },
+  "wholly": {
+    "gloss": "completely and entirely",
+    "definition": "Completely and entirely; to the fullest extent.",
+    "partOfSpeech": "adverb"
+  },
+  "whorl": {
+    "gloss": "pattern of concentric circles",
+    "definition": "A pattern of concentric circles.",
+    "partOfSpeech": "noun"
+  },
+  "whys": {
+    "gloss": "reason",
+    "definition": "Reason",
+    "partOfSpeech": "noun"
+  },
+  "wiener": {
+    "gloss": "sausage made from beef",
+    "definition": "A sausage made from beef, chicken or pork.",
+    "partOfSpeech": "noun"
+  },
+  "wight": {
+    "gloss": "living creature",
+    "definition": "A living creature, especially a human being.",
+    "partOfSpeech": "noun"
+  },
+  "wile": {
+    "gloss": "to pass idly",
+    "definition": "To pass (time) idly.",
+    "partOfSpeech": "verb"
+  },
+  "will": {
+    "gloss": "to wish",
+    "definition": "(now uncommon or literary) To wish, desire (something).",
+    "partOfSpeech": "verb"
+  },
+  "win": {
+    "gloss": "to conquer",
+    "definition": "To conquer, defeat.",
+    "partOfSpeech": "verb"
+  },
+  "wine": {
+    "gloss": "alcoholic beverage made by fermenting the juice of grapes",
+    "definition": "An alcoholic beverage made by fermenting the juice of grapes.",
+    "partOfSpeech": "noun"
+  },
+  "wiry": {
+    "gloss": "thin",
+    "definition": "Thin, muscular and flexible.",
+    "partOfSpeech": "adjective"
+  },
+  "wise": {
+    "gloss": "to become wise",
+    "definition": "To become wise.",
+    "partOfSpeech": "verb"
+  },
+  "wit": {
+    "gloss": "sanity",
+    "definition": "(now usually in the plural) Sanity.",
+    "partOfSpeech": "noun"
+  },
+  "witch": {
+    "gloss": "person who practices witchcraft",
+    "definition": "A person who practices witchcraft; a woman or man who practices witchcraft.",
+    "partOfSpeech": "noun"
+  },
+  "wither": {
+    "gloss": "to shrivel",
+    "definition": "To shrivel, droop or dry up, especially from lack of water.",
+    "partOfSpeech": "verb"
+  },
+  "woe": {
+    "gloss": "great sadness or distress",
+    "definition": "Great sadness or distress; a misfortune causing such sadness.",
+    "partOfSpeech": "noun"
+  },
+  "wok": {
+    "gloss": "large",
+    "definition": "A large, oriental, round-bottomed cooking pan.",
+    "partOfSpeech": "noun"
+  },
+  "won": {
+    "gloss": "to conquer",
+    "definition": "To conquer, defeat.",
+    "partOfSpeech": "verb"
+  },
+  "woo": {
+    "gloss": "to endeavor to gain someone s support",
+    "definition": "To endeavor to gain someone's support.",
+    "partOfSpeech": "verb"
+  },
+  "wood": {
+    "gloss": "substance making up the central part of the trunk and branches of a tree used as a material for construction",
+    "definition": "The substance making up the central part of the trunk and branches of a tree. Used as a material for construction, to manufacture various items, etc. or as fuel.",
+    "partOfSpeech": "noun"
+  },
+  "wore": {
+    "gloss": "to carry or have equipped on or about one s body",
+    "definition": "To carry or have equipped on or about one's body, as an item of clothing, equipment, decoration, etc.",
+    "partOfSpeech": "verb"
+  },
+  "worn": {
+    "gloss": "to carry or have equipped on or about one s body",
+    "definition": "To carry or have equipped on or about one's body, as an item of clothing, equipment, decoration, etc.",
+    "partOfSpeech": "verb"
+  },
+  "worst": {
+    "gloss": "unfavorable",
+    "definition": "Unfavorable; negative; not good.",
+    "partOfSpeech": "adjective"
+  },
+  "would": {
+    "gloss": "something that would happen",
+    "definition": "Something that would happen, or would be the case, under different circumstances; a potentiality.",
+    "partOfSpeech": "noun"
+  },
+  "wrack": {
+    "gloss": "vengeance",
+    "definition": "Vengeance; revenge; persecution; punishment; consequence; trouble.",
+    "partOfSpeech": "noun"
+  },
+  "wrap": {
+    "gloss": "to enclose completely in any flexible",
+    "definition": "To enclose (an object) completely in any flexible, thin material such as fabric or paper.",
+    "partOfSpeech": "verb"
+  },
+  "wrapped": {
+    "gloss": "to enclose completely in any flexible",
+    "definition": "To enclose (an object) completely in any flexible, thin material such as fabric or paper.",
+    "partOfSpeech": "verb"
+  },
+  "wrapper": {
+    "gloss": "something that is wrapped around something else as a cover or protection a wrapping",
+    "definition": "Something that is wrapped around something else as a cover or protection: a wrapping.",
+    "partOfSpeech": "noun"
+  },
+  "wrapping": {
+    "gloss": "material in which something is wrapped",
+    "definition": "The material in which something is wrapped.",
+    "partOfSpeech": "noun"
+  },
+  "wreak": {
+    "gloss": "to cause something harmful",
+    "definition": "To cause something harmful; to afflict; to inflict; to harm or injury; to let out something harmful; .",
+    "partOfSpeech": "verb"
+  },
+  "wreck": {
+    "gloss": "something or someone that has been ruined",
+    "definition": "Something or someone that has been ruined.",
+    "partOfSpeech": "noun"
+  },
+  "wrest": {
+    "gloss": "act of wresting",
+    "definition": "The act of wresting; a wrench or twist; distortion.",
+    "partOfSpeech": "noun"
+  },
+  "wright": {
+    "gloss": "builder or maker of something",
+    "definition": "A builder or maker of something.",
+    "partOfSpeech": "noun"
+  },
+  "wring": {
+    "gloss": "powerful squeezing or twisting action",
+    "definition": "A powerful squeezing or twisting action.",
+    "partOfSpeech": "noun"
+  },
+  "wringer": {
+    "gloss": "one who wrings",
+    "definition": "One who wrings.",
+    "partOfSpeech": "noun"
+  },
+  "write": {
+    "gloss": "act or style of writing",
+    "definition": "The act or style of writing.",
+    "partOfSpeech": "noun"
+  },
+  "wrote": {
+    "gloss": "to form letters",
+    "definition": "To form letters, words or symbols on a surface in order to communicate.",
+    "partOfSpeech": "verb"
+  },
+  "wrung": {
+    "gloss": "to squeeze or twist tightly so that liquid is forced out see also wring out",
+    "definition": "To squeeze or twist (something) tightly so that liquid is forced out. See also wring out.",
+    "partOfSpeech": "verb"
+  },
+  "wry": {
+    "gloss": "distortion",
+    "definition": "Distortion.",
+    "partOfSpeech": "noun"
+  },
+  "wurst": {
+    "gloss": "german or austrian style sausage",
+    "definition": "A German- or Austrian-style sausage.",
+    "partOfSpeech": "noun"
+  },
+  "yew": {
+    "gloss": "species of coniferous tree",
+    "definition": "A species of coniferous tree, Taxus baccata, with dark-green flat needle-like leaves and seeds bearing red arils, native to western, central and southern Europe, northwest Africa, northern Iran and southwest Asia.",
+    "partOfSpeech": "noun"
+  },
+  "yoke": {
+    "gloss": "frame around the neck",
+    "definition": "Frame around the neck, and related senses.",
+    "partOfSpeech": "noun"
+  },
+  "yolk": {
+    "gloss": "yellow",
+    "definition": "The yellow, spherical part of an egg that is surrounded by the white albumen, and serves as nutriment for the growing young.",
+    "partOfSpeech": "noun"
+  },
+  "yore": {
+    "gloss": "time long past",
+    "definition": "A time long past.",
+    "partOfSpeech": "noun"
+  },
+  "you": {
+    "gloss": "to address using the pronoun you",
+    "definition": "To address (a person) using the pronoun you (in the past, especially to use you rather than thou, when you was considered more formal).",
+    "partOfSpeech": "verb"
+  },
+  "yuck": {
+    "gloss": "something disgusting",
+    "definition": "Something disgusting.",
+    "partOfSpeech": "noun"
+  },
+  "yuk": {
+    "gloss": "something",
+    "definition": "Something, such as a joke, that causes such a laugh.",
+    "partOfSpeech": "noun"
+  }
+}

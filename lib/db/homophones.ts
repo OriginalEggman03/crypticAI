@@ -208,9 +208,14 @@ export async function rebuildHomophoneDatabase(): Promise<{
   words: number;
 }> {
   const database = getDb();
+  const groups = (await import("@/lib/homophone-phonetics")).buildHomophoneGroupsFromCmu();
+  const words = [...new Set(groups.flatMap((group) => group.words))];
+  const { populateGlossCache } = await import("@/lib/homophone-meaning");
+  // Gloss cache is required — pair build only accepts cached full definitions.
+  await populateGlossCache(words);
   const pairs = await buildHomophonePairsFromCmu();
   const stats = insertHomophonePairs(database, pairs);
-  synonymBuildPromise = rebuildHomophoneSynonyms({ fetchRemote: true });
+  synonymBuildPromise = rebuildHomophoneSynonyms({ fetchRemote: false });
   await synonymBuildPromise;
   return stats;
 }

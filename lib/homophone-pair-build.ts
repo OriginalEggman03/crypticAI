@@ -127,6 +127,6 @@ export async function buildValidatedHomophonePairs(
 export async function buildHomophonePairsFromCmu(): Promise<HomophonePairBuild[]> {
   return buildValidatedHomophonePairs(
     buildHomophoneGroupsFromCmu(),
-    async (word) => getCachedFullDefinition(word) ?? null
+    cachedDefinitionLookup
   );
 }
