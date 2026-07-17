@@ -1,4 +1,5 @@
 import { lookupDictionaryDefinition } from "./answer-context";
+import { isContentSafeHomophonePair } from "./homophone-content-filter";
 import {
   buildHomophoneGroupsFromCmu,
   shareHomophonePronunciation,
@@ -100,6 +101,16 @@ export async function buildValidatedHomophonePairs(
         definitionFor(wordB),
       ]);
       if (!isUsableDictionaryDefinition(defA) || !isUsableDictionaryDefinition(defB)) {
+        continue;
+      }
+      if (
+        !isContentSafeHomophonePair(
+          wordA,
+          wordB,
+          defA.definition,
+          defB.definition
+        )
+      ) {
         continue;
       }
 

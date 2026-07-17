@@ -5,6 +5,7 @@ import {
   buildHomophonePairsFromCmu,
   type HomophonePairBuild,
 } from "@/lib/homophone-pair-build";
+import { isContentSafeHomophonePair } from "@/lib/homophone-content-filter";
 import { normalizeHomophoneWord } from "@/lib/homophone-phonetics";
 import {
   haveIdenticalSpelling,
@@ -98,6 +99,18 @@ function insertHomophonePairs(
     if (!isDistinctHomophonePair(pair.wordA, pair.wordB)) {
       throw new Error(
         `Refusing invalid homophone pair: ${pair.wordA}/${pair.wordB}`
+      );
+    }
+    if (
+      !isContentSafeHomophonePair(
+        pair.wordA,
+        pair.wordB,
+        pair.definitionA,
+        pair.definitionB
+      )
+    ) {
+      throw new Error(
+        `Refusing offensive/explicit homophone pair: ${pair.wordA}/${pair.wordB}`
       );
     }
 
@@ -220,15 +233,66 @@ export async function rebuildHomophoneDatabase(): Promise<{
   return stats;
 }
 
-export async function ensureHomophoneDatabase(): Promise<void> {
-  const database = getDb();
-  if (homophonePairCount(database) > 0) return;
+function purgeUnsafeHomophonePairs(database: DatabaseSync): number {
+  const rows = database
+    .prepare(
+      `SELECT word_a, word_b, definition_a, definition_b FROM homophone_pairs`
+    )
+    .all() as Array<{
+    word_a: string;
+    word_b: string;
+    definition_a: string;
+    definition_b: string;
+  }>;
 
-  if (!buildPromise) {
-    buildPromise = rebuildHomophoneDatabase();
+  const deletePair = database.prepare(
+    `DELETE FROM homophone_pairs WHERE word_a = ? AND word_b = ?`
+  );
+
+  let removed = 0;
+  for (const row of rows) {
+    if (
+      isContentSafeHomophonePair(
+        row.word_a,
+        row.word_b,
+        row.definition_a,
+        row.definition_b
+      )
+    ) {
+      continue;
+    }
+    deletePair.run(row.word_a, row.word_b);
+    removed++;
   }
 
-  await buildPromise;
+  if (removed > 0) {
+    database.exec(`
+      DELETE FROM homophone_word_synonyms
+      WHERE word NOT IN (
+        SELECT word_a FROM homophone_pairs
+        UNION
+        SELECT word_b FROM homophone_pairs
+      )
+    `);
+  }
+
+  return removed;
+}
+
+export async function ensureHomophoneDatabase(): Promise<void> {
+  const database = getDb();
+  if (homophonePairCount(database) === 0) {
+    if (!buildPromise) {
+      buildPromise = rebuildHomophoneDatabase();
+    }
+    await buildPromise;
+    return;
+  }
+
+  const removed = purgeUnsafeHomophonePairs(database);
+  if (removed > 0) {
+    console.log(`Removed ${removed} offensive/explicit homophone pair(s)`);
+  }
 }
 
 export function getHomophoneStats(): {

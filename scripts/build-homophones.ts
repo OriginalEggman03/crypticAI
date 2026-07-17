@@ -202,6 +202,12 @@ async function main() {
     { a: "shilling", b: "schilling" },
     { a: "krona", b: "krone" },
     { a: "krone", b: "krona" },
+    { a: "dike", b: "dyke" },
+    { a: "dyke", b: "dike" },
+    { a: "caulk", b: "cock" },
+    { a: "cock", b: "caulk" },
+    { a: "dam", b: "damn" },
+    { a: "damn", b: "dam" },
   ];
 
   let failed = 0;

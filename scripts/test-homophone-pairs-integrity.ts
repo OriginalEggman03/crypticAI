@@ -119,6 +119,30 @@ export function runHomophonePairsIntegrityCheck(): number {
     ),
     "bally/bailey is not stored (different primary vowels AE vs EY)"
   );
+  assert(
+    !rows.some(
+      (row) =>
+        (row.word_a === "dike" && row.word_b === "dyke") ||
+        (row.word_a === "dyke" && row.word_b === "dike")
+    ),
+    "dike/dyke is not stored (offensive)"
+  );
+  assert(
+    !rows.some(
+      (row) =>
+        row.word_a === "cock" ||
+        row.word_b === "cock" ||
+        row.word_a === "dyke" ||
+        row.word_b === "dyke" ||
+        row.word_a === "damn" ||
+        row.word_b === "damn" ||
+        row.word_a === "damned" ||
+        row.word_b === "damned" ||
+        row.word_a === "crappy" ||
+        row.word_b === "crappy"
+    ),
+    "blocked offensive/explicit words are not stored"
+  );
 
   const variantKeyDuplicates = rows.filter(
     (row) =>

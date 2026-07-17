@@ -22,6 +22,7 @@
     "brand:assets": "tsx scripts/generate-brand-assets.ts",
     "build:homophones": "tsx scripts/build-homophones.ts",
     "export:homophones": "tsx scripts/export-homophones.ts",
+    "test:homophone-content-filter": "tsx scripts/test-homophone-content-filter.ts",
     "test:homophones": "tsx scripts/test-homophones.ts",
     "test:homophone-pairs-integrity": "tsx scripts/test-homophone-pairs-integrity.ts",
     "test:homophone-meaning": "tsx scripts/test-homophone-meaning.ts",

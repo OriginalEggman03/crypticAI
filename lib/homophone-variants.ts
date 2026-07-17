@@ -1,3 +1,4 @@
+import { isBlockedHomophoneWord } from "./homophone-content-filter";
 import {
   areInflectionalVariants,
   haveSameCachedDefinition,
@@ -179,6 +180,7 @@ export function isDistinctHomophonePair(answer: string, fodder: string): boolean
   const a = normalizeHomophoneSpelling(answer);
   const b = normalizeHomophoneSpelling(fodder);
   if (!a || !b || haveIdenticalSpelling(answer, fodder)) return false;
+  if (isBlockedHomophoneWord(a) || isBlockedHomophoneWord(b)) return false;
   if (REJECTED_HOMOPHONE_PAIRS.has(canonicalRejectedPairKey(a, b))) return false;
   return !haveSameMeaning(a, b);
 }
