@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { BuyCreditsButtons } from "@/components/BuyCreditsButtons";
+import { ClueStructureExplainer } from "@/components/ClueStructureExplainer";
 import { HOMOPHONE_INTRO } from "@/lib/site-config";
 import type { CreditPackId } from "@/lib/credit-packs";
 
@@ -19,40 +21,49 @@ export function HomophoneForm({
   onBuyCredits,
   checkoutPackId,
 }: HomophoneFormProps) {
+  const [showCreditPacks, setShowCreditPacks] = useState(false);
+
+  useEffect(() => {
+    if (canGenerate) setShowCreditPacks(false);
+  }, [canGenerate]);
+
   return (
     <form
       className="space-y-5"
       onSubmit={(e) => {
         e.preventDefault();
+        if (!canGenerate) return;
         onSubmit();
       }}
     >
-      <p className="text-sm leading-relaxed text-ink/70">{HOMOPHONE_INTRO}</p>
+      <ClueStructureExplainer>{HOMOPHONE_INTRO}</ClueStructureExplainer>
 
-      {!canGenerate && (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-          <p>No credits left.</p>
-          {onBuyCredits ? (
-            <div className="mt-3">
-              <BuyCreditsButtons
-                onBuy={onBuyCredits}
-                loadingPackId={checkoutPackId}
-                emphasis="need-credits"
-              />
-            </div>
-          ) : (
-            <p className="mt-1">Add credits to generate more clues.</p>
-          )}
+      {canGenerate ? (
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-paper shadow-md transition hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {loading ? "Generating…" : "Generate"}
+        </button>
+      ) : showCreditPacks && onBuyCredits ? (
+        <div className="space-y-3">
+          <p className="text-sm font-medium text-ink/70">Choose a credit pack</p>
+          <BuyCreditsButtons
+            onBuy={onBuyCredits}
+            loadingPackId={checkoutPackId}
+            emphasis="need-credits"
+          />
         </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setShowCreditPacks(true)}
+          className="w-full rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-paper shadow-md transition hover:bg-accent/90"
+        >
+          Get Credits
+        </button>
       )}
-
-      <button
-        type="submit"
-        disabled={loading || !canGenerate}
-        className="w-full rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-paper shadow-md transition hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {loading ? "Generating…" : "Generate"}
-      </button>
     </form>
   );
 }

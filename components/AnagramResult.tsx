@@ -85,11 +85,16 @@ export function AnagramResult({
   const [showPrompts, setShowPrompts] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [inspirationRevealed, setInspirationRevealed] = useState(false);
+  const [showCreditPacks, setShowCreditPacks] = useState(false);
   const [originalClue, setOriginalClue] = useState(result.clue.clue);
   const [displayClue, setDisplayClue] = useState(result.clue.clue);
   const [improvementNotes, setImprovementNotes] = useState("");
   const { clue, answerContext, surfaceExplanation, homophoneBreakdown, claudeTrace } =
     result;
+
+  useEffect(() => {
+    if (canGenerate) setShowCreditPacks(false);
+  }, [canGenerate]);
 
   useEffect(() => {
     setOriginalClue(clue.clue);
@@ -98,6 +103,7 @@ export function AnagramResult({
     setRevealed(false);
     setShowPrompts(false);
     setInspirationRevealed(false);
+    setShowCreditPacks(false);
   }, [clue.clue, clue.answer]);
 
   const isEdited =
@@ -133,14 +139,24 @@ export function AnagramResult({
             ))}
         </div>
         <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={onRetry}
-            disabled={retryLoading || !canGenerate}
-            className="rounded-lg border border-ink/15 bg-white px-3 py-2 text-sm font-medium text-ink hover:bg-cream/80 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {retryLoading ? "Generating…" : "Generate"}
-          </button>
+          {canGenerate ? (
+            <button
+              type="button"
+              onClick={onRetry}
+              disabled={retryLoading}
+              className="rounded-lg border border-ink/15 bg-white px-3 py-2 text-sm font-medium text-ink hover:bg-cream/80 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {retryLoading ? "Generating…" : "Generate"}
+            </button>
+          ) : showCreditPacks && onBuyCredits ? null : (
+            <button
+              type="button"
+              onClick={() => setShowCreditPacks(true)}
+              className="rounded-lg border border-ink/15 bg-white px-3 py-2 text-sm font-medium text-ink hover:bg-cream/80"
+            >
+              Get Credits
+            </button>
+          )}
           <button
             type="button"
             onClick={onNew}
@@ -160,20 +176,14 @@ export function AnagramResult({
         />
       )}
 
-      {!canGenerate && !error && (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-          <p>No credits left.</p>
-          {onBuyCredits ? (
-            <div className="mt-3">
-              <BuyCreditsButtons
-                onBuy={onBuyCredits}
-                loadingPackId={checkoutPackId}
-                emphasis="need-credits"
-              />
-            </div>
-          ) : (
-            <p className="mt-1">Add credits to generate another clue.</p>
-          )}
+      {!canGenerate && !error && showCreditPacks && onBuyCredits && (
+        <div className="space-y-2">
+          <p className="text-sm font-medium text-ink/70">Choose a credit pack</p>
+          <BuyCreditsButtons
+            onBuy={onBuyCredits}
+            loadingPackId={checkoutPackId}
+            emphasis="need-credits"
+          />
         </div>
       )}
 
